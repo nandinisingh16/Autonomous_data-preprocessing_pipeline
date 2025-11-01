@@ -2,12 +2,12 @@
 Agentic AI data preprocessing pipeline with LLM guidance
 
 ## Run the Ingestion Module
-> python ingestion.py
+> python ingestionRunner.py
 
 Later, we will add the option to pass the file in different ways. For now its hard-coded
 
 ## Run the Cleaning Module
-> python cleaning.py {name_of_raw_file} {method}
+> python cleaningRunner.py {name_of_raw_file} {method}
 
 The methods we can use are:
 - drop
