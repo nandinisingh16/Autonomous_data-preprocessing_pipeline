@@ -1,0 +1,12 @@
+data/
+!data/.gitkeep   #keep folder structure tracked
+
+logs/
+!logs/.gitkeep
+
+__pycache__/
+*.pyc
+*.pyo
+
+venv/
+.env/
