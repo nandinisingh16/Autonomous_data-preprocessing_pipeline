@@ -11,7 +11,7 @@ print("Saved sample_data.csv successfully!")
 
 
 #Runner
-context = PipelineContext()
+context = PipelineContext(stage_name="ingestion")
 #llm_agent = LLMAgent(provider="dummy")
 
 ingestion = IngestionModule(context) #when LLM is available, pass here
