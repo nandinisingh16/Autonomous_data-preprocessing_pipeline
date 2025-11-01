@@ -1,94 +1,72 @@
 """
-Module: Ingestion.py
-Description: Handles the Ingestion step of the pipeline.
-Author: Diya
-Date: <Date>
+Module: ingestion.py
+Description: Handles the data ingestion step of the pipeline.
+Author: Diya Bhandari
+Date: 2025-11-01
 """
 
+import pandas as pd
 from pipeline_context import PipelineContext
 
 class IngestionModule:
     def __init__(self, context: PipelineContext, llm_agent=None):
-        """
-        Initialize the module with shared context and optional LLM agent.
-        """
         self.context = context
         self.llm_agent = llm_agent
 
-    def run(self, **kwargs) -> bool:
-        """
-        Execute Ingestion logic.
-        - Input: kwargs (parameters for this stage, e.g., source type, file path, db connection)
-        - Output: Updates context, returns True if successful, False otherwise
-        """
+    def run(self, file_path: str) -> bool:
         self.context.log("Starting Ingestion Module...")
 
         try:
-            # ===============================
-            # 1. Load required data from source
-            # ===============================
-            source_type = kwargs.get("source_type", "csv")
-            source_path = kwargs.get("source_path", None)
-            df = None
+            #Source identification
+            self.context.log(f"Identifying data source: {file_path}")
 
-            if source_type == "csv" and source_path:
-                import pandas as pd
-                df = pd.read_csv(source_path)
-                self.context.log(f" Data ingested from CSV: {source_path}")
+            #Connection and Access (for now, just check existence)
+            try:
+                open(file_path, "r").close()
+            except FileNotFoundError:
+                raise FileNotFoundError(f"File not found: {file_path}")
 
-            elif source_type == "excel" and source_path:
-                import pandas as pd
-                df = pd.read_excel(source_path)
-                self.context.log(f" Data ingested from Excel: {source_path}")
+            #Data Extraction
+            df = pd.read_csv(file_path)
+            self.context.log(f"Data extracted successfully with {len(df)} records.")
 
-            elif source_type == "database":
-                import pandas as pd
-                conn_str = kwargs.get("connection_string")
-                query = kwargs.get("query", "SELECT * FROM table")
-                df = pd.read_sql(query, conn_str)
-                self.context.log(f" Data ingested from Database: {query}")
+            #Schema & Metadata capture
+            metadata = {
+                "columns": list(df.columns),
+                "shape": df.shape,
+                "missing_values": df.isna().sum().to_dict()
+            }
+            self.context.log(f"Metadata: {metadata}")
 
-            else:
-                raise ValueError("Unsupported ingestion source or missing parameters.")
+            #Versioning & Lineage tracking (basic timestamp)
+            import datetime
+            self.context.version_info = {
+                "ingested_at": datetime.datetime.now().isoformat(),
+                "source": file_path
+            }
 
-            # ===============================
-            # 2. Basic checks after ingestion
-            # ===============================
-            if df is None or df.empty:
-                raise ValueError("Ingestion produced no data.")
+            #Data Validation (basic)
+            if df.empty:
+                raise ValueError("DataFrame is empty after ingestion.")
 
-            self.context.log(f" Ingested dataset shape: {df.shape}")
+            #Error handling is built into try/except block
 
-            # ===============================
-            # 3. Optionally use LLM for suggestions
-            # ===============================
+            #Landing zone storage (store in context)
+            self.context.raw_data = df
+            self.context.status["ingestion"] = "completed"
+            self.context.log("Ingestion completed successfully.")
+
+            #Optional LLM suggestion
             if self.llm_agent:
                 suggestion = self.llm_agent.ask(
-                    f"Stage: Ingestion, Columns: {list(df.columns)}. "
-                    f"Suggest data quality checks or validation steps."
+                    f"Columns: {list(df.columns)}, Missing counts: {df.isna().sum().to_dict()}. "
+                    f"Suggest ingestion checks or quality metrics."
                 )
-                self.context.log(f" LLM Suggestion: {suggestion}")
-
-            # ===============================
-            # 4. Save output back into context
-            # ===============================
-            setattr(self.context, "raw_data", df)
-            self.context.status["ingestion"] = "completed"
-            self.context.log(" Ingestion completed successfully.")
-
-            # ===============================
-            # 5. Optional human approval
-            # ===============================
-            if not self.context.request_approval(
-                "Ingestion", "Proceed with the ingested dataset?"
-            ):
-                self.context.status["ingestion"] = "stopped"
-                self.context.log("Ingestion stopped by user.")
-                return False
+                self.context.log(f"LLM Suggestion: {suggestion}")
 
             return True
 
         except Exception as e:
             self.context.status["ingestion"] = "failed"
-            self.context.log(f" Ingestion failed: {e}")
+            self.context.log(f"Ingestion failed: {e}")
             return False
