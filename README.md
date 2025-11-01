@@ -7,7 +7,7 @@ Agentic AI data preprocessing pipeline with LLM guidance
 Later, we will add the option to pass the file in different ways. For now its hard-coded
 
 ## Run the Cleaning Module
-> python cleaning.py <name_of_raw_file> <method>
+> python cleaning.py {name_of_raw_file} {method}
 
 The methods we can use are:
 - drop
