@@ -7,6 +7,14 @@ Date: 2025-11-01
 
 import pandas as pd
 from pipeline_context import PipelineContext
+from datetime import datetime
+import os
+
+def generate_versioned_filename(base_name: str, stage: str, folder: str):
+    os.makedirs(folder, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    clean_name = os.path.splitext(os.path.basename(base_name))[0]
+    return os.path.join(folder, f"{timestamp}_{clean_name}-{stage}.csv")
 
 class IngestionModule:
     def __init__(self, context: PipelineContext, llm_agent=None):
@@ -20,7 +28,7 @@ class IngestionModule:
             #Source identification
             self.context.log(f"Identifying data source: {file_path}")
 
-            #Connection and Access (for now, just check existence)
+            #Connection and Access
             try:
                 open(file_path, "r").close()
             except FileNotFoundError:
@@ -38,23 +46,27 @@ class IngestionModule:
             }
             self.context.log(f"Metadata: {metadata}")
 
-            #Versioning & Lineage tracking (basic timestamp)
-            import datetime
+            #Versioning & Lineage tracking (save timestamped copy)
+            save_path = generate_versioned_filename(file_path, "ingested", "data/raw")
+            df.to_csv(save_path, index=False)
+            self.context.log(f"File saved to: {save_path}")
+
+            #Store lineage metadata
             self.context.version_info = {
-                "ingested_at": datetime.datetime.now().isoformat(),
-                "source": file_path
+                "ingested_at": datetime.now().isoformat(),
+                "source": file_path,
+                "saved_path": save_path
             }
 
             #Data Validation (basic)
             if df.empty:
                 raise ValueError("DataFrame is empty after ingestion.")
 
-            #Error handling is built into try/except block
-
             #Landing zone storage (store in context)
             self.context.raw_data = df
             self.context.status["ingestion"] = "completed"
             self.context.log("Ingestion completed successfully.")
+
 
             #Optional LLM suggestion
             if self.llm_agent:
