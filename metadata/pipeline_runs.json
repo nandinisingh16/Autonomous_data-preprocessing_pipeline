@@ -1,0 +1,132 @@
+[
+  {
+    "timestamp": "2025-11-02 11:54:23",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "pending",
+      "eda": "completed",
+      "split": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-02 11:54:23] Starting Vectorization Module...",
+      "[2025-11-02 11:54:23] Numeric columns: ['PassengerId', 'Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']",
+      "[2025-11-02 11:54:23] Categorical columns: ['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']",
+      "[2025-11-02 11:54:23] Vectorization completed successfully.",
+      "[2025-11-02 11:54:23] \u2705 Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-02 12:43:31",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "pending",
+      "eda": "completed",
+      "split": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-02 12:43:31] Starting Vectorization Module...",
+      "[2025-11-02 12:43:31] Numeric columns: ['PassengerId', 'Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']",
+      "[2025-11-02 12:43:31] Categorical columns: ['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']",
+      "[2025-11-02 12:43:31] Vectorization completed successfully.",
+      "[2025-11-02 12:43:31] \u2705 Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-02 13:19:26",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "pending",
+      "eda": "completed",
+      "split": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-02 13:19:26] Starting Vectorization Module...",
+      "[2025-11-02 13:19:26] Numeric columns: ['PassengerId', 'Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']",
+      "[2025-11-02 13:19:26] Categorical columns: ['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']",
+      "[2025-11-02 13:19:26] Vectorization completed successfully.",
+      "[2025-11-02 13:19:26] \u2705 Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-02 15:07:58",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "pending",
+      "eda": "completed",
+      "split": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-02 15:07:58] Starting Vectorization Module...",
+      "[2025-11-02 15:07:58] Numeric columns: ['PassengerId', 'Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']",
+      "[2025-11-02 15:07:58] Categorical columns: ['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']",
+      "[2025-11-02 15:07:58] Vectorization completed successfully.",
+      "[2025-11-02 15:07:58] \u2705 Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-02 20:12:34",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "pending",
+      "eda": "completed",
+      "split": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-02 20:12:34] Starting Vectorization Module...",
+      "[2025-11-02 20:12:34] Numeric columns: ['PassengerId', 'Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']",
+      "[2025-11-02 20:12:34] Categorical columns: ['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']",
+      "[2025-11-02 20:12:34] Vectorization completed successfully.",
+      "[2025-11-02 20:12:34] \u2705 Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "vectorization"
+    ]
+  }
+]

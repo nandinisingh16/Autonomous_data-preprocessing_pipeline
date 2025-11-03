@@ -75,6 +75,7 @@ class TrainTestSplitModule:
         self.context.log("Starting Train-Test Split Module...")
         try:
             results = {}
+            # Keep previous metadata results
             results["random_split"] = self.random_split(df, target_col=target_col, test_size=test_size, stratify=stratified)
             if stratified and target_col:
                 results["stratified_split"] = self.stratified_split(df, target_col=target_col, test_size=test_size)
@@ -82,11 +83,29 @@ class TrainTestSplitModule:
             results["kfold_split"] = self.kfold_split(df, n_splits=n_splits, target_col=target_col, stratified=stratified)
             results["holdout_set"] = self.holdout_set(df, holdout_size=holdout_size)
 
+            # --- Produce actual train/test DataFrames for downstream stages (Vectorization etc.) ---
+            if target_col and target_col in df.columns:
+                X = df.drop(columns=[target_col])
+                y = df[target_col]
+                stratify_col = y if stratified else None
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size, random_state=42, stratify=stratify_col
+                )
+                self.context.split_data = {"X_train": X_train.reset_index(drop=True),
+                                           "X_test": X_test.reset_index(drop=True),
+                                           "y_train": y_train.reset_index(drop=True),
+                                           "y_test": y_test.reset_index(drop=True)}
+            else:
+                X_train, X_test = train_test_split(df, test_size=test_size, random_state=42)
+                self.context.split_data = {"X_train": X_train.reset_index(drop=True),
+                                           "X_test": X_test.reset_index(drop=True)}
+
+            # Persist results and status using the 'split' key to match PipelineContext.status
             self.context.ttsplit_results = results
-            self.context.status["ttsplit"] = "completed"
+            self.context.status["split"] = "completed"
             self.context.log("Train-Test Split completed successfully.")
             return True
         except Exception as e:
-            self.context.status["ttsplit"] = "failed"
+            self.context.status["split"] = "failed"
             self.context.log(f"Train-Test Split failed: {e}")
             return False
