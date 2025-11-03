@@ -154,5 +154,897 @@
       "split",
       "vectorization"
     ]
+  },
+  {
+    "timestamp": "2025-11-03 18:24:11",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "failed",
+      "eda": "pending",
+      "split": "pending"
+    },
+    "logs": [
+      "[2025-11-03 18:24:11] Approval requested for Cleaning: Proceed with the cleaned dataset?",
+      "[2025-11-03 18:24:11] Approval granted for Cleaning.",
+      "[2025-11-03 18:24:11]  \u25ba Running Transformation stage...",
+      "[2025-11-03 18:24:11]  Transformation stage failed: Text column 'None' not found in dataset.",
+      "[2025-11-03 18:24:11]  Transformation failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 18:30:20",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 18:30:20]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 18:30:20]  Transformation stage completed.",
+      "[2025-11-03 18:30:20]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 18:30:20]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 18:30:20]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 18:35:24",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 18:35:24]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 18:35:24]  Transformation stage completed.",
+      "[2025-11-03 18:35:24]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 18:35:24]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 18:35:24]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 18:38:28",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 18:38:27]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 18:38:28]  Transformation stage completed.",
+      "[2025-11-03 18:38:28]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 18:38:28]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 18:38:28]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 18:42:09",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 18:42:08]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 18:42:09]  Transformation stage completed.",
+      "[2025-11-03 18:42:09]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 18:42:09]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 18:42:09]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 18:44:55",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 18:44:55]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 18:44:55]  Transformation stage completed.",
+      "[2025-11-03 18:44:55]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 18:44:55]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 18:44:55]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 18:49:49",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 18:49:49]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 18:49:49]  Transformation stage completed.",
+      "[2025-11-03 18:49:49]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 18:49:49]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 18:49:49]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 18:56:24",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 18:56:24]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 18:56:24]  Transformation stage completed.",
+      "[2025-11-03 18:56:24]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 18:56:24]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 18:56:24]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:00:36",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:00:36]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:00:36]  Transformation stage completed.",
+      "[2025-11-03 19:00:36]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:00:36]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:00:36]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:04:40",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:04:40]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:04:40]  Transformation stage completed.",
+      "[2025-11-03 19:04:40]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:04:40]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:04:40]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:08:41",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:08:41]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:08:41]  Transformation stage completed.",
+      "[2025-11-03 19:08:41]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:08:41]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:08:41]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:15:12",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:15:12]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:15:12]  Transformation stage completed.",
+      "[2025-11-03 19:15:12]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:15:12]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:15:12]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:20:46",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:20:46]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:20:46]  Transformation stage completed.",
+      "[2025-11-03 19:20:46]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:20:46]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:20:46]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:32:54",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:32:54]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:32:54]  Transformation stage completed.",
+      "[2025-11-03 19:32:54]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:32:54]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:32:54]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:34:25",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:34:25]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:34:25]  Transformation stage completed.",
+      "[2025-11-03 19:34:25]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:34:25]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:34:25]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:36:59",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:36:59]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:36:59]  Transformation stage completed.",
+      "[2025-11-03 19:36:59]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:36:59]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:36:59]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:38:32",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:38:32]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:38:32]  Transformation stage completed.",
+      "[2025-11-03 19:38:32]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:38:32]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:38:32]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:40:35",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:40:34]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:40:35]  Transformation stage completed.",
+      "[2025-11-03 19:40:35]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:40:35]  Feature Engineering stage failed: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+      "[2025-11-03 19:40:35]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:41:50",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:41:50]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:41:50]  Transformation stage completed.",
+      "[2025-11-03 19:41:50]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:41:50]  Feature Engineering stage failed: name 'pd' is not defined",
+      "[2025-11-03 19:41:50]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:44:16",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:44:16]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:44:16]  Transformation stage completed.",
+      "[2025-11-03 19:44:16]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:44:16]  Feature Engineering stage failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 19:44:16]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:45:34",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:45:34]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:45:34]  Transformation stage completed.",
+      "[2025-11-03 19:45:34]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:45:34]  Feature Engineering stage failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 19:45:34]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:52:05",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:52:05]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:52:05]  Transformation stage completed.",
+      "[2025-11-03 19:52:05]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:52:05]  Feature Engineering stage failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 19:52:05]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:53:40",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:53:40]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:53:40]  Transformation stage completed.",
+      "[2025-11-03 19:53:40]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:53:40]  Feature Engineering stage failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 19:53:40]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:57:02",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:57:02]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:57:02]  Transformation stage completed.",
+      "[2025-11-03 19:57:02]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:57:02]  Feature Engineering stage failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 19:57:02]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 19:58:23",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 19:58:23]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 19:58:23]  Transformation stage completed.",
+      "[2025-11-03 19:58:23]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 19:58:23]  Feature Engineering stage failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 19:58:23]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 20:01:49",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 20:01:49]  Detected text column for transformation: 'Name'",
+      "[2025-11-03 20:01:49]  Transformation stage completed.",
+      "[2025-11-03 20:01:49]  \u25ba Running Feature Engineering stage...",
+      "[2025-11-03 20:01:49]  Feature Engineering stage failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 20:01:49]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 20:04:57",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 20:04:57] \ud83d\udd0d Debug: Starting text column detection",
+      "[2025-11-03 20:04:57] \ud83d\udd0d Debug: Columns (25): ['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare']",
+      "[2025-11-03 20:04:57] \u26a0\ufe0f Column padded_sequences check failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 20:04:57]  Feature Engineering stage failed: name 'context' is not defined",
+      "[2025-11-03 20:04:57]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 20:08:18",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 20:08:18] \ud83d\udd0d Debug: Starting text column detection",
+      "[2025-11-03 20:08:18] \ud83d\udd0d Debug: Columns (25): ['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare']",
+      "[2025-11-03 20:08:18] \u26a0\ufe0f Column padded_sequences check failed: unhashable type: 'numpy.ndarray'",
+      "[2025-11-03 20:08:18]  Feature Engineering stage failed: name 'context' is not defined",
+      "[2025-11-03 20:08:18]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 20:12:53",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "pending",
+      "split": "pending",
+      "feature_engineering": "failed"
+    },
+    "logs": [
+      "[2025-11-03 20:12:53] \ud83d\udd0d Debug: Starting text column detection",
+      "[2025-11-03 20:12:53] \ud83d\udd0d Debug: Columns (25): ['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare']",
+      "[2025-11-03 20:12:53] \u26a0\ufe0f Column padded_sequences check failed: unhashable type: 'list'",
+      "[2025-11-03 20:12:53]  Feature Engineering stage failed: name 'context' is not defined",
+      "[2025-11-03 20:12:53]  Feature Engineering failed."
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 20:15:56",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-03 20:15:56] Starting Vectorization Module...",
+      "[2025-11-03 20:15:56] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-03 20:15:56] Categorical columns: []",
+      "[2025-11-03 20:15:56] Vectorization completed successfully.",
+      "[2025-11-03 20:15:56]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 21:49:31",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-03 21:49:31] Starting Vectorization Module...",
+      "[2025-11-03 21:49:31] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-03 21:49:31] Categorical columns: []",
+      "[2025-11-03 21:49:31] Vectorization completed successfully.",
+      "[2025-11-03 21:49:31]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 22:18:54",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-03 22:18:54] Starting Vectorization Module...",
+      "[2025-11-03 22:18:54] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-03 22:18:54] Categorical columns: []",
+      "[2025-11-03 22:18:54] Vectorization completed successfully.",
+      "[2025-11-03 22:18:54]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 22:31:01",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-03 22:31:00] Starting Vectorization Module...",
+      "[2025-11-03 22:31:00] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-03 22:31:00] Categorical columns: []",
+      "[2025-11-03 22:31:01] Vectorization completed successfully.",
+      "[2025-11-03 22:31:01]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-03 22:59:56",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-03 22:59:56] Starting Vectorization Module...",
+      "[2025-11-03 22:59:56] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-03 22:59:56] Categorical columns: []",
+      "[2025-11-03 22:59:56] Vectorization completed successfully.",
+      "[2025-11-03 22:59:56]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
   }
 ]

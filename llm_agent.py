@@ -12,28 +12,17 @@ import subprocess
 
 class LLMAgent:
     def __init__(self, mode="ollama", model="mistral", temperature=0.3):
-        """
-        Initialize a language model agent.
-        mode: 'ollama' | 'transformers' | 'huggingface'
-        model: model name to use for the selected mode
-        temperature: generation randomness
-        """
         self.mode = mode.lower()
         self.model = model
         self.temperature = temperature
 
-        # fallback map for large models
         self.fallback_models = {
             "llama3": "phi3:mini",
             "mistral": "phi3:mini",
             "default": "mistral"
         }
 
-    # ========== MAIN ASK METHOD ==========
     def ask(self, prompt: str):
-        """
-        Route the query to the correct backend.
-        """
         if self.mode == "ollama":
             return self._ask_ollama(prompt)
         elif self.mode == "transformers":
@@ -43,11 +32,8 @@ class LLMAgent:
         else:
             return f"Unsupported mode: {self.mode}"
 
-    # ========== LOCAL OLLAMA MODE ==========
+    # ======== LOCAL OLLAMA MODE ========
     def _ask_ollama(self, prompt):
-        """
-        Runs a local Ollama model. Automatically falls back to smaller models if memory is low.
-        """
         try:
             result = subprocess.run(
                 ["ollama", "run", self.model],
@@ -55,11 +41,9 @@ class LLMAgent:
                 capture_output=True,
                 timeout=90
             )
-
             output = result.stdout.decode("utf-8").strip()
             error_output = result.stderr.decode("utf-8").strip()
 
-            # Handle memory or runtime errors
             if (
                 "500 Internal Server Error" in error_output
                 or "memory" in error_output.lower()
@@ -84,39 +68,37 @@ class LLMAgent:
         except Exception as e:
             return f"Ollama Error: {e}"
 
-    # ========== TRANSFORMERS MODE ==========
+    # ======== TRANSFORMERS MODE ========
     def _ask_transformers(self, prompt):
-        """
-        Runs a transformer model locally using the Hugging Face transformers library.
-        """
         try:
-            from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+            from transformers import pipeline
 
-            model_name = self.model or "mistralai/Mistral-7B-Instruct-v0.2"
+            model_name = self.model or "google/flan-t5-base"
             print(f"[ℹ️] Using local transformers model: {model_name}")
 
+            # auto-select pipeline type
+            if "t5" in model_name.lower() or "flan" in model_name.lower():
+                task = "text2text-generation"
+            else:
+                task = "text-generation"
+
             pipe = pipeline(
-                "text-generation",
+                task,
                 model=model_name,
-                torch_dtype="auto",
-                device_map="auto"
+                device_map="auto",
+                dtype="auto"
             )
 
-            result = pipe(prompt, max_new_tokens=200, temperature=self.temperature)
+            result = pipe(prompt, max_new_tokens=150, temperature=self.temperature)
             return result[0]["generated_text"].strip()
 
         except Exception as e:
             return f"Transformers Error: {e}"
 
-    # ========== HUGGINGFACE API MODE ==========
+    # ======== HUGGINGFACE API MODE ========
     def _ask_hf(self, prompt):
-        """
-        Runs a model using HuggingFace’s free inference API.
-        Requires: export HF_TOKEN=your_api_token
-        """
         try:
             import requests
-
             hf_model = self.model or "tiiuae/falcon-7b-instruct"
             token = os.getenv("HF_TOKEN", "")
             if not token:
@@ -136,12 +118,8 @@ class LLMAgent:
         except Exception as e:
             return f"HuggingFace API Error: {e}"
 
-    # ======== DOMAIN-SPECIFIC HELPERS ========
-
+    # ======== DOMAIN HELPERS ========
     def recommend_cleaning(self, summary):
-        """
-        Given a dataset summary, recommend how to handle missing values.
-        """
         prompt = (
             "Dataset summary:\n"
             f"{json.dumps(summary, indent=2)}\n\n"
@@ -150,9 +128,6 @@ class LLMAgent:
         return self.ask(prompt)
 
     def suggest_features(self, eda_summary):
-        """
-        Suggest new features or encodings based on EDA summary.
-        """
         prompt = (
             "Based on the following EDA summary, suggest useful derived features or encodings:\n"
             f"{json.dumps(eda_summary, indent=2)}\n\n"
@@ -161,9 +136,6 @@ class LLMAgent:
         return self.ask(prompt)
 
     def suggest_next_step(self, pipeline_status):
-        """
-        Suggest the next preprocessing step based on current pipeline status.
-        """
         prompt = (
             "Pipeline stage status:\n"
             f"{json.dumps(pipeline_status, indent=2)}\n\n"
@@ -172,8 +144,7 @@ class LLMAgent:
         return self.ask(prompt)
 
 
-# ========== TEST ==========
-
+# ======== TEST ========
 if __name__ == "__main__":
-    agent = LLMAgent(mode="ollama", model="mistral")
+    agent = LLMAgent(mode="transformers", model="google/flan-t5-small")
     print(agent.ask("Give one short line about the Titanic dataset."))
