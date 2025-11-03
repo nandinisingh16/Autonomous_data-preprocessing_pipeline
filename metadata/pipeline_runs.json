@@ -128,5 +128,31 @@
       "split",
       "vectorization"
     ]
+  },
+  {
+    "timestamp": "2025-11-03 17:49:57",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "pending",
+      "eda": "completed",
+      "split": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-03 17:49:56] Starting Vectorization Module...",
+      "[2025-11-03 17:49:56] Numeric columns: ['PassengerId', 'Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']",
+      "[2025-11-03 17:49:56] Categorical columns: ['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']",
+      "[2025-11-03 17:49:57] Vectorization completed successfully.",
+      "[2025-11-03 17:49:57] \u2705 Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "vectorization"
+    ]
   }
 ]

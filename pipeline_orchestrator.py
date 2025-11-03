@@ -8,6 +8,8 @@ Date: 2025-10-28
 from pipeline_context import PipelineContext
 from ingestion import IngestionModule
 from cleaning import CleaningModule
+from transformation import TransformationModule
+from feature_engineering import FeatureEngineeringModule
 from Eda import EDAModule
 from TTSplit import TrainTestSplitModule
 from vectorization import VectorizationModule
@@ -41,6 +43,7 @@ class PipelineOrchestrator:
             self.context.log("❌ Cleaning failed.")
             self.tracker.record(self.context)
             return self.context.status
+            
 
         # Ensure downstream modules see the cleaned output
         if getattr(self.context, "cleaned_data", None) is None:
@@ -51,6 +54,18 @@ class PipelineOrchestrator:
 
         # For now, treat cleaned_data as transformed_data unless another transform stage exists
         self.context.transformed_data = self.context.cleaned_data.copy()
+
+        # Transformation stage
+        if not self.run_transformation():
+            self.context.log("❌ Transformation failed.")
+            self.tracker.record(self.context)
+            return self.context.status
+
+        # Feature Engineering stage
+        if not self.run_feature_engineering():
+            self.context.log("❌ Feature Engineering failed.")
+            self.tracker.record(self.context)
+            return self.context.status
 
         # EDA (reads context.transformed_data)
         if not self.eda.run():
