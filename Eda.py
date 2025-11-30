@@ -4,9 +4,12 @@ Description: Handles comprehensive Exploratory Data Analysis (EDA) in a modular 
 Author: Raj Nandini
 Date: 2025-10-01
 """
+import matplotlib
+matplotlib.use("Agg")   # ← prevents GUI errors in background threads
 
 import os
 import matplotlib.pyplot as plt
+plt.ioff()  
 import seaborn as sns
 import pandas as pd
 import numpy as np
@@ -14,6 +17,7 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from scipy.stats import chi2_contingency
+
 
 from pipeline_context import PipelineContext  # Your context module
 
@@ -214,6 +218,7 @@ class EDAModule:
             eda_results["outlier_analysis"] = self.outlier_analysis(df)
             eda_results["feature_importance"] = self.feature_importance(df, target_col, task_type)
             eda_results["data_quality_flags"] = self.data_quality_flags(df, target_col)
+            eda_results["automated_eda_tools"] = self.automated_eda_tools(df, target_col)
 
             # Save results in context
             self.context.eda_results = eda_results
@@ -230,8 +235,52 @@ class EDAModule:
                 self.context.log(f" LLM Suggestion: {suggestion}")
 
             return True
+        
 
         except Exception as e:
             self.context.status["eda"] = "failed"
             self.context.log(f" EDA failed: {e}")
             return False
+     ###############################################
+    # 10. External Automated EDA Tools
+    ###############################################
+    def automated_eda_tools(self, df, target_col=None):
+        results = {}
+        try:
+            from ydata_profiling import ProfileReport
+            profile = ProfileReport(df, title="YData Profiling Report", explorative=True)
+            ydata_path = os.path.join(self.plot_dir, "ydata_profiling_report.html")
+            profile.to_file(ydata_path)
+            results["ydata_profiling"] = ydata_path
+        except Exception as e:
+            results["ydata_profiling_error"] = str(e)
+
+        try:
+            from dataprep.eda import create_report
+            dp_path = os.path.join(self.plot_dir, "dataprep_report.html")
+            report = create_report(df)
+            report.save(dp_path)
+            results["dataprep_eda"] = dp_path
+        except Exception as e:
+            results["dataprep_eda_error"] = str(e)
+
+        try:
+            from autoviz.AutoViz_Class import AutoViz_Class
+            AV = AutoViz_Class()
+            av_path = os.path.join(self.plot_dir, "autoviz")
+            os.makedirs(av_path, exist_ok=True)
+
+            AV.AutoViz(
+                filename="",
+                dfte=df,
+                depVar=target_col,
+                save_plot_dir=av_path,
+                verbose=0,
+                chart_format="png"   # forces non-GUI backend
+            )
+
+            results["autoviz"] = av_path
+        except Exception as e:
+            results["autoviz_error"] = str(e)
+
+        return results

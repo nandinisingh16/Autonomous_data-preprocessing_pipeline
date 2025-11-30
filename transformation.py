@@ -11,8 +11,8 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder, KBinsDiscretizer
 from sklearn.decomposition import TruncatedSVD
 from imblearn.over_sampling import RandomOverSampler
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
 
 
 class TransformationModule:

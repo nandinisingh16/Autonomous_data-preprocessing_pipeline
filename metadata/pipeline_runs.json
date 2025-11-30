@@ -1046,5 +1046,341 @@
       "feature_engineering",
       "vectorization"
     ]
+  },
+  {
+    "timestamp": "2025-11-04 00:50:21",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-04 00:50:21] Starting Vectorization Module...",
+      "[2025-11-04 00:50:21] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-04 00:50:21] Categorical columns: []",
+      "[2025-11-04 00:50:21] Vectorization completed successfully.",
+      "[2025-11-04 00:50:21]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-04 08:45:59",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-04 08:45:58] Starting Vectorization Module...",
+      "[2025-11-04 08:45:58] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-04 08:45:58] Categorical columns: []",
+      "[2025-11-04 08:45:59] Vectorization completed successfully.",
+      "[2025-11-04 08:45:59]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 12:35:01",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 12:35:01] Starting Vectorization Module...",
+      "[2025-11-30 12:35:01] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 12:35:01] Categorical columns: []",
+      "[2025-11-30 12:35:01] Vectorization completed successfully.",
+      "[2025-11-30 12:35:01]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 14:36:18",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 14:36:18] Starting Vectorization Module...",
+      "[2025-11-30 14:36:18] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 14:36:18] Categorical columns: []",
+      "[2025-11-30 14:36:18] Vectorization completed successfully.",
+      "[2025-11-30 14:36:18]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 14:55:38",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 14:55:38] Starting Vectorization Module...",
+      "[2025-11-30 14:55:38] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 14:55:38] Categorical columns: []",
+      "[2025-11-30 14:55:38] Vectorization completed successfully.",
+      "[2025-11-30 14:55:38]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 15:20:30",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 15:20:30] Starting Vectorization Module...",
+      "[2025-11-30 15:20:30] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 15:20:30] Categorical columns: []",
+      "[2025-11-30 15:20:30] Vectorization completed successfully.",
+      "[2025-11-30 15:20:30]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 16:24:10",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 16:24:10] Starting Vectorization Module...",
+      "[2025-11-30 16:24:10] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 16:24:10] Categorical columns: []",
+      "[2025-11-30 16:24:10] Vectorization completed successfully.",
+      "[2025-11-30 16:24:10]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 19:26:14",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 19:26:14] Starting Vectorization Module...",
+      "[2025-11-30 19:26:14] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 19:26:14] Categorical columns: []",
+      "[2025-11-30 19:26:14] Vectorization completed successfully.",
+      "[2025-11-30 19:26:14]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 19:41:38",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 19:41:38] Starting Vectorization Module...",
+      "[2025-11-30 19:41:38] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 19:41:38] Categorical columns: []",
+      "[2025-11-30 19:41:38] Vectorization completed successfully.",
+      "[2025-11-30 19:41:38]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 19:55:21",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 19:55:21] Starting Vectorization Module...",
+      "[2025-11-30 19:55:21] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 19:55:21] Categorical columns: []",
+      "[2025-11-30 19:55:21] Vectorization completed successfully.",
+      "[2025-11-30 19:55:21]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 20:12:33",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 20:12:33] Starting Vectorization Module...",
+      "[2025-11-30 20:12:33] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 20:12:33] Categorical columns: []",
+      "[2025-11-30 20:12:33] Vectorization completed successfully.",
+      "[2025-11-30 20:12:33]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
+  },
+  {
+    "timestamp": "2025-11-30 21:02:30",
+    "status": {
+      "ingestion": "completed",
+      "cleaning": "completed",
+      "transformation": "completed",
+      "eda": "completed",
+      "split": "completed",
+      "feature_engineering": "completed",
+      "vectorization": "completed"
+    },
+    "logs": [
+      "[2025-11-30 21:02:30] Starting Vectorization Module...",
+      "[2025-11-30 21:02:30] Numeric columns: ['PassengerId', 'Name', 'Sex', 'Age', 'SibSp', 'Fare', 'Embarked', 'text_length', 'char_length', 'text_length_scaled', 'char_length_scaled', 'length_bins', 'char_bins', 'svd_comp_1', 'svd_comp_2', 'svd_comp_3', 'svd_comp_4', 'numeric_mean', 'numeric_std', 'numeric_sum', 'Survived']",
+      "[2025-11-30 21:02:30] Categorical columns: []",
+      "[2025-11-30 21:02:30] Vectorization completed successfully.",
+      "[2025-11-30 21:02:30]  Pipeline completed successfully!"
+    ],
+    "stages": [
+      "ingestion",
+      "cleaning",
+      "transformation",
+      "eda",
+      "split",
+      "feature_engineering",
+      "vectorization"
+    ]
   }
 ]

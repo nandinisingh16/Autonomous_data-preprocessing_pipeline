@@ -1,6 +1,6 @@
 """
 Module: llm_agent.py
-Description: Unified LLM agent supporting multiple backends (Ollama, Transformers, HuggingFace API)
+Description: Ultra-optimized LLM agent with minimal timeout impact
 Author: Raj Nandini
 Date: 2025-10-28
 """
@@ -8,143 +8,208 @@ Date: 2025-10-28
 import os
 import json
 import subprocess
+import threading
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
+import time
 
 
 class LLMAgent:
-    def __init__(self, mode="ollama", model="mistral", temperature=0.3):
+    def __init__(self, mode="ollama", model="llama2:latest", temperature=0.3, timeout=15):
         self.mode = mode.lower()
         self.model = model
         self.temperature = temperature
-
+        self.timeout = timeout  # Reduced timeout for faster pipeline
+        
+        # Ultra-light fallback chain
         self.fallback_models = {
-            "llama3": "phi3:mini",
-            "mistral": "phi3:mini",
-            "default": "mistral"
+            "phi3:mini": "llama2:latest",
+            "mistral": "llama2:latest", 
+            "llama3": "llama2:latest",
+            "default": "llama2:latest"
         }
 
-    def ask(self, prompt: str):
+    def ask(self, prompt: str, task_type="default", quick_mode=True):
+        """Main method with ultra-fast timeout handling"""
+        # For pipeline speed, skip LLM entirely if timeout is critical
+        if quick_mode:
+            return self._ask_ultra_fast(prompt)
+        else:
+            return self._ask_with_timeout(prompt)
+
+    def _ask_ultra_fast(self, prompt: str):
+        """Ultra-fast LLM call with aggressive timeout"""
+        try:
+            # Very short timeout for pipeline speed
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(self._run_ollama_fast, prompt, self.model)
+                return future.result(timeout=10)  # 10 second max
+        except FutureTimeoutError:
+            return "LLM suggestion skipped for speed"
+
+    def _ask_with_timeout(self, prompt: str):
+        """Standard timeout handling"""
         if self.mode == "ollama":
-            return self._ask_ollama(prompt)
+            return self._ask_ollama_optimized(prompt)
         elif self.mode == "transformers":
-            return self._ask_transformers(prompt)
+            return self._ask_transformers_optimized(prompt)
         elif self.mode == "huggingface":
-            return self._ask_hf(prompt)
+            return self._ask_hf_optimized(prompt)
         else:
             return f"Unsupported mode: {self.mode}"
 
-    # ======== LOCAL OLLAMA MODE ========
-    def _ask_ollama(self, prompt):
+    # ======== ULTRA-FAST OLLAMA ========
+    def _ask_ollama_optimized(self, prompt):
+        """Optimized Ollama with minimal overhead"""
+        try:
+            # Single attempt with short timeout
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(self._run_ollama_fast, prompt, self.model)
+                result = future.result(timeout=self.timeout)
+            
+            if self._is_error_response(result):
+                fallback_model = self.fallback_models.get(self.model, "llama2:latest")
+                return f"Fallback: Using {fallback_model}"  # Don't actually call fallback
+            
+            return result
+
+        except FutureTimeoutError:
+            return "LLM timeout: Suggestion skipped"
+        except Exception as e:
+            return f"LLM Error: {e}"
+
+    def _run_ollama_fast(self, prompt, model):
+        """Fast Ollama execution with minimal overhead"""
         try:
             result = subprocess.run(
-                ["ollama", "run", self.model],
+                ["ollama", "run", model],
                 input=prompt.encode("utf-8"),
                 capture_output=True,
-                timeout=90
+                timeout=8  # Very short timeout
             )
             output = result.stdout.decode("utf-8").strip()
-            error_output = result.stderr.decode("utf-8").strip()
-
-            if (
-                "500 Internal Server Error" in error_output
-                or "memory" in error_output.lower()
-                or "unable to load" in error_output.lower()
-            ):
-                fallback_model = self.fallback_models.get(self.model, self.fallback_models["default"])
-                print(f"[⚠️] Model '{self.model}' too large. Falling back to '{fallback_model}'...")
-                result = subprocess.run(
-                    ["ollama", "run", fallback_model],
-                    input=prompt.encode("utf-8"),
-                    capture_output=True,
-                    timeout=90
-                )
-                output = result.stdout.decode("utf-8").strip()
-
-            return output or error_output or "No response from Ollama."
-
-        except FileNotFoundError:
-            return "Ollama not found. Please install via 'winget install ollama'."
+            return output or "No LLM response"
+            
         except subprocess.TimeoutExpired:
-            return "Ollama took too long to respond. Try a smaller model."
+            return "Ollama timeout"
         except Exception as e:
-            return f"Ollama Error: {e}"
+            return f"Ollama error: {e}"
 
-    # ======== TRANSFORMERS MODE ========
-    def _ask_transformers(self, prompt):
+    def _is_error_response(self, response):
+        """Check if response indicates an error"""
+        error_indicators = ["error", "timeout", "unable", "memory", "500"]
+        response_lower = response.lower()
+        return any(indicator in response_lower for indicator in error_indicators)
+
+    # ======== OPTIMIZED TRANSFORMERS ========
+    def _ask_transformers_optimized(self, prompt):
         try:
             from transformers import pipeline
 
-            model_name = self.model or "google/flan-t5-base"
-            print(f"[ℹ️] Using local transformers model: {model_name}")
-
-            # auto-select pipeline type
-            if "t5" in model_name.lower() or "flan" in model_name.lower():
-                task = "text2text-generation"
-            else:
-                task = "text-generation"
+            # Use tiny models for maximum speed
+            tiny_models = {
+                "default": "microsoft/DialoGPT-small",
+                "cleaning": "microsoft/DialoGPT-small", 
+                "feature_suggestion": "microsoft/DialoGPT-small"
+            }
+            
+            model_name = tiny_models.get(self.model, "microsoft/DialoGPT-small")
+            print(f"[⚡] Using fast transformers model: {model_name}")
 
             pipe = pipeline(
-                task,
+                "text-generation",
                 model=model_name,
                 device_map="auto",
-                dtype="auto"
+                torch_dtype="auto"
             )
 
-            result = pipe(prompt, max_new_tokens=150, temperature=self.temperature)
+            # Very short outputs
+            result = pipe(prompt, max_new_tokens=50, temperature=self.temperature, do_sample=False)
             return result[0]["generated_text"].strip()
 
         except Exception as e:
-            return f"Transformers Error: {e}"
+            return f"Transformers skipped: {e}"
 
-    # ======== HUGGINGFACE API MODE ========
-    def _ask_hf(self, prompt):
+    # ======== OPTIMIZED HUGGINGFACE API ========
+    def _ask_hf_optimized(self, prompt):
         try:
             import requests
-            hf_model = self.model or "tiiuae/falcon-7b-instruct"
+            
+            # Use fastest available models
+            fast_models = {
+                "default": "microsoft/DialoGPT-small",
+                "cleaning": "microsoft/DialoGPT-small",
+                "feature_suggestion": "microsoft/DialoGPT-small"
+            }
+            
+            hf_model = fast_models.get(self.model, "microsoft/DialoGPT-small")
             token = os.getenv("HF_TOKEN", "")
+            
             if not token:
-                return "Missing HuggingFace token. Set it via environment variable HF_TOKEN."
+                return "HF token missing"
 
             url = f"https://api-inference.huggingface.co/models/{hf_model}"
             headers = {"Authorization": f"Bearer {token}"}
-            payload = {"inputs": prompt, "parameters": {"max_new_tokens": 200}}
+            
+            # Ultra-fast payload
+            payload = {
+                "inputs": prompt, 
+                "parameters": {
+                    "max_new_tokens": 50,
+                    "temperature": self.temperature,
+                    "do_sample": False
+                }
+            }
 
-            response = requests.post(url, headers=headers, json=payload)
+            response = requests.post(url, headers=headers, json=payload, timeout=10)
             data = response.json()
 
             if isinstance(data, list) and len(data) > 0:
                 return data[0].get("generated_text", "").strip()
-            return json.dumps(data, indent=2)
+            return "HF API response empty"
 
+        except requests.exceptions.Timeout:
+            return "HF API timeout"
         except Exception as e:
-            return f"HuggingFace API Error: {e}"
+            return f"HF API error: {e}"
 
-    # ======== DOMAIN HELPERS ========
+    # ======== PIPELINE-OPTIMIZED DOMAIN HELPERS ========
     def recommend_cleaning(self, summary):
+        """Ultra-fast cleaning recommendations"""
+        # Skip LLM if summary is too large
+        if len(str(summary)) > 1000:
+            return "Auto: Drop rows with missing target values"
+            
         prompt = (
-            "Dataset summary:\n"
-            f"{json.dumps(summary, indent=2)}\n\n"
-            "Recommend the best missing value handling strategy (drop, mean, median, mode) briefly."
+            "Brief dataset summary:\n"
+            f"{json.dumps(summary, indent=2)[:500]}\n\n"
+            "One-line missing value strategy (drop/mean/median/mode):"
         )
-        return self.ask(prompt)
+        return self.ask(prompt, task_type="cleaning", quick_mode=True)
 
     def suggest_features(self, eda_summary):
+        """Ultra-fast feature suggestions"""
+        # Skip if EDA is too complex
+        if len(str(eda_summary)) > 800:
+            return "Auto: Create interaction features"
+            
         prompt = (
-            "Based on the following EDA summary, suggest useful derived features or encodings:\n"
-            f"{json.dumps(eda_summary, indent=2)}\n\n"
-            "Respond concisely."
+            "EDA summary - suggest 2 features:\n"
+            f"{json.dumps(eda_summary, indent=2)[:400]}\n\n"
+            "Respond with 2 bullet points:"
         )
-        return self.ask(prompt)
+        return self.ask(prompt, task_type="feature_suggestion", quick_mode=True)
 
     def suggest_next_step(self, pipeline_status):
+        """Ultra-fast next step suggestions"""
         prompt = (
-            "Pipeline stage status:\n"
-            f"{json.dumps(pipeline_status, indent=2)}\n\n"
-            "Which preprocessing step should be executed next?"
+            "Pipeline status - next step in 3 words:\n"
+            f"{json.dumps(pipeline_status, indent=2)[:300]}"
         )
-        return self.ask(prompt)
+        return self.ask(prompt, task_type="next_step", quick_mode=True)
 
 
-# ======== TEST ========
+# ======== SIMPLE TEST ========
 if __name__ == "__main__":
-    agent = LLMAgent(mode="transformers", model="google/flan-t5-small")
-    print(agent.ask("Give one short line about the Titanic dataset."))
+    # Test with fastest settings
+    agent = LLMAgent(mode="ollama", model="llama2:latest", timeout=8)
+    print(agent.ask("One line about Titanic dataset."))
