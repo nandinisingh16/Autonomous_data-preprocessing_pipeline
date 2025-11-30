@@ -13,16 +13,16 @@ from ingestion import IngestionModule
 from cleaning import CleaningModule
 from transformation import TransformationModule
 from feature_engineering import FeatureEngineeringModule
-from Eda import EDAModule
+from eda import EDAModule
 from TTSplit import TrainTestSplitModule
 from vectorization import VectorizationModule
 from llm_agent import LLMAgent
 from metadata_tracker import MetadataTracker
 
 class PipelineOrchestrator:
-    def __init__(self):
+    def __init__(self, target_col = None):
         self.context = PipelineContext(stage_name="agentic_pipeline")
-
+        self.context = PipelineContext(stage_name="agentic_pipeline")
         # ⚙️ Smart LLM selection: prefer Transformers (free + local + stable)
         try:
             from transformers import pipeline  # Test if installed
@@ -263,6 +263,10 @@ class PipelineOrchestrator:
         self.context.log(" Metadata recorded.")
 
         return self.context.status
+    
+def start_pipeline(input_file: str, target_column: str = None):
+    orchestrator = PipelineOrchestrator(target_col=target_column)
+    return orchestrator.run(input_file=input_file)
 
 if __name__ == "__main__":
     import sys

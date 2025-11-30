@@ -1,0 +1,217 @@
+{
+  "name": "Universal Data Preprocessing Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "universal-pipeline",
+        "responseMode": "responseNode"
+      },
+      "id": "universal-webhook",
+      "name": "Universal Pipeline Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:5000/webhook/start",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file_url",
+              "value": "={{ $json.file_url }}"
+            },
+            {
+              "name": "target_column",
+              "value": "={{ $json.target_column }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "start-universal-pipeline",
+      "name": "Start Universal Pipeline",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "limit": 1,
+        "waitTime": 15000
+      },
+      "id": "wait-processing",
+      "name": "Wait 15 Seconds",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [660, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:5000/status/={{ $json.run_id }}",
+        "method": "GET",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "check-universal-status",
+      "name": "Check Pipeline Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": [
+            {
+              "name": "Completion Check",
+              "conditions": [
+                {
+                  "id": "status-complete",
+                  "leftValue": "={{ $json.status }}",
+                  "rightValue": "completed"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "id": "check-universal-completion",
+      "name": "Check If Completed",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1060, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Universal Success Handler\nconst result = {\n  message: \"âœ… Universal Pipeline Completed!\",\n  summary: \"Your dataset has been automatically processed and analyzed.\",\n  run_id: $json.run_id,\n  status: $json.status,\n  auto_detected: $json.auto_detected_target ? {\n    target_column: $json.auto_detected_target,\n    message: \"Target column was auto-detected\"\n  } : null,\n  dataset_info: $json.dataset_info,\n  outputs: $json.outputs,\n  download_links: {\n    eda_report: `http://localhost:5000${$json.outputs?.eda_report}`,\n    cleaned_data: `http://localhost:5000${$json.outputs?.cleaned_data}`,\n    status_page: `http://localhost:5000/status/${$json.run_id}`\n  },\n  insights: [\n    \"Dataset automatically analyzed and preprocessed\",\n    \"Target column detection applied\", \n    \"Data quality checks completed\",\n    \"ML-ready outputs generated\"\n  ],\n  supported_formats: [\"CSV\", \"Excel\", \"JSON\", \"TXT\"]\n};\n\nreturn result;"
+      },
+      "id": "universal-success",
+      "name": "Universal Success Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1260, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Still Processing with Progress\nconst attempts = $node[\"Wait 15 Seconds\"].context?.attempts || 0;\nconst result = {\n  message: `í´„ Processing... (Attempt ${attempts + 1})`,\n  run_id: $json.run_id,\n  status: $json.status,\n  current_stage: $json.current_stage || 'initial_processing',\n  elapsed_time: `${(attempts + 1) * 15} seconds`,\n  next_check: \"Waiting 15 seconds\"\n};\n\n// Store attempt count\n$node[\"Wait 15 Seconds\"].context = { attempts: attempts + 1 };\nreturn result;"
+      },
+      "id": "universal-processing",
+      "name": "Still Processing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1260, 400]
+    },
+    {
+      "parameters": {
+        "responseMode": "lastNode",
+        "responseData": "={{ $json.message }}\n\n{{ $json.download_links ? \"í³Š Download your reports:\" + JSON.stringify($json.download_links, null, 2) : \"\" }}"
+      },
+      "id": "universal-response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [1460, 300]
+    }
+  ],
+  "connections": {
+    "Universal Pipeline Webhook": {
+      "main": [
+        [
+          {
+            "node": "Start Universal Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Universal Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Wait 15 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 15 Seconds": {
+      "main": [
+        [
+          {
+            "node": "Check Pipeline Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Pipeline Status": {
+      "main": [
+        [
+          {
+            "node": "Check If Completed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check If Completed": {
+      "main": [
+        [
+          {
+            "node": "Universal Success Handler",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 15 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Universal Success Handler": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Still Processing": {
+      "main": [
+        [
+          {
+            "node": "Wait 15 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

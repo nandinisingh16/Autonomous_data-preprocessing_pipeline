@@ -33,15 +33,16 @@ if __name__ == "__main__":
 
         import datetime
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        report_path = f"data/eda/eda_report_{timestamp}.html"
+        report_path = eda.generate_report(context.eda_results, f"data/eda/eda_report_{timestamp}.html")
         log_path = f"logs/eda/eda_{timestamp}.log"
 
         # Save report and logs
         with open(log_path, "w") as f:
             f.write("\n".join(context.logs))
 
-        print(f"\n✅ EDA completed successfully!")
+        print(f"\n EDA completed successfully!")
         print(f"Report saved to: {report_path}")
         print(f"Logs saved to: {log_path}")
+
     else:
         print("\n EDA stage failed.")
