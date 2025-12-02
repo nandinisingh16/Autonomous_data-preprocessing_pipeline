@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\rajna\OneDrive\Documents\Autonomous_data-preprocessing_pipeline\autopreproc_env
+set VIRTUAL_ENV=C:\Projects\Autonomous_data-preprocessing_pipeline\autopreproc_env
 
 if not defined PROMPT set PROMPT=$P$G
 

@@ -1,0 +1,374 @@
+[
+  {
+    "dataset_name": "Titanic",
+    "dataset_shape": [
+      891,
+      12
+    ],
+    "target_column": "Survived",
+    "execution_time_seconds": 9.19,
+    "job_id": "b3e93e97-3154-4466-9693-a3fc301ba1fe",
+    "overview": {
+      "completed_modules": [
+        "ingestion",
+        "cleaning",
+        "transformation",
+        "feature_engineering",
+        "eda"
+      ],
+      "completion_time": "2025-12-02T01:14:09.798852",
+      "dataset_info": {
+        "columns": 12,
+        "file_path": "uploaded_files/b3e93e97-3154-4466-9693-a3fc301ba1fe.csv",
+        "missing_values": {
+          "Age": 177,
+          "Cabin": 687,
+          "Embarked": 2
+        },
+        "rows": 891,
+        "size_bytes": 60302
+      },
+      "note": "Mock results - pipeline import failed",
+      "run_id": "b3e93e97-3154-4466-9693-a3fc301ba1fe",
+      "success": true,
+      "target_column": "Survived"
+    },
+    "ptma_metrics": {
+      "calculated_scores": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0
+      },
+      "interpretation": {
+        "accuracy": "excellent",
+        "autonomy_level": "high",
+        "efficiency": "excellent"
+      },
+      "raw_metrics": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0,
+        "auto_modifications": 20,
+        "corrections": 0,
+        "human_modifications": 0,
+        "prompts": 0,
+        "tasks": 7
+      },
+      "run_id": "b3e93e97-3154-4466-9693-a3fc301ba1fe",
+      "timestamp": "2025-12-02T01:14:16.921795"
+    },
+    "timestamp": "2025-12-02T01:14:16.923497"
+  },
+  {
+    "dataset_name": "Iris",
+    "dataset_shape": [
+      150,
+      5
+    ],
+    "target_column": "target",
+    "execution_time_seconds": 9.17,
+    "job_id": "f37ac5de-ff4b-45a5-9924-23ae86266b76",
+    "overview": {
+      "completed_modules": [
+        "ingestion",
+        "cleaning",
+        "transformation",
+        "feature_engineering",
+        "eda"
+      ],
+      "completion_time": "2025-12-02T01:14:18.973269",
+      "dataset_info": {
+        "columns": 12,
+        "file_path": "uploaded_files/f37ac5de-ff4b-45a5-9924-23ae86266b76.csv",
+        "missing_values": {
+          "Age": 177,
+          "Cabin": 687,
+          "Embarked": 2
+        },
+        "rows": 891,
+        "size_bytes": 60302
+      },
+      "note": "Mock results - pipeline import failed",
+      "run_id": "f37ac5de-ff4b-45a5-9924-23ae86266b76",
+      "success": true,
+      "target_column": "target"
+    },
+    "ptma_metrics": {
+      "calculated_scores": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0
+      },
+      "interpretation": {
+        "accuracy": "excellent",
+        "autonomy_level": "high",
+        "efficiency": "excellent"
+      },
+      "raw_metrics": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0,
+        "auto_modifications": 20,
+        "corrections": 0,
+        "human_modifications": 0,
+        "prompts": 0,
+        "tasks": 7
+      },
+      "run_id": "f37ac5de-ff4b-45a5-9924-23ae86266b76",
+      "timestamp": "2025-12-02T01:14:26.106175"
+    },
+    "timestamp": "2025-12-02T01:14:26.106175"
+  },
+  {
+    "dataset_name": "Wine",
+    "dataset_shape": [
+      178,
+      14
+    ],
+    "target_column": "target",
+    "execution_time_seconds": 9.16,
+    "job_id": "eb2c13c5-a652-4b88-9302-2fdbe13b88b8",
+    "overview": {
+      "completed_modules": [
+        "ingestion",
+        "cleaning",
+        "transformation",
+        "feature_engineering",
+        "eda"
+      ],
+      "completion_time": "2025-12-02T01:14:28.156167",
+      "dataset_info": {
+        "columns": 12,
+        "file_path": "uploaded_files/eb2c13c5-a652-4b88-9302-2fdbe13b88b8.csv",
+        "missing_values": {
+          "Age": 177,
+          "Cabin": 687,
+          "Embarked": 2
+        },
+        "rows": 891,
+        "size_bytes": 60302
+      },
+      "note": "Mock results - pipeline import failed",
+      "run_id": "eb2c13c5-a652-4b88-9302-2fdbe13b88b8",
+      "success": true,
+      "target_column": "target"
+    },
+    "ptma_metrics": {
+      "calculated_scores": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0
+      },
+      "interpretation": {
+        "accuracy": "excellent",
+        "autonomy_level": "high",
+        "efficiency": "excellent"
+      },
+      "raw_metrics": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0,
+        "auto_modifications": 20,
+        "corrections": 0,
+        "human_modifications": 0,
+        "prompts": 0,
+        "tasks": 7
+      },
+      "run_id": "eb2c13c5-a652-4b88-9302-2fdbe13b88b8",
+      "timestamp": "2025-12-02T01:14:35.285097"
+    },
+    "timestamp": "2025-12-02T01:14:35.287653"
+  },
+  {
+    "dataset_name": "Diabetes",
+    "dataset_shape": [
+      442,
+      11
+    ],
+    "target_column": "target",
+    "execution_time_seconds": 9.18,
+    "job_id": "4d182684-19ca-4eee-b6d6-e9b2e10866aa",
+    "overview": {
+      "completed_modules": [
+        "ingestion",
+        "cleaning",
+        "transformation",
+        "feature_engineering",
+        "eda"
+      ],
+      "completion_time": "2025-12-02T01:14:37.349485",
+      "dataset_info": {
+        "columns": 12,
+        "file_path": "uploaded_files/4d182684-19ca-4eee-b6d6-e9b2e10866aa.csv",
+        "missing_values": {
+          "Age": 177,
+          "Cabin": 687,
+          "Embarked": 2
+        },
+        "rows": 891,
+        "size_bytes": 60302
+      },
+      "note": "Mock results - pipeline import failed",
+      "run_id": "4d182684-19ca-4eee-b6d6-e9b2e10866aa",
+      "success": true,
+      "target_column": "target"
+    },
+    "ptma_metrics": {
+      "calculated_scores": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0
+      },
+      "interpretation": {
+        "accuracy": "excellent",
+        "autonomy_level": "high",
+        "efficiency": "excellent"
+      },
+      "raw_metrics": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0,
+        "auto_modifications": 20,
+        "corrections": 0,
+        "human_modifications": 0,
+        "prompts": 0,
+        "tasks": 7
+      },
+      "run_id": "4d182684-19ca-4eee-b6d6-e9b2e10866aa",
+      "timestamp": "2025-12-02T01:14:44.471150"
+    },
+    "timestamp": "2025-12-02T01:14:44.474462"
+  },
+  {
+    "dataset_name": "Breast Cancer",
+    "dataset_shape": [
+      569,
+      31
+    ],
+    "target_column": "target",
+    "execution_time_seconds": 9.16,
+    "job_id": "6030c57c-dc60-4f58-96e2-0ee39026548b",
+    "overview": {
+      "completed_modules": [
+        "ingestion",
+        "cleaning",
+        "transformation",
+        "feature_engineering",
+        "eda"
+      ],
+      "completion_time": "2025-12-02T01:14:46.537812",
+      "dataset_info": {
+        "columns": 12,
+        "file_path": "uploaded_files/6030c57c-dc60-4f58-96e2-0ee39026548b.csv",
+        "missing_values": {
+          "Age": 177,
+          "Cabin": 687,
+          "Embarked": 2
+        },
+        "rows": 891,
+        "size_bytes": 60302
+      },
+      "note": "Mock results - pipeline import failed",
+      "run_id": "6030c57c-dc60-4f58-96e2-0ee39026548b",
+      "success": true,
+      "target_column": "target"
+    },
+    "ptma_metrics": {
+      "calculated_scores": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0
+      },
+      "interpretation": {
+        "accuracy": "excellent",
+        "autonomy_level": "high",
+        "efficiency": "excellent"
+      },
+      "raw_metrics": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0,
+        "auto_modifications": 20,
+        "corrections": 0,
+        "human_modifications": 0,
+        "prompts": 0,
+        "tasks": 7
+      },
+      "run_id": "6030c57c-dc60-4f58-96e2-0ee39026548b",
+      "timestamp": "2025-12-02T01:14:53.653331"
+    },
+    "timestamp": "2025-12-02T01:14:53.653331"
+  },
+  {
+    "dataset_name": "Breast Cancer (Missing)",
+    "dataset_shape": [
+      569,
+      31
+    ],
+    "target_column": "target",
+    "execution_time_seconds": 9.18,
+    "job_id": "c6f22bd9-6c91-4b1d-b8a9-a4529431c754",
+    "overview": {
+      "completed_modules": [
+        "ingestion",
+        "cleaning",
+        "transformation",
+        "feature_engineering",
+        "eda"
+      ],
+      "completion_time": "2025-12-02T01:14:55.721577",
+      "dataset_info": {
+        "columns": 12,
+        "file_path": "uploaded_files/c6f22bd9-6c91-4b1d-b8a9-a4529431c754.csv",
+        "missing_values": {
+          "Age": 177,
+          "Cabin": 687,
+          "Embarked": 2
+        },
+        "rows": 891,
+        "size_bytes": 60302
+      },
+      "note": "Mock results - pipeline import failed",
+      "run_id": "c6f22bd9-6c91-4b1d-b8a9-a4529431c754",
+      "success": true,
+      "target_column": "target"
+    },
+    "ptma_metrics": {
+      "calculated_scores": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0
+      },
+      "interpretation": {
+        "accuracy": "excellent",
+        "autonomy_level": "high",
+        "efficiency": "excellent"
+      },
+      "raw_metrics": {
+        "COF": 0.0,
+        "PDR": 0.0,
+        "PTMA": 1.0,
+        "SAS": 1.0,
+        "auto_modifications": 20,
+        "corrections": 0,
+        "human_modifications": 0,
+        "prompts": 0,
+        "tasks": 7
+      },
+      "run_id": "c6f22bd9-6c91-4b1d-b8a9-a4529431c754",
+      "timestamp": "2025-12-02T01:15:02.841564"
+    },
+    "timestamp": "2025-12-02T01:15:02.841564"
+  }
+]

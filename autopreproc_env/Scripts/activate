@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\rajna\OneDrive\Documents\Autonomous_data-preprocessing_pipeline\autopreproc_env"
+VIRTUAL_ENV="C:\Projects\Autonomous_data-preprocessing_pipeline\autopreproc_env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

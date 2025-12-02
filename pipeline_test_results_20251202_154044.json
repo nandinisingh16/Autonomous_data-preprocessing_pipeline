@@ -1,0 +1,98 @@
+[
+  {
+    "dataset_name": "titanic",
+    "file_path": "test_datasets/titanic.csv",
+    "target_column": null,
+    "dataset_shape": [
+      891,
+      12
+    ],
+    "execution_time_seconds": 14.119354724884033,
+    "ptma_metrics": {
+      "prompts": 6,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 25,
+      "human_modifications": 0,
+      "PDR": 0.8571,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5385
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T15:40:26.992973"
+  },
+  {
+    "dataset_name": "diabetes",
+    "file_path": "test_datasets/diabetes.csv",
+    "target_column": null,
+    "dataset_shape": [
+      442,
+      11
+    ],
+    "execution_time_seconds": 6.345546722412109,
+    "ptma_metrics": {
+      "prompts": 6,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 24,
+      "human_modifications": 0,
+      "PDR": 0.8571,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5385
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T15:40:33.350373"
+  },
+  {
+    "dataset_name": "breast_cancer",
+    "file_path": "test_datasets/breast_cancer.csv",
+    "target_column": null,
+    "dataset_shape": [
+      569,
+      31
+    ],
+    "execution_time_seconds": 5.437708616256714,
+    "ptma_metrics": {
+      "prompts": 6,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 25,
+      "human_modifications": 0,
+      "PDR": 0.8571,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5385
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T15:40:38.819195"
+  },
+  {
+    "dataset_name": "breast_cancer_missing",
+    "file_path": "test_datasets/breast_cancer_missing.csv",
+    "target_column": null,
+    "dataset_shape": [
+      569,
+      31
+    ],
+    "execution_time_seconds": 5.902475595474243,
+    "ptma_metrics": {
+      "prompts": 6,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 26,
+      "human_modifications": 0,
+      "PDR": 0.8571,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5385
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T15:40:44.742452"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "dataset_name": "titanic.csv",
+    "file_path": "test_datasets/titanic.csv",
+    "target_column": "Survived",
+    "dataset_shape": [
+      891,
+      12
+    ],
+    "execution_time_seconds": 52.460630893707275,
+    "ptma_metrics": {
+      "prompts": 7,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 25,
+      "human_modifications": 0,
+      "PDR": 1.0,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T01:21:21.030042"
+  },
+  {
+    "dataset_name": "iris.csv",
+    "file_path": "test_datasets/iris.csv",
+    "target_column": null,
+    "dataset_shape": [
+      150,
+      5
+    ],
+    "execution_time_seconds": 20.05772113800049,
+    "ptma_metrics": {
+      "prompts": 7,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 26,
+      "human_modifications": 0,
+      "PDR": 1.0,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T01:21:41.097061"
+  },
+  {
+    "dataset_name": "diabetes.csv",
+    "file_path": "test_datasets/diabetes.csv",
+    "target_column": "Outcome",
+    "dataset_shape": [
+      442,
+      11
+    ],
+    "execution_time_seconds": 40.78958010673523,
+    "ptma_metrics": {
+      "prompts": 7,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 25,
+      "human_modifications": 0,
+      "PDR": 1.0,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T01:22:21.898257"
+  },
+  {
+    "dataset_name": "breast_cancer.csv",
+    "file_path": "test_datasets/breast_cancer.csv",
+    "target_column": "target",
+    "dataset_shape": [
+      569,
+      31
+    ],
+    "execution_time_seconds": 72.58870029449463,
+    "ptma_metrics": {
+      "prompts": 7,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 25,
+      "human_modifications": 0,
+      "PDR": 1.0,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T01:23:34.494421"
+  },
+  {
+    "dataset_name": "wine.csv",
+    "file_path": "test_datasets/wine.csv",
+    "target_column": "quality",
+    "dataset_shape": [
+      178,
+      14
+    ],
+    "execution_time_seconds": 74.75600695610046,
+    "ptma_metrics": {
+      "prompts": 7,
+      "tasks": 7,
+      "corrections": 0,
+      "auto_modifications": 25,
+      "human_modifications": 0,
+      "PDR": 1.0,
+      "SAS": 1.0,
+      "COF": 0.0,
+      "PTMA": 0.5
+    },
+    "llm_enabled": true,
+    "llm_provider": "groq",
+    "timestamp": "2025-12-02T01:24:49.279158"
+  }
+]

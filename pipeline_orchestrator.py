@@ -4,10 +4,7 @@ Description: Orchestrates all modules in the autonomous data preprocessing pipel
 Author: Raj Nandini
 Date: 2025-10-28
 """
-
-import pandas as pd
-import numpy as np
-from typing import Optional, Dict, Any
+from metrics_tracker import metrics
 from pipeline_context import PipelineContext
 from ingestion import IngestionModule
 from cleaning import CleaningModule
@@ -16,261 +13,247 @@ from feature_engineering import FeatureEngineeringModule
 from eda import EDAModule
 from TTSplit import TrainTestSplitModule
 from vectorization import VectorizationModule
-from llm_agent import LLMAgent
 from metadata_tracker import MetadataTracker
+import sys
+import pandas as pd
+
 
 class PipelineOrchestrator:
-    def __init__(self, target_col = None):
-        self.context = PipelineContext(stage_name="agentic_pipeline")
-        self.context = PipelineContext(stage_name="agentic_pipeline")
-        # ⚙️ Smart LLM selection: prefer Transformers (free + local + stable)
-        try:
-            from transformers import pipeline  # Test if installed
-            print("[ℹ️] Using Hugging Face Transformers backend.")
-            self.agent = LLMAgent(mode="transformers", model="google/flan-t5-small")
-        except ImportError:
-            print("[⚠️] Transformers not installed, falling back to Ollama.")
-            self.agent = LLMAgent(mode="ollama", model="phi3:mini")
-
+    def __init__(self, target_col=None, llm_agent=None):
+        """
+        Initialize Pipeline Orchestrator.
+        
+        Args:
+            target_col: Optional target column for supervised learning (can be None)
+            llm_agent: Optional LLM agent for suggestions
+        """
+        self.context = PipelineContext()
+        self.ingestion = IngestionModule(self.context, llm_agent=llm_agent)
+        self.cleaning = CleaningModule(self.context, llm_agent=llm_agent)
+        self.transformation = None
+        self.feature_engineering = None
+        self.eda = EDAModule(self.context, llm_agent=llm_agent)
+        self.ttsplit = TrainTestSplitModule(self.context, llm_agent=llm_agent)
+        self.vectorization = VectorizationModule(self.context, llm_agent=llm_agent)
         self.tracker = MetadataTracker()
+        self.target_column = target_col  # ✅ CAN BE None
+        self.llm_agent = llm_agent
 
-        # Initialize modules
-        self.ingestion = IngestionModule(self.context, self.agent)
-        self.cleaning = CleaningModule(self.context, self.agent)
-
-        # Transformation and Feature Engineering modules
-        self.transformation = TransformationModule(raw_data=None, llm_agent=self.agent)
-        self.feature_engineering = FeatureEngineeringModule(raw_data=None, llm_agent=self.agent)
-
-        self.eda = EDAModule(self.context, self.agent)
-        self.ttsplit = TrainTestSplitModule(self.context)
-        self.vectorization = VectorizationModule(self.context, self.agent)
-
-
-    def run_transformation(self):
-        """
-        Run the transformation module using context.cleaned_data.
-        Automatically detects text columns.
-        Returns True on success, False otherwise.
-        """
-        self.context.log(" ► Running Transformation stage...")
+    def run_transformation(self) -> bool:
+        """Lazy-init and run TransformationModule."""
         try:
-            if getattr(self.context, "cleaned_data", None) is None:
-                self.context.log(" No cleaned_data available for transformation.")
-                self.context.status["transformation"] = "skipped"
-                return True  # not fatal; skip if no cleaned_data
-
-            # Provide data to the module and detect a text column
-            self.transformation.raw_data = self.context.cleaned_data.copy()
-            text_columns = [col for col in self.transformation.raw_data.select_dtypes(include=["object"]).columns 
-                            if self.transformation.raw_data[col].nunique() > 5]
-            text_column = text_columns[0] if text_columns else None
-
-
-            if text_column:
-                self.context.log(f" Detected text column for transformation: '{text_column}'")
-            else:
-                self.context.log(" No text column detected. Skipping text-based transformation.")
-
-            transformed = self.transformation.run(text_column=text_column, apply_balancing=False)
-
-            # Accept either DataFrame return or attribute
-            if transformed is not None:
-                self.context.transformed_data = transformed
-            else:
-                self.context.transformed_data = getattr(self.transformation, "transformed_data", None)
-
-            if self.context.transformed_data is None:
-                raise RuntimeError("Transformation produced no transformed_data.")
-
-            self.context.status["transformation"] = "completed"
-            self.context.log(" Transformation stage completed.")
-            return True
-        except Exception as e:
-            self.context.status["transformation"] = "failed"
-            self.context.log(f" Transformation stage failed: {e}")
-            return False
-
-   
-    def _validate_df(self, df: Optional[pd.DataFrame], stage: str) -> bool:
-        """Helper to validate DataFrames between pipeline stages."""
-        if df is None:
-            self.context.log(f" {stage}: Got None instead of DataFrame")
-            return False
-        if not isinstance(df, pd.DataFrame):
-            self.context.log(f" {stage}: Got {type(df)} instead of DataFrame")
-            return False
-        if len(df.index) == 0:
-            self.context.log(f" {stage}: DataFrame is empty")
-            return False
-        return True
-
-    def run_feature_engineering(self) -> bool:
-        """Run feature engineering stage."""
-        self.context.log(" ► Running Feature Engineering stage...")
-        try:
-            # Get source data with validation
-            base_df = None
-            if hasattr(self.context, "transformed_data"):
-                base_df = self.context.transformed_data
-            elif hasattr(self.context, "cleaned_data"):
-                base_df = self.context.cleaned_data
-
-            if base_df is None or not isinstance(base_df, pd.DataFrame):
-                self.context.log(" No valid DataFrame available for feature engineering")
-                self.context.status["feature_engineering"] = "skipped"
-                return True
-
-            # Convert numpy array to DataFrame if needed
-            if not isinstance(base_df, pd.DataFrame):
-                try:
-                    base_df = pd.DataFrame(base_df)
-                except Exception as e:
-                    self.context.log(f" Failed to convert input to DataFrame: {str(e)}")
-                    self.context.status["feature_engineering"] = "failed"
-                    return False
-
-            # Convert any numpy arrays in DataFrame cells to lists
-            for col in base_df.columns:
-                if base_df[col].apply(lambda x: isinstance(x, np.ndarray)).any():
-                    base_df[col] = base_df[col].apply(
-                        lambda x: x.tolist() if isinstance(x, np.ndarray) else x
-                    )
-                    self.context.log(f" Converted numpy arrays to lists in column: {col}")
-
-            # Set raw data for feature engineering
-            self.feature_engineering.raw_data = base_df.copy()
-
-            # Auto-detect text column - handle numpy columns safely
-            # Debug start
-            self.context.log(f"🔍 Debug: Starting text column detection")
-            self.context.log(f"🔍 Debug: Columns ({len(base_df.columns)}): {[str(c) for c in base_df.columns[:10]]}")
-
-            text_cols = []
-            try:
-                text_cols = base_df.select_dtypes(include=["object"]).columns.tolist()
-            except Exception as e:
-                self.context.log(f"⚠️ select_dtypes failed: {e}")
-                self.context.log(f"Base DF dtypes: {base_df.dtypes}")
-
-            text_column = None
-            for col in text_cols:
-                try:
-                    col_name = str(col)
-                    if (base_df[col_name].notna().any() and 
-                        base_df[col_name].nunique() > 5):
-                        text_column = col_name
-                        break
-                except Exception as e:
-                    self.context.log(f"⚠️ Column {col} check failed: {e}")
-
-
-            # Auto-detect label column - handle numpy columns safely
-            label_candidates = {'label', 'target', 'output', 'class', 'survived'}
-            label_column = None
-            for col in base_df.columns:
-                if str(col).lower() in label_candidates:  # Convert to string before comparison
-                    label_column = str(col)  # Store as Python str
-                    break
-
-            # Use self.context (not undefined 'context') for debug logging
-            self.context.log("🔍 Debug: Type of transformed_data: " + str(type(self.context.transformed_data)))
-            self.context.log("🔍 Debug: transformed_data columns: " + str(getattr(self.context.transformed_data, 'columns', 'NO COLUMNS')))
-            self.context.log("🔍 Debug: Sample transformed_data head:\n" + str(self.context.transformed_data.head() if hasattr(self.context.transformed_data, 'head') else self.context.transformed_data))
-
-            # Run feature engineering with string column names
-            engineered = self.feature_engineering.run(
-                text_column=text_column,
-                label_column=label_column
+            # Initialize if not already done
+            if self.transformation is None:
+                self.transformation = TransformationModule(
+                    context=self.context,
+                    llm_agent=self.llm_agent,
+                    save_outputs=True,
+                    output_dir="transformation_outputs"
+                )
+            
+            # Get cleaned data
+            data = getattr(self.context, "cleaned_data", None)
+            if data is None or (isinstance(data, pd.DataFrame) and data.empty):
+                self.context.log("❌ No cleaned data for transformation")
+                return False
+            
+            # Auto-detect text columns
+            text_columns = []
+            for col in data.select_dtypes(include=['object', 'string']).columns:
+                avg_length = data[col].astype(str).apply(len).mean()
+                if avg_length > 20:  # Likely text if average length > 20 chars
+                    text_columns.append(col)
+            
+            self.context.log(f"📝 Detected text columns: {text_columns or 'None'}")
+            
+            # Run transformation with appropriate parameters
+            result = self.transformation.run(
+                data=data,  # Pass data explicitly
+                target_column=self.target_column,
+                text_columns=text_columns if text_columns else None,
+                config={
+                    'scaling_method': 'auto',
+                    'binning_enabled': True,
+                    'balancing_enabled': False,  # Don't balance in transformation stage
+                    'text_processing_enabled': bool(text_columns)
+                }
             )
-
-            # Validate output
-            if engineered is None or not isinstance(engineered, pd.DataFrame):
-                raise ValueError("Feature engineering returned invalid output")
-
-            # Store results
-            self.context.engineered_data = engineered
-            self.context.transformed_data = engineered
-            self.context.status["feature_engineering"] = "completed"
-            self.context.log(" Feature Engineering stage completed.")
-            return True
-
+            
+            if result is False:
+                self.context.log("❌ Transformation returned False")
+                return False
+            
+            if isinstance(result, pd.DataFrame):
+                if result.empty:
+                    self.context.log("❌ Transformation returned empty DataFrame")
+                    return False
+                self.context.transformed_data = result
+                self.context.log(f"✅ Transformation completed. Shape: {result.shape}")
+                return True
+            else:
+                self.context.log(f"❌ Transformation returned unexpected type: {type(result)}")
+                return False
+                
         except Exception as e:
-            self.context.status["feature_engineering"] = "failed"
-            self.context.log(f" Feature Engineering stage failed: {str(e)}")
+            self.context.log(f"❌ Transformation error: {e}")
+            import traceback
+            self.context.log(f"Traceback: {traceback.format_exc()}")
+            return False
+    def run_feature_engineering(self) -> bool:
+        """Lazy-init and run FeatureEngineeringModule."""
+        try:
+            if self.feature_engineering is None:
+                self.feature_engineering = FeatureEngineeringModule(self.context, llm_agent=self.llm_agent)
+
+            result = self.feature_engineering.run()
+            # If we get here, feature engineering succeeded
+            return True
+        except Exception as e:
+            self.context.log(f"❌ Feature Engineering failed: {e}")
             return False
 
     def run(self, input_file: str = "sample_data.csv"):
-        self.context.log(" Starting Agentic Data Preprocessing Pipeline")
+        """Execute full pipeline with metrics tracking."""
+        try:
+            self.context.log("🚀 Starting Autonomous Data Preprocessing Pipeline")
+            metrics.reset()  # Fresh metrics for this run
 
-        # Ingestion needs file_path
-        if not self.ingestion.run(file_path=input_file):
-            self.context.log(" Ingestion failed.")
-            self.tracker.record(self.context)
-            return self.context.status
+            # ============================================
+            # STAGE 1: INGESTION
+            # ============================================
+            self.context.log("▶️ STAGE 1: Data Ingestion")
+            metrics.task_executed()
+            if not self.ingestion.run(file_path=input_file):
+                self.context.log("❌ Ingestion failed")
+                metrics.correction_made()
+                self.context.status["ingestion"] = "failed"
+                return self.context.status
+            self.context.status["ingestion"] = "completed"
+            self.context.log("✅ Ingestion completed")
 
-        # Cleaning (reads context.raw_data and writes context.cleaned_data)
-        if not self.cleaning.run():
-            self.context.log(" Cleaning failed.")
-            self.tracker.record(self.context)
-            return self.context.status
+            # ============================================
+            # STAGE 2: CLEANING
+            # ============================================
+            self.context.log("▶️ STAGE 2: Data Cleaning")
+            metrics.task_executed()
+            if not self.cleaning.run(missing_strategy="mean", drop_duplicates=True):
+                self.context.log("❌ Cleaning failed")
+                metrics.correction_made()
+                self.context.status["cleaning"] = "failed"
+                return self.context.status
+            self.context.status["cleaning"] = "completed"
+            self.context.log("✅ Cleaning completed")
+
+            # ============================================
+            # STAGE 3: TRANSFORMATION
+            # ============================================
+            self.context.log("▶️ STAGE 3: Data Transformation")
+            metrics.task_executed()
+            if not self.run_transformation():
+                self.context.log("❌ Transformation failed")
+                metrics.correction_made()
+                self.context.status["transformation"] = "failed"
+                return self.context.status
+            self.context.status["transformation"] = "completed"
+            self.context.log("✅ Transformation completed")
+
+            # ============================================
+            # STAGE 4: FEATURE ENGINEERING
+            # ============================================
+            self.context.log("▶️ STAGE 4: Feature Engineering")
+            metrics.task_executed()
+            if not self.run_feature_engineering():
+                self.context.log("❌ Feature Engineering failed")
+                metrics.correction_made()
+                self.context.status["feature_engineering"] = "failed"
+                return self.context.status
+            self.context.status["feature_engineering"] = "completed"
+            self.context.log("✅ Feature Engineering completed")
+
             
+            # STAGE 5: EDA
+            # ============================================
+            self.context.log("▶️ STAGE 5: Exploratory Data Analysis")
+            metrics.task_executed()
 
-        # Ensure downstream modules see the cleaned output
-        if getattr(self.context, "cleaned_data", None) is None:
-            self.context.log(" No cleaned_data available for transformation/EDA.")
-            self.context.status["eda"] = "failed"
+            try:
+                eda_result = self.eda.run()
+                
+                # Handle different return types
+                if isinstance(eda_result, bool):
+                    if not eda_result:  # False means failure
+                        self.context.log("❌ EDA failed")
+                        metrics.correction_made()
+                        self.context.status["eda"] = "failed"
+                        return self.context.status
+                    # True means success
+                    self.context.status["eda"] = "completed"
+                    self.context.log("✅ EDA completed")
+                elif eda_result is None:
+                    self.context.log("❌ EDA failed (returned None)")
+                    metrics.correction_made()
+                    self.context.status["eda"] = "failed"
+                    return self.context.status
+                else:
+                    # Any other return type (DataFrame, dict, etc.) is considered success
+                    self.context.status["eda"] = "completed"
+                    self.context.log("✅ EDA completed")
+                
+            except Exception as e:
+                self.context.log(f"❌ EDA error: {e}")
+                metrics.correction_made()
+                self.context.status["eda"] = "failed"
+                return self.context.status
+
+            # ============================================
+            # STAGE 6: TRAIN-TEST SPLIT
+            # ============================================
+            self.context.log("▶️ STAGE 6: Train-Test Split")
+            metrics.task_executed()
+            if not self.ttsplit.run(self.context.cleaned_data, target_col=self.target_column):
+                self.context.log("❌ Train-Test Split failed")
+                metrics.correction_made()
+                self.context.status["split"] = "failed"
+                return self.context.status
+            self.context.status["split"] = "completed"
+            self.context.log("✅ Train-Test Split completed")
+
+            # ============================================
+            # STAGE 7: VECTORIZATION
+            # ============================================
+            self.context.log("▶️ STAGE 7: Vectorization")
+            metrics.task_executed()
+            if not self.vectorization.run():
+                self.context.log("❌ Vectorization failed")
+                metrics.correction_made()
+                self.context.status["vectorization"] = "failed"
+                return self.context.status
+            self.context.status["vectorization"] = "completed"
+            self.context.log("✅ Vectorization completed")
+
+            # ============================================
+            # PIPELINE COMPLETE
+            # ============================================
+            final_metrics = metrics.to_dict()
+            self.context.status["autonomy_metrics"] = final_metrics
+            self.context.log(f"✅ Pipeline completed successfully!")
+            self.context.log(f"📊 PTMA Metrics: {final_metrics}")
+            
             self.tracker.record(self.context)
             return self.context.status
 
-        # For now, treat cleaned_data as transformed_data unless another transform stage exists
-        self.context.transformed_data = self.context.cleaned_data.copy()
-
-        # Transformation stage
-        if not self.run_transformation():
-            self.context.log(" Transformation failed.")
-            self.tracker.record(self.context)
+        except Exception as e:
+            self.context.log(f"💥 Pipeline error: {e}")
+            metrics.correction_made()
+            self.context.status["autonomy_metrics"] = metrics.to_dict()
             return self.context.status
 
-        # Feature Engineering stage
-        if not self.run_feature_engineering():
-            self.context.log(" Feature Engineering failed.")
-            self.tracker.record(self.context)
-            return self.context.status
-
-        # EDA (reads context.transformed_data)
-        if not self.eda.run():
-            self.context.log(" EDA failed.")
-            self.tracker.record(self.context)
-            return self.context.status
-
-        # Train-Test Split: pass the transformed dataframe
-        if not self.ttsplit.run(self.context.transformed_data):
-            self.context.log(" Train-Test Split failed.")
-            self.tracker.record(self.context)
-            return self.context.status
-
-        # Vectorization expects context.split_data with X_train/X_test
-        if not self.vectorization.run():
-            self.context.log(" Vectorization failed.")
-            self.tracker.record(self.context)
-            return self.context.status
-
-        self.context.log(" Pipeline completed successfully!")
-
-        # Save metadata after run
-        self.tracker.record(self.context)
-        self.context.log(" Metadata recorded.")
-
-        return self.context.status
-    
-def start_pipeline(input_file: str, target_column: str = None):
-    orchestrator = PipelineOrchestrator(target_col=target_column)
-    return orchestrator.run(input_file=input_file)
+def start_pipeline(input_file: str = "sample_data.csv", target_column: str = None, llm_agent=None):
+    """Entry point for starting the pipeline."""
+    orchestrator = PipelineOrchestrator(target_col=target_column, llm_agent=llm_agent)
+    return orchestrator.run(input_file)
 
 if __name__ == "__main__":
-    import sys
-    input_file = sys.argv[1] if len(sys.argv) > 1 else "sample_data.csv"
-    orchestrator = PipelineOrchestrator()
-    status = orchestrator.run(input_file=input_file)
-    print("\nFinal status:", status)
+    file_path = sys.argv[1] if len(sys.argv) > 1 else "sample_data.csv"
+    result = start_pipeline(input_file=file_path)
+    print(f"\n📊 Final Result:\n{result}")

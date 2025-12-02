@@ -9,6 +9,7 @@ import sys
 import os
 import pandas as pd
 from cleaning import CleaningModule
+from metrics_tracker import metrics
 
 if __name__ == "__main__":
     #Read file path from CLI args

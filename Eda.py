@@ -17,6 +17,7 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from scipy.stats import chi2_contingency
+from metrics_tracker import metrics
 
 
 from pipeline_context import PipelineContext  # Your context module
@@ -28,9 +29,10 @@ class EDAModule:
         self.save_plots = save_plots
         self.plot_dir = plot_dir
         os.makedirs(self.plot_dir, exist_ok=True)
+        metrics.task_executed()
 
     #############################
-    # 1. Data Overview
+    # 1. Data Overviewz
     #############################
     def data_overview(self, df):
         overview = {
@@ -39,6 +41,7 @@ class EDAModule:
             "missing_values": df.isna().sum().to_dict(),
             "memory_usage_bytes": df.memory_usage().sum()
         }
+        metrics.auto_mod()
         return overview
 
     #############################
@@ -46,6 +49,7 @@ class EDAModule:
     #############################
     def univariate_analysis(self, df):
         results = {}
+        metrics.auto_mod()
         num_cols = df.select_dtypes(include=np.number).columns
         cat_cols = df.select_dtypes(include="object").columns
 
@@ -82,7 +86,7 @@ class EDAModule:
     #############################
     def bivariate_analysis(self, df, target_col=None):
         results = {}
-
+        metrics.auto_mod()
         # Correlation matrix for numeric columns
         corr = df.corr(numeric_only=True)
         plt.figure(figsize=(10, 6))
@@ -117,6 +121,7 @@ class EDAModule:
     def target_analysis(self, df, target_col):
         if not target_col or target_col not in df.columns:
             return {}
+        metrics.auto_mod()
         target_counts = df[target_col].value_counts(normalize=True).to_dict()
         imbalance_flag = min(target_counts.values()) < 0.2
         return {"target_distribution": target_counts, "imbalance_flag": imbalance_flag}
@@ -126,6 +131,7 @@ class EDAModule:
     #############################
     def outlier_analysis(self, df):
         results = {}
+        metrics.auto_mod()
         num_cols = df.select_dtypes(include=np.number).columns
         for col in num_cols:
             plt.figure()
@@ -147,6 +153,7 @@ class EDAModule:
     def feature_importance(self, df, target_col, task_type="classification"):
         if not target_col or target_col not in df.columns:
             return {}
+        metrics.auto_mod()
         X = df.drop(columns=[target_col])
         y = df[target_col]
 
@@ -166,7 +173,7 @@ class EDAModule:
         results = {}
         # Skewness
         results["skewness"] = df.skew(numeric_only=True).to_dict()
-
+        metrics.auto_mod()
         # Target imbalance
         if target_col and target_col in df.columns:
             counts = df[target_col].value_counts(normalize=True)
@@ -190,7 +197,7 @@ class EDAModule:
     def generate_report(self, eda_results, report_file="eda_report.html"):
         html = "<html><head><title>EDA Report</title></head><body>"
         html += "<h1>Exploratory Data Analysis Report</h1>"
-
+        metrics.auto_mod()
         for section, result in eda_results.items():
             html += f"<h2>{section.replace('_',' ').title()}</h2>"
             html += f"<pre>{result}</pre>"
@@ -205,10 +212,13 @@ class EDAModule:
     #############################
     def run(self, target_col=None, task_type="classification"):
         self.context.log("Starting EDA Module...")
+        metrics.auto_mod()
         try:
             df = getattr(self.context, "transformed_data", None)
             if df is None:
                 raise ValueError("No transformed_data found in context.")
+            if df.empty:
+                raise ValueError("Transformed data is empty.")
 
             eda_results = {}
             eda_results["data_overview"] = self.data_overview(df)
@@ -231,21 +241,22 @@ class EDAModule:
 
             # Optional LLM suggestion
             if self.llm_agent:
+                metrics.prompt_used()
                 suggestion = self.llm_agent.ask(f"EDA summary: {eda_results}. Suggest further insights or checks.")
                 self.context.log(f" LLM Suggestion: {suggestion}")
 
-            return True
-        
+            return True  # ✅ Return True for success
 
         except Exception as e:
             self.context.status["eda"] = "failed"
             self.context.log(f" EDA failed: {e}")
-            return False
+            return False  # ✅ Return False for failure
      ###############################################
     # 10. External Automated EDA Tools
     ###############################################
     def automated_eda_tools(self, df, target_col=None):
         results = {}
+        metrics.auto_mod()
         try:
             from ydata_profiling import ProfileReport
             profile = ProfileReport(df, title="YData Profiling Report", explorative=True)
@@ -284,3 +295,14 @@ class EDAModule:
             results["autoviz_error"] = str(e)
 
         return results
+
+    def generate_statistical_summary(self, df):
+        """Generate statistical summary."""
+        pass
+
+    def generate_visualizations(self, df):
+        """Generate visualizations."""
+        pass
+
+    def log(self, message: str):
+        self.context.log(message)

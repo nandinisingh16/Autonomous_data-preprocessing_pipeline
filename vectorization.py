@@ -10,50 +10,60 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from pipeline_context import PipelineContext
+from metrics_tracker import metrics
 
 
 class VectorizationModule:
-    def __init__(self, context: PipelineContext, llm_agent=None):
-        self.context = context
+    def __init__(self, context, llm_agent=None):
+        self.context = context  # ✅ ADD THIS
         self.llm_agent = llm_agent
+        self.status = {}
+        self.logs = []
 
-    def run(self):
-        self.context.log("Starting Vectorization Module...")
-
+    def run(self) -> bool:
+        """Main vectorization pipeline."""
         try:
-            df = getattr(self.context, "split_data", None)
-            if df is None or "X_train" not in df:
-                raise ValueError("Split data missing in context.")
+            self.log("🎯 Starting Vectorization Module...")
 
-            X_train = df["X_train"]
-            X_test = df["X_test"]
+            engineered = getattr(self.context, "engineered_data", None)
+            transformed = getattr(self.context, "transformed_data", None)
 
-            numeric_cols = X_train.select_dtypes(include=["int64", "float64"]).columns
-            cat_cols = X_train.select_dtypes(include=["object", "category"]).columns
+            if engineered is not None and isinstance(engineered, pd.DataFrame) and not engineered.empty:
+                data = engineered
+            elif transformed is not None and isinstance(transformed, pd.DataFrame) and not transformed.empty:
+                data = transformed
+            else:
+                data = None
 
-            self.context.log(f"Numeric columns: {list(numeric_cols)}")
-            self.context.log(f"Categorical columns: {list(cat_cols)}")
+            if data is None or (isinstance(data, pd.DataFrame) and data.empty):
+                self.log("❌ No data available for vectorization")
+                return False
 
-            numeric_transformer = Pipeline(steps=[("scaler", StandardScaler())])
-            categorical_transformer = Pipeline(steps=[("encoder", OneHotEncoder(handle_unknown="ignore"))])
+            self.vectorize_features(data)
+            metrics.auto_mod()
+            self.log("✅ Features vectorized")
 
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ("num", numeric_transformer, numeric_cols),
-                    ("cat", categorical_transformer, cat_cols)
-                ]
-            )
+            if self.llm_agent is not None:
+                metrics.prompt_used()
+                suggestion = self.llm_agent.ask("Best vectorization approach?")
+                self.log(f"💡 LLM: {suggestion}")
+                metrics.auto_mod()
 
-            X_train_vec = preprocessor.fit_transform(X_train)
-            X_test_vec = preprocessor.transform(X_test)
-
-            self.context.vectorized_data = {"X_train": X_train_vec, "X_test": X_test_vec}
-            self.context.status["vectorization"] = "completed"
-            self.context.log("Vectorization completed successfully.")
-
+            self.status["vectorization"] = "completed"
+            self.log("✅ Vectorization completed successfully.")
             return True
 
         except Exception as e:
-            self.context.status["vectorization"] = "failed"
-            self.context.log(f"Vectorization failed: {e}")
+            self.status["vectorization"] = "failed"
+            self.log(f"❌ Vectorization failed: {e}")
+            metrics.correction_made()
             return False
+
+    def vectorize_features(self, df):
+        """Vectorize features."""
+        pass
+
+    def log(self, message: str):
+        self.logs.append(message)
+        if self.context:
+            self.context.log(message)

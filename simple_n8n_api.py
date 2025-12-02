@@ -1,764 +1,903 @@
+"""
+N8N Integration API for Autonomous Data Preprocessing Pipeline
+Provides REST endpoints for n8n workflow orchestration
+"""
 from flask import Flask, request, jsonify
 import threading
 import uuid
 import time
 import logging
 from datetime import datetime
+from metrics_tracker import metrics
 import os
 import json
 import sys
+import pandas as pd
 
 # Add the current directory to Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+# Import pipeline components
+from pipeline_orchestrator import PipelineOrchestrator
+from llm_agent import create_llm_agent
+
 app = Flask(__name__)
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Use module-level global variables that persist across requests
 _pipeline_status = {}
 _pipeline_results = {}
 _pipeline_lock = threading.Lock()
 
-def create_mock_results(job_id, data):
-    """Create consistent mock results"""
-    return {
-        "run_id": job_id,
-        "success": True,
-        "completed_modules": ["ingestion", "cleaning", "transformation", "feature_engineering", "eda"],
-        "dataset_info": {
-            "columns": 12,
-            "rows": 891,
-            "size_bytes": 60302,
-            "file_path": f"uploaded_files/{job_id}.csv",
-            "missing_values": {"Age": 177, "Cabin": 687, "Embarked": 2}
-        },
-        "target_column": data.get('target_column', 'Survived'),
-        "completion_time": datetime.now().isoformat(),
-        "note": "Immediate mock response"
-    }
 
-def run_pipeline_background(data, job_id):
-    """Run the full pipeline in background"""
-    try:
-        print(f"[🔧] Starting background pipeline for {job_id}")
-        
-        # Update status
-        with _pipeline_lock:
-            _pipeline_status[job_id].update({
-                "status": "running",
-                "progress": 50,
-                "message": "Processing data..."
-            })
-        
-        # Try to import and run actual pipeline
-        try:
-            # Try different import approaches
-            try:
-                from autonomous_data_preprocessing_pipeline import AutonomousDataPreprocessingPipeline
-                print(f"[✅] Using real pipeline")
-                pipeline = AutonomousDataPreprocessingPipeline()
-                result = pipeline.run(
-                    file_url=data.get('file_url'),
-                    target_column=data.get('target_column')
-                )
-                
-                # Update with real results
-                with _pipeline_lock:
-                    _pipeline_results[job_id] = {
-                        "run_id": job_id,
-                        "success": True,
-                        "completed_modules": ["ingestion", "cleaning", "transformation", "feature_engineering", "eda"],
-                        "dataset_info": {
-                            "columns": result.get('columns', 12),
-                            "rows": result.get('rows', 891),
-                            "size_bytes": result.get('size_bytes', 60302),
-                            "file_path": result.get('file_path', f'processed_data/{job_id}_output.csv'),
-                            "missing_values": result.get('missing_values', {})
-                        },
-                        "target_column": data.get('target_column', 'Survived'),
-                        "completion_time": datetime.now().isoformat(),
-                        "note": "Real pipeline results"
-                    }
-                    
-            except ImportError as e:
-                print(f"[⚠️] Real pipeline not available: {e}")
-                # Use mock results
-                with _pipeline_lock:
-                    _pipeline_results[job_id] = create_mock_results(job_id, data)
-                    _pipeline_results[job_id]["note"] = "Mock results - pipeline import failed"
-        
-        except Exception as pipeline_error:
-            print(f"[❌] Pipeline error: {pipeline_error}")
-            # Fallback to mock results
-            with _pipeline_lock:
-                _pipeline_results[job_id] = create_mock_results(job_id, data)
-                _pipeline_results[job_id]["note"] = f"Mock results - {str(pipeline_error)}"
-        
-        # Mark as completed
-        with _pipeline_lock:
-            _pipeline_status[job_id].update({
-                "status": "completed",
-                "progress": 100,
-                "completion_time": datetime.now().isoformat(),
-                "message": "Pipeline completed"
-            })
-        
-        print(f"[✅] Background processing completed for {job_id}")
-        
-    except Exception as e:
-        print(f"[💥] Background thread crashed: {e}")
-        # Ensure we have results even if thread crashes
-        with _pipeline_lock:
-            if job_id not in _pipeline_results:
-                _pipeline_results[job_id] = create_mock_results(job_id, data)
-                _pipeline_results[job_id]["note"] = "Emergency fallback results"
-
-@app.route('/webhook/start', methods=['POST'])
-def start_pipeline():
-    """Immediate response endpoint - starts pipeline in background"""
-    try:
-        data = request.json
-        job_id = str(uuid.uuid4())
-        
-        print(f"[🎬] Starting new pipeline job: {job_id}")
-        
-        # Create IMMEDIATE results with thread locking
-        with _pipeline_lock:
-            _pipeline_results[job_id] = create_mock_results(job_id, data)
-            _pipeline_results[job_id]["immediate_response"] = True
-            
-            _pipeline_status[job_id] = {
-                "status": "started",
-                "start_time": datetime.now().isoformat(),
-                "message": "Pipeline processing started",
-                "progress": 10,
-                "run_id": job_id
+@app.route('/')
+def home():
+    """Home endpoint with API documentation"""
+    return jsonify({
+        "message": "🚀 Autonomous Data Preprocessing Pipeline - n8n API",
+        "version": "1.0",
+        "status": "running",
+        "endpoints": {
+            "webhook_start": {
+                "method": "POST",
+                "path": "/webhook/start",
+                "description": "Trigger pipeline execution with LLM enabled by default",
+                "example": {
+                    "file_url": "test_datasets/titanic.csv",
+                    "target_column": None,
+                    "use_llm": True,
+                    "llm_provider": "groq"
+                },
+                "note": "LLM is enabled by default for enhanced autonomous preprocessing"
+            },
+            "get_status": {
+                "method": "GET",
+                "path": "/status/<job_id>",
+                "description": "Check pipeline status"
+            },
+            "ptma_metrics": {
+                "method": "GET",
+                "path": "/api/ptma-metrics/<run_id>",
+                "description": "Get PTMA autonomy metrics"
+            },
+            "quality_check": {
+                "method": "GET",
+                "path": "/api/quality-check/<run_id>",
+                "description": "Data quality assessment"
+            },
+            "eda": {
+                "method": "GET",
+                "path": "/api/run-eda/<run_id>",
+                "description": "Exploratory Data Analysis results"
+            },
+            "preprocess": {
+                "method": "GET",
+                "path": "/api/preprocess/<run_id>",
+                "description": "Preprocessing summary"
+            },
+            "ml_summary": {
+                "method": "GET",
+                "path": "/api/ml-summary/<run_id>",
+                "description": "ML readiness summary"
+            },
+            "performance_metrics": {
+                "method": "GET",
+                "path": "/api/performance-metrics/<run_id>",
+                "description": "Comprehensive performance metrics"
+            },
+            "health": {
+                "method": "GET",
+                "path": "/health",
+                "description": "Server health check"
             }
-        
-        # Return IMMEDIATE response
-        response = {
-            "status": "accepted",
-            "job_id": job_id,
-            "message": "Pipeline started processing in background",
-            "check_status_url": f"http://localhost:5000/status/{job_id}",
-            "overview_url": f"http://localhost:5000/api/overview/{job_id}",
-            "immediate_data": True
         }
-        
-        # Start background processing (don't wait for it)
-        thread = threading.Thread(
-            target=run_pipeline_background, 
-            args=(data, job_id),
-            daemon=True
-        )
-        thread.start()
-        
-        print(f"[🚀] Pipeline {job_id} started in background")
-        
-        return jsonify(response), 202
-        
-    except Exception as e:
-        print(f"[💥] Start endpoint failed: {e}")
-        return jsonify({"error": str(e)}), 500
+    })
 
-@app.route('/api/overview/<run_id>', methods=['GET'])
-def get_overview(run_id):
-    """Get pipeline overview for n8n"""
-    try:
-        print(f"[🔍] Overview requested for: {run_id}")
-        
-        # Check if we have results for this run_id
-        if run_id in _pipeline_results:
-            result = _pipeline_results[run_id]
-            return jsonify(result)
-        
-        # Check if pipeline is still running
-        elif run_id in _pipeline_status:
-            status = _pipeline_status[run_id]
-            return jsonify({
-                "run_id": run_id,
-                "status": status["status"],
-                "progress": status["progress"],
-                "message": status.get("message", "Processing..."),
-                "success": status["status"] == "completed"
-            })
-        
-        else:
-            return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
-            
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/api/quality-check/<run_id>', methods=['GET'])
-def quality_check(run_id):
-    """Data quality check endpoint for n8n"""
-    try:
-        print(f"[🔍] Quality check requested for: {run_id}")
-        
-        # Check if we have results for this run_id
-        if run_id in _pipeline_results:
-            result = _pipeline_results[run_id]
-            
-            # Create quality check response based on the data
-            dataset_info = result.get('dataset_info', {})
-            columns = dataset_info.get('columns', 0)
-            rows = dataset_info.get('rows', 0)
-            missing_values = dataset_info.get('missing_values', {})
-            
-            # Calculate some basic quality metrics
-            total_cells = columns * rows
-            missing_count = sum(missing_values.values()) if isinstance(missing_values, dict) else 0
-            completeness_ratio = (total_cells - missing_count) / total_cells if total_cells > 0 else 0
-            quality_score = int(completeness_ratio * 100)
-            
-            quality_response = {
-                "run_id": run_id,
-                "quality_score": quality_score,
-                "status": "excellent" if quality_score > 90 else "good" if quality_score > 75 else "needs_attention",
-                "checks": {
-                    "data_completeness": quality_score,
-                    "row_count": rows,
-                    "column_count": columns,
-                    "missing_values": missing_count,
-                    "duplicates": dataset_info.get('duplicates', 0),
-                    "data_types_consistent": True
-                },
-                "recommendations": [
-                    f"Data completeness: {quality_score}%",
-                    f"Dataset has {rows} rows and {columns} columns",
-                    "Consider handling missing values" if missing_count > 0 else "No missing values detected"
-                ],
-                "timestamp": datetime.now().isoformat()
-            }
-            
-            print(f"[✅] Quality check completed for {run_id}")
-            return jsonify(quality_response)
-        
-        else:
-            print(f"[❌] Run ID {run_id} not found for quality check")
-            # Return a generic quality check response
-            return jsonify({
-                "run_id": run_id,
-                "quality_score": 85,
-                "status": "good",
-                "checks": {
-                    "data_completeness": 85,
-                    "row_count": 891,
-                    "column_count": 12,
-                    "missing_values": 177,
-                    "duplicates": 0,
-                    "data_types_consistent": True
-                },
-                "recommendations": [
-                    "Using default quality metrics",
-                    "Dataset appears to be well-structured",
-                    "Consider checking Age column for missing values"
-                ],
-                "note": "Generic response - run ID not found",
-                "timestamp": datetime.now().isoformat()
-            })
-            
-    except Exception as e:
-        print(f"[💥] Quality check error: {e}")
-        return jsonify({
-            "run_id": run_id,
-            "quality_score": 75,
-            "status": "needs_review",
-            "error": str(e),
-            "timestamp": datetime.now().isoformat()
-        }), 500
-
-@app.route('/api/run-eda/<run_id>', methods=['GET'])
-def run_eda(run_id):
-    """EDA endpoint for n8n"""
-    try:
-        print(f"[🔍] EDA requested for: {run_id}")
-        
-        # Check if we have results for this run_id
-        if run_id in _pipeline_results:
-            result = _pipeline_results[run_id]
-            dataset_info = result.get('dataset_info', {})
-            
-            # Create EDA response
-            eda_response = {
-                "run_id": run_id,
-                "status": "completed",
-                "eda_report": {
-                    "summary": {
-                        "dataset_shape": f"{dataset_info.get('rows', 891)} rows × {dataset_info.get('columns', 12)} columns",
-                        "memory_usage": f"{dataset_info.get('size_bytes', 60302) / 1024:.1f} KB",
-                        "data_types": {
-                            "numerical": ["Age", "Fare", "SibSp", "Parch", "PassengerId"],
-                            "categorical": ["Survived", "Pclass", "Sex", "Embarked", "Cabin"],
-                            "text": ["Name", "Ticket"]
-                        }
-                    },
-                    "missing_data": {
-                        "total_missing": 866,
-                        "columns_with_missing": ["Age", "Cabin", "Embarked"],
-                        "missing_percentage": 8.1
-                    },
-                    "statistical_summary": {
-                        "target_distribution": {"Survived": 0.38, "Not Survived": 0.62},
-                        "correlation_insights": ["Fare correlates with Pclass", "Age has weak correlation with Survival"],
-                        "key_findings": [
-                            "First class passengers had higher survival rate",
-                            "Women and children had priority during evacuation",
-                            "Fare distribution is right-skewed"
-                        ]
-                    },
-                    "visualizations": {
-                        "generated_charts": ["survival_by_class", "age_distribution", "fare_vs_survival"],
-                        "report_path": f"eda_reports/{run_id}_report.html"
-                    }
-                },
-                "recommendations": [
-                    "Consider feature engineering: FamilySize = SibSp + Parch",
-                    "Extract titles from Name column (Mr, Mrs, Miss, etc.)",
-                    "Bin Age into categories (child, adult, senior)"
-                ],
-                "timestamp": datetime.now().isoformat()
-            }
-            
-            print(f"[✅] EDA completed for {run_id}")
-            return jsonify(eda_response)
-        
-        else:
-            print(f"[❌] Run ID {run_id} not found for EDA")
-            # Return a generic EDA response
-            return jsonify({
-                "run_id": run_id,
-                "status": "completed",
-                "eda_report": {
-                    "summary": {
-                        "dataset_shape": "891 rows × 12 columns",
-                        "memory_usage": "58.9 KB",
-                        "data_types": {
-                            "numerical": ["Age", "Fare", "SibSp", "Parch", "PassengerId"],
-                            "categorical": ["Survived", "Pclass", "Sex", "Embarked"],
-                            "text": ["Name", "Ticket", "Cabin"]
-                        }
-                    },
-                    "missing_data": {
-                        "total_missing": 866,
-                        "columns_with_missing": ["Age", "Cabin", "Embarked"],
-                        "missing_percentage": 8.1
-                    },
-                    "statistical_summary": {
-                        "target_distribution": {"0": 0.62, "1": 0.38},
-                        "correlation_insights": ["Negative correlation between Pclass and Survival", "Fare decreases with Pclass"],
-                        "key_findings": [
-                            "Survival rate decreases with passenger class",
-                            "Female passengers had significantly higher survival rate",
-                            "Children under 10 had better survival chances"
-                        ]
-                    },
-                    "visualizations": {
-                        "generated_charts": ["survival_rate_by_gender", "age_distribution_by_survival", "fare_distribution_by_class"],
-                        "report_path": f"eda_reports/{run_id}_default_report.html"
-                    }
-                },
-                "recommendations": [
-                    "Create family size feature from SibSp and Parch",
-                    "Extract cabin deck from Cabin column",
-                    "Handle missing Age values with median or predictive imputation"
-                ],
-                "note": "Default EDA response - run ID not found",
-                "timestamp": datetime.now().isoformat()
-            })
-            
-    except Exception as e:
-        print(f"[💥] EDA error: {e}")
-        return jsonify({
-            "run_id": run_id,
-            "status": "error",
-            "error": str(e),
-            "timestamp": datetime.now().isoformat()
-        }), 500
-
-@app.route('/api/preprocess/<run_id>', methods=['GET'])
-def preprocess_dataset(run_id):
-    """Preprocessing endpoint for n8n"""
-    try:
-        print(f"[🔍] Preprocessing requested for: {run_id}")
-        
-        # Check if we have results for this run_id
-        if run_id in _pipeline_results:
-            result = _pipeline_results[run_id]
-            
-            # Create preprocessing response
-            preprocess_response = {
-                "run_id": run_id,
-                "status": "completed",
-                "preprocessing": {
-                    "steps_applied": [
-                        "Missing value imputation",
-                        "Categorical encoding", 
-                        "Feature scaling",
-                        "Outlier handling",
-                        "Text preprocessing"
-                    ],
-                    "transformations": {
-                        "numerical_features": ["Age", "Fare", "SibSp", "Parch"],
-                        "categorical_features": ["Sex", "Embarked", "Pclass"],
-                        "encoded_features": ["Sex_male", "Sex_female", "Embarked_C", "Embarked_Q", "Embarked_S"],
-                        "scaled_features": ["Age", "Fare"]
-                    },
-                    "feature_engineering": {
-                        "new_features": ["FamilySize", "IsAlone", "Title"],
-                        "feature_importance": ["Sex", "Pclass", "Fare", "Age", "FamilySize"]
-                    }
-                },
-                "output": {
-                    "training_samples": 712,
-                    "testing_samples": 179,
-                    "feature_count": 15,
-                    "processed_file": f"processed_data/{run_id}_preprocessed.csv",
-                    "model_ready": True
-                },
-                "model_recommendations": [
-                    "Random Forest for baseline",
-                    "Gradient Boosting for better performance", 
-                    "Logistic Regression for interpretability"
-                ],
-                "next_steps": [
-                    "Train baseline model",
-                    "Perform cross-validation",
-                    "Hyperparameter tuning"
-                ],
-                "timestamp": datetime.now().isoformat()
-            }
-            
-            print(f"[✅] Preprocessing completed for {run_id}")
-            return jsonify(preprocess_response)
-        
-        else:
-            print(f"[❌] Run ID {run_id} not found for preprocessing")
-            # Return a generic preprocessing response
-            return jsonify({
-                "run_id": run_id,
-                "status": "completed",
-                "preprocessing": {
-                    "steps_applied": [
-                        "Data cleaning",
-                        "Missing value imputation", 
-                        "Feature encoding",
-                        "Normalization",
-                        "Train-test split"
-                    ],
-                    "transformations": {
-                        "numerical_features": ["Age", "Fare", "SibSp", "Parch"],
-                        "categorical_features": ["Sex", "Embarked", "Pclass"],
-                        "encoded_features": ["Sex_male", "Sex_female", "Embarked_C", "Embarked_Q", "Embarked_S"],
-                        "scaled_features": ["Age", "Fare"]
-                    },
-                    "feature_engineering": {
-                        "new_features": ["FamilySize", "IsAlone", "Title"],
-                        "feature_importance": ["Sex", "Pclass", "Fare", "Age", "FamilySize"]
-                    }
-                },
-                "output": {
-                    "training_samples": 712,
-                    "testing_samples": 179,
-                    "feature_count": 15,
-                    "processed_file": f"processed_data/{run_id}_preprocessed.csv",
-                    "model_ready": True
-                },
-                "model_recommendations": [
-                    "Start with Random Forest classifier",
-                    "Try XGBoost for better accuracy",
-                    "Use Logistic Regression as baseline"
-                ],
-                "next_steps": [
-                    "Proceed to model training",
-                    "Evaluate model performance",
-                    "Deploy best performing model"
-                ],
-                "note": "Default preprocessing response",
-                "timestamp": datetime.now().isoformat()
-            })
-            
-    except Exception as e:
-        print(f"[💥] Preprocessing error: {e}")
-        return jsonify({
-            "run_id": run_id,
-            "status": "error",
-            "error": str(e),
-            "timestamp": datetime.now().isoformat()
-        }), 500
-
-@app.route('/status/<job_id>', methods=['GET'])
-def get_status(job_id):
-    """Check pipeline status"""
-    status = _pipeline_status.get(job_id, {"error": "Job not found"})
-    return jsonify(status)
 
 @app.route('/health', methods=['GET'])
 def health_check():
-    """Simple health check"""
+    """Health check endpoint"""
     return jsonify({
-        "status": "healthy", 
+        "status": "healthy",
         "timestamp": datetime.now().isoformat(),
+        "server": "running",
         "active_jobs": len(_pipeline_status),
         "completed_jobs": len(_pipeline_results)
     })
 
-@app.route('/debug', methods=['GET'])
-def debug():
-    """Debug endpoint to see all jobs"""
-    return jsonify({
-        "pipeline_status": _pipeline_status,
-        "pipeline_results": _pipeline_results
-    })
+
+@app.route('/webhook/start', methods=['POST'])
+def webhook_start():
+    """
+    Webhook endpoint for n8n to trigger pipeline.
+    
+    Request JSON:
+    {
+        "file_url": "test_datasets/titanic.csv",
+        "target_column": null,  # Optional
+        "use_llm": true,
+        "llm_provider": "groq"  # openai, anthropic, groq
+    }
+    """
+    try:
+        data = request.json or {}
+        
+        file_url = data.get("file_url", "sample_data.csv")
+        target_column = data.get("target_column", None)  # ✅ OPTIONAL
+        use_llm = data.get("use_llm", True)  # ✅ ENABLED BY DEFAULT
+        llm_provider = data.get("llm_provider", "groq")  # ✅ DEFAULT TO GROQ
+        
+        # Generate unique run ID
+        run_id = str(uuid.uuid4())
+        
+        logger.info(f"🚀 Pipeline triggered (ID: {run_id})")
+        logger.info(f"   File: {file_url}")
+        logger.info(f"   Target: {target_column or 'None (unsupervised)'}")
+        logger.info(f"   LLM: {llm_provider if use_llm else 'Disabled'}")
+        
+        # Initialize status
+        with _pipeline_lock:
+            _pipeline_status[run_id] = {
+                "run_id": run_id,
+                "status": "started",
+                "progress": 0,
+                "file": file_url,
+                "target_column": target_column,
+                "timestamp": datetime.now().isoformat(),
+                "message": "Pipeline initializing..."
+            }
+        
+        # Run in background thread
+        thread = threading.Thread(
+            target=run_pipeline_background,
+            args=(file_url, target_column, use_llm, llm_provider, run_id),
+            daemon=True
+        )
+        thread.start()
+        
+        # Return immediately with run_id
+        return jsonify({
+            "status": "queued",
+            "run_id": run_id,
+            "file": file_url,
+            "target_column": target_column,
+            "use_llm": use_llm,
+            "llm_provider": llm_provider,
+            "message": "Pipeline queued for execution. Check status with /status/<run_id>",
+            "timestamp": datetime.now().isoformat()
+        }), 202  # Accepted
+        
+    except Exception as e:
+        logger.error(f"❌ Webhook error: {e}", exc_info=True)
+        return jsonify({
+            "status": "error",
+            "message": str(e),
+            "timestamp": datetime.now().isoformat()
+        }), 500
+
+
+def run_pipeline_background(file_url, target_column, use_llm, llm_provider, run_id):
+    """Execute pipeline in background thread"""
+    try:
+        logger.info(f"[🔧] Starting pipeline execution: {run_id}")
+        
+        with _pipeline_lock:
+            _pipeline_status[run_id].update({
+                "status": "running",
+                "progress": 25,
+                "message": "Initializing pipeline..."
+            })
+        
+        # Create LLM agent if needed
+        llm_agent = create_llm_agent(use_llm, llm_provider) if use_llm else None
+        
+        # Create orchestrator (✅ NO HARDCODED TARGET COLUMN)
+        orchestrator = PipelineOrchestrator(target_col=target_column, llm_agent=llm_agent)
+        
+        with _pipeline_lock:
+            _pipeline_status[run_id].update({
+                "progress": 50,
+                "message": "Running pipeline stages..."
+            })
+        
+        # Run pipeline
+        start_time = time.time()
+        result = orchestrator.run(input_file=file_url)
+        execution_time = time.time() - start_time
+        
+        # Extract data info
+        ingested_data = getattr(orchestrator.context, "ingested_data", None)
+        if ingested_data is not None and isinstance(ingested_data, pd.DataFrame):
+            dataset_shape = ingested_data.shape
+            missing_count = ingested_data.isnull().sum().sum()
+        else:
+            dataset_shape = (0, 0)
+            missing_count = 0
+        
+        # Store results
+        pipeline_result = {
+            "run_id": run_id,
+            "status": "completed",
+            "file": file_url,
+            "target_column": target_column,
+            "execution_time_seconds": execution_time,
+            "dataset_info": {
+                "rows": dataset_shape[0],
+                "columns": dataset_shape[1],
+                "missing_values": int(missing_count),
+                "file_path": file_url
+            },
+            "ptma_metrics": result.get("autonomy_metrics", {}),
+            "pipeline_status": result,
+            "llm_enabled": use_llm,
+            "llm_provider": llm_provider,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        with _pipeline_lock:
+            _pipeline_results[run_id] = pipeline_result
+            _pipeline_status[run_id].update({
+                "status": "completed",
+                "progress": 100,
+                "completion_time": datetime.now().isoformat(),
+                "message": f"Pipeline completed in {execution_time:.2f}s",
+                "execution_time": execution_time,
+                "ptma_metrics": result.get("autonomy_metrics", {})
+            })
+        
+        logger.info(f"✅ Pipeline completed: {run_id} ({execution_time:.2f}s)")
+        
+    except Exception as e:
+        logger.error(f"❌ Pipeline error ({run_id}): {e}", exc_info=True)
+        with _pipeline_lock:
+            _pipeline_status[run_id].update({
+                "status": "failed",
+                "progress": 0,
+                "error": str(e),
+                "message": f"Pipeline failed: {str(e)}"
+            })
+
+
+@app.route('/status/<job_id>', methods=['GET'])
+def get_status(job_id):
+    """Get pipeline status"""
+    with _pipeline_lock:
+        status = _pipeline_status.get(job_id)
+    
+    if status is None:
+        return jsonify({"error": f"Job '{job_id}' not found"}), 404
+    
+    return jsonify(status)
+
+
+@app.route('/api/ptma-metrics/<run_id>', methods=['GET'])
+def get_ptma_metrics(run_id):
+    """Get PTMA autonomy metrics for a pipeline run"""
+    try:
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. PTMA metrics will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat(),
+                        "raw_metrics": {
+                            "tasks": 0,
+                            "prompts": 0,
+                            "corrections": 0,
+                            "auto_modifications": 0,
+                            "human_modifications": 0,
+                            "PDR": 0,
+                            "SAS": 0,
+                            "COF": 0,
+                            "PTMA": 0
+                        },
+                        "calculated_scores": {
+                            "COF": 0,
+                            "PDR": 0,
+                            "SAS": 0,
+                            "PTMA": 0
+                        },
+                        "interpretation": {
+                            "autonomy_level": "processing",
+                            "efficiency": "processing",
+                            "accuracy": "processing"
+                        },
+                        "dataset_info": {},
+                        "execution_time_seconds": 0
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot provide PTMA metrics for failed pipeline.",
+                        "timestamp": datetime.now().isoformat(),
+                        "raw_metrics": {
+                            "tasks": 0,
+                            "prompts": 0,
+                            "corrections": 0,
+                            "auto_modifications": 0,
+                            "human_modifications": 0,
+                            "PDR": 0,
+                            "SAS": 0,
+                            "COF": 0,
+                            "PTMA": 0
+                        },
+                        "calculated_scores": {
+                            "COF": 0,
+                            "PDR": 0,
+                            "SAS": 0,
+                            "PTMA": 0
+                        },
+                        "interpretation": {
+                            "autonomy_level": "failed",
+                            "efficiency": "failed",
+                            "accuracy": "failed"
+                        },
+                        "dataset_info": {},
+                        "execution_time_seconds": 0
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        ptma = result.get("ptma_metrics", {})
+
+        response = {
+            "run_id": run_id,
+            "timestamp": datetime.now().isoformat(),
+            "raw_metrics": {
+                "tasks": ptma.get("tasks", 0),
+                "prompts": ptma.get("prompts", 0),
+                "corrections": ptma.get("corrections", 0),
+                "auto_modifications": ptma.get("auto_modifications", 0),
+                "human_modifications": ptma.get("human_modifications", 0),
+                "PDR": ptma.get("PDR", 0),
+                "SAS": ptma.get("SAS", 0),
+                "COF": ptma.get("COF", 0),
+                "PTMA": ptma.get("PTMA", 0)
+            },
+            "calculated_scores": {
+                "COF": ptma.get("COF", 0),
+                "PDR": ptma.get("PDR", 0),
+                "SAS": ptma.get("SAS", 0),
+                "PTMA": ptma.get("PTMA", 0)
+            },
+            "interpretation": {
+                "autonomy_level": "high" if ptma.get("SAS", 0) > 0.7 else "medium" if ptma.get("SAS", 0) > 0.3 else "low",
+                "efficiency": "excellent" if ptma.get("PDR", 0) < 0.2 else "good" if ptma.get("PDR", 0) < 0.5 else "needs_improvement",
+                "accuracy": "excellent" if ptma.get("COF", 0) < 0.1 else "good" if ptma.get("COF", 0) < 0.3 else "needs_improvement"
+            },
+            "dataset_info": result.get("dataset_info", {}),
+            "execution_time_seconds": result.get("execution_time_seconds", 0)
+        }
+
+        return jsonify(response)
+
+    except Exception as e:
+        logger.error(f"Error retrieving PTMA metrics: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/quality-check/<run_id>', methods=['GET'])
+def quality_check(run_id):
+    """Data quality check results"""
+    try:
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. Quality check will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat()
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot perform quality check on failed pipeline.",
+                        "timestamp": datetime.now().isoformat()
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        dataset_info = result.get("dataset_info", {})
+        rows = dataset_info.get("rows", 0)
+        cols = dataset_info.get("columns", 0)
+        missing = dataset_info.get("missing_values", 0)
+
+        total_cells = rows * cols if rows > 0 and cols > 0 else 1
+        completeness = ((total_cells - missing) / total_cells * 100) if total_cells > 0 else 0
+
+        return jsonify({
+            "run_id": run_id,
+            "quality_score": int(completeness),
+            "status": "excellent" if completeness > 90 else "good" if completeness > 75 else "needs_attention",
+            "checks": {
+                "data_completeness": f"{completeness:.1f}%",
+                "row_count": rows,
+                "column_count": cols,
+                "missing_values": missing
+            },
+            "timestamp": datetime.now().isoformat()
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/run-eda/<run_id>', methods=['GET'])
+def run_eda(run_id):
+    """Exploratory Data Analysis results"""
+    try:
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. EDA results will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat()
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot perform EDA on failed pipeline.",
+                        "timestamp": datetime.now().isoformat()
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        dataset_info = result.get("dataset_info", {})
+
+        return jsonify({
+            "run_id": run_id,
+            "status": "completed",
+            "eda_summary": {
+                "dataset_shape": f"{dataset_info.get('rows', 0)} rows × {dataset_info.get('columns', 0)} columns",
+                "missing_values": dataset_info.get("missing_values", 0),
+                "report_generated": True
+            },
+            "file": result.get("file"),
+            "execution_time": f"{result.get('execution_time_seconds', 0):.2f}s",
+            "timestamp": datetime.now().isoformat()
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/preprocess/<run_id>', methods=['GET'])
+def preprocess_dataset(run_id):
+    """Preprocessing summary"""
+    try:
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. Preprocessing summary will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat()
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot provide preprocessing summary for failed pipeline.",
+                        "timestamp": datetime.now().isoformat()
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        return jsonify({
+            "run_id": run_id,
+            "status": "completed",
+            "preprocessing": {
+                "steps_applied": [
+                    "Ingestion",
+                    "Cleaning",
+                    "Transformation",
+                    "Feature Engineering",
+                    "EDA",
+                    "Train-Test Split",
+                    "Vectorization"
+                ],
+                "dataset_info": result.get("dataset_info"),
+                "target_column": result.get("target_column") or "None (unsupervised)"
+            },
+            "output": {
+                "model_ready": True,
+                "processed_file": f"processed_data/{run_id}_preprocessed.csv"
+            },
+            "timestamp": datetime.now().isoformat()
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/api/ml-summary/<run_id>', methods=['GET'])
 def ml_summary(run_id):
-    """ML Summary endpoint for n8n"""
+    """ML readiness summary"""
     try:
-        print(f"[🔍] ML Summary requested for: {run_id}")
-        
-        # Create final ML summary response
-        ml_summary_response = {
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. ML summary will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat()
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot provide ML summary for failed pipeline.",
+                        "timestamp": datetime.now().isoformat()
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        ptma = result.get("ptma_metrics", {})
+
+        return jsonify({
             "run_id": run_id,
             "status": "completed",
             "pipeline_complete": True,
             "summary": {
                 "dataset_processed": True,
-                "features_engineered": 15,
-                "train_test_split": "712/179 samples",
-                "data_quality_score": 91,
-                "preprocessing_steps": 5
-            },
-            "modeling_recommendations": {
-                "best_models": ["Random Forest", "XGBoost", "Logistic Regression"],
-                "expected_accuracy": "78-85%",
-                "key_features": ["Sex", "Pclass", "Fare", "Age", "FamilySize"],
-                "potential_issues": ["Class imbalance", "Missing Age values"]
+                "target_column": result.get("target_column") or "None",
+                "data_quality_score": int((1 - ptma.get("COF", 0)) * 100),
+                "preprocessing_steps": 7,
+                "autonomy_score": ptma.get("PTMA", 0)
             },
             "deployment_ready": True,
-            "next_actions": [
-                "Proceed with model training",
-                "Validate model performance",
-                "Deploy to production"
-            ],
-            "download_links": {
-                "processed_data": f"/download/processed/{run_id}.csv",
-                "eda_report": f"/download/eda/{run_id}.html",
-                "config_file": f"/download/config/{run_id}.json"
-            },
+            "ptma_metrics": ptma,
+            "dataset_info": result.get("dataset_info"),
             "timestamp": datetime.now().isoformat()
-        }
-        
-        print(f"[🎉] ML Summary completed for {run_id} - PIPELINE COMPLETE!")
-        return jsonify(ml_summary_response)
-        
+        })
+
     except Exception as e:
-        print(f"[💥] ML Summary error: {e}")
-        return jsonify({
-            "run_id": run_id,
-            "status": "error",
-            "error": str(e),
-            "timestamp": datetime.now().isoformat()
-        }), 500
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route('/api/performance-metrics/<run_id>', methods=['GET'])
 def performance_metrics(run_id):
-    """Comprehensive performance metrics for research"""
+    """Comprehensive performance metrics"""
     try:
-        print(f"[📊] Performance metrics requested for: {run_id}")
-        
-        # Calculate actual performance metrics
-        metrics = {
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. Performance metrics will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat()
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot provide performance metrics for failed pipeline.",
+                        "timestamp": datetime.now().isoformat()
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        ptma = result.get("ptma_metrics", {})
+        exec_time = result.get("execution_time_seconds", 0)
+
+        return jsonify({
             "run_id": run_id,
             "timestamp": datetime.now().isoformat(),
             "pipeline_metrics": {
-                "execution_times": {
-                    "total_pipeline_time": "45.2s",
-                    "ingestion": "2.1s",
-                    "cleaning": "5.8s", 
-                    "transformation": "15.3s",
-                    "feature_engineering": "12.7s",
-                    "eda": "9.3s"
-                },
-                "memory_usage": {
-                    "peak_memory_mb": 245.6,
-                    "final_memory_mb": 89.2,
-                    "memory_efficiency": "63.7%"
-                },
-                "computational_efficiency": {
-                    "cpu_utilization": "78%",
-                    "parallel_processing": True,
-                    "vectorized_operations": True
-                }
+                "execution_time_seconds": exec_time,
+                "tasks_completed": ptma.get("tasks", 0),
+                "autonomy_score_ptma": ptma.get("PTMA", 0),
+                "efficiency_score_pdr": ptma.get("PDR", 0),
+                "autonomy_score_sas": ptma.get("SAS", 0),
+                "correction_score_cof": ptma.get("COF", 0)
             },
-            "data_quality_metrics": {
-                "completeness_score": 91.2,
-                "consistency_score": 94.5,
-                "accuracy_score": 96.8,
-                "uniqueness_score": 99.1,
-                "overall_data_quality": 95.4
-            },
-            "feature_engineering_metrics": {
-                "original_features": 12,
-                "engineered_features": 15,
-                "feature_importance": {
-                    "Sex": 0.234,
-                    "Pclass": 0.189,
-                    "Fare": 0.156,
-                    "Age": 0.134,
-                    "FamilySize": 0.087
-                },
-                "variance_explained": 89.3
-            },
-            "model_readiness_metrics": {
-                "train_test_split_quality": 0.92,
-                "feature_correlation": 0.34,
-                "class_balance": 0.62,
-                "outlier_impact": "low",
-                "dimensionality_score": 0.78
-            },
-            "comparative_analysis": {
-                "baseline_performance": 0.723,
-                "expected_improvement": "12-18%",
-                "complexity_tradeoff": "optimal",
-                "scalability_assessment": "high"
-            },
-            "research_metrics": {
-                "reproducibility_score": 0.94,
-                "explainability_index": 0.82,
-                "automation_level": "high",
-                "human_intervention_required": "low"
-            }
-        }
-        
-        print(f"[✅] Performance metrics generated for {run_id}")
-        return jsonify(metrics)
-        
-    except Exception as e:
-        print(f"[💥] Performance metrics error: {e}")
-        return jsonify({"error": str(e)}), 500
-    
-@app.route('/api/research-analytics/<run_id>', methods=['GET'])
-def research_analytics(run_id):
-    """Detailed analytics for research paper"""
-    try:
-        analytics = {
-            "run_id": run_id,
-            "research_metadata": {
-                "pipeline_version": "1.0",
-                "dataset": "Titanic",
-                "sample_size": 891,
-                "timestamp": datetime.now().isoformat()
-            },
-            "algorithm_performance": {
-                "cleaning_algorithms": ["missing_data_imputation", "outlier_detection"],
-                "transformation_methods": ["standard_scaling", "one_hot_encoding"],
-                "feature_selection": ["mutual_information", "variance_threshold"],
-                "dimensionality_reduction": ["truncated_svd"]
-            },
-            "performance_benchmarks": {
-                "processing_speed": "45.2s",
-                "memory_efficiency": "63.7%",
-                "accuracy_preservation": "96.8%",
-                "scalability_rating": "high"
-            },
-            "quality_metrics": {
-                "data_integrity": 0.954,
-                "feature_relevance": 0.893,
-                "model_readiness": 0.920,
-                "automation_quality": 0.940
-            },
-            "comparative_analysis": {
-                "vs_manual_processing": {
-                    "time_savings": "85%",
-                    "accuracy_improvement": "12%",
-                    "consistency_improvement": "45%"
-                },
-                "vs_traditional_pipelines": {
-                    "efficiency_gain": "32%",
-                    "error_reduction": "28%",
-                    "scalability_improvement": "67%"
-                }
-            },
-            "statistical_significance": {
-                "p_value": 0.0032,
-                "confidence_interval": "92.5-97.8%",
-                "effect_size": "large",
-                "power_analysis": 0.89
-            }
-        }
-        return jsonify(analytics)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-@app.route('/api/export-research-data/<run_id>', methods=['GET'])
-def export_research_data(run_id):
-    """Export all research data for analysis"""
-    try:
-        # Collect all metrics
-        research_data = {
-            "execution_metrics": performance_metrics(run_id).get_json(),
-            "analytics": research_analytics(run_id).get_json(),
-            "pipeline_results": _pipeline_results.get(run_id, {}),
-            "statistical_summary": {
-                "descriptive_stats": {
-                    "mean_processing_time": "45.2s ± 12.3s",
-                    "quality_score": "95.4% ± 2.1%",
-                    "efficiency_ratio": "0.78 ± 0.08"
-                },
-                "inferential_stats": {
-                    "correlation_matrix": "available",
-                    "hypothesis_testing": "completed",
-                    "anova_results": "significant"
-                }
-            }
-        }
-        
-        # Return as downloadable JSON
-        response = jsonify(research_data)
-        response.headers.add('Content-Disposition', 
-                           f'attachment; filename=research_data_{run_id}.json')
-        return response
-        
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-@app.route('/api/ab-testing', methods=['POST'])
-def ab_testing():
-    """Compare different pipeline configurations"""
-    data = request.json
-    # Implement A/B testing logic
-    return jsonify({"results": "comparison_data"})
-@app.route('/api/statistical-validation/<run_id>', methods=['GET'])
-def statistical_validation(run_id):
-    """Statistical validation of pipeline results"""
-    # Add t-tests, ANOVA, confidence intervals
-    return jsonify({"validation_results": "stats"})
-@app.route('/')
-def home():
-    return jsonify({
-        "message": "n8n Pipeline API Server",
-        "endpoints": {
-            "start_pipeline": "POST /webhook/start",
-            "check_status": "GET /status/<job_id>", 
-            "get_overview": "GET /api/overview/<run_id>",
-            "quality_check": "GET /api/quality-check/<run_id>",
-            "run_eda": "GET /api/run-eda/<run_id>",
-            "preprocess": "GET /api/preprocess/<run_id>",
-            "ml_summary": "GET /api/ml-summary/<run_id>",
-            "performance_metrics": "GET /api/performance-metrics/<run_id>",
-            "research_analytics": "GET /api/research-analytics/<run_id>",
-            "export_research_data": "GET /api/export-research-data/<run_id>",
-            "ab_testing": "POST /api/ab-testing",
-            "statistical_validation": "GET /api/statistical-validation/<run_id>",
+            "data_metrics": result.get("dataset_info", {}),
+            "processing_speed": f"{result.get('dataset_info', {}).get('rows', 1) / max(0.1, exec_time):.0f} rows/second"
+        })
 
-            "health": "GET /health",
-            "debug": "GET /debug"
-        }
-    })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/overview/<run_id>', methods=['GET'])
+def api_overview(run_id):
+    """Pipeline overview/summary endpoint"""
+    try:
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. Overview will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat()
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot provide overview for failed pipeline.",
+                        "timestamp": datetime.now().isoformat()
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        # Completed - return overview
+        dataset_info = result.get("dataset_info", {})
+        ptma = result.get("ptma_metrics", {})
+
+        return jsonify({
+            "run_id": run_id,
+            "status": "completed",
+            "overview": {
+                "file": result.get("file"),
+                "dataset_shape": f"{dataset_info.get('rows', 0)} × {dataset_info.get('columns', 0)}",
+                "target_column": result.get("target_column") or "None",
+                "missing_values": dataset_info.get("missing_values", 0),
+                "execution_time": f"{result.get('execution_time_seconds', 0):.2f}s"
+            },
+            "autonomy": {
+                "ptma": ptma.get("PTMA", 0),
+                "sas": ptma.get("SAS", 0),
+                "pdr": ptma.get("PDR", 0),
+                "cof": ptma.get("COF", 0)
+            },
+            "pipeline_stages": [
+                "✅ Ingestion",
+                "✅ Cleaning",
+                "✅ Transformation",
+                "✅ Feature Engineering",
+                "✅ EDA",
+                "✅ Train-Test Split",
+                "✅ Vectorization"
+            ],
+            "timestamp": datetime.now().isoformat()
+        })
+
+    except Exception as e:
+        logger.error(f"Error in api_overview: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/job-status/<job_id>', methods=['GET'])
+def job_status(job_id):
+    """Get job execution status"""
+    try:
+        with _pipeline_lock:
+            status = _pipeline_status.get(job_id)
+        
+        if status is None:
+            return jsonify({"error": f"Job '{job_id}' not found"}), 404
+        
+        return jsonify({
+            "job_id": job_id,
+            "status": status.get("status"),
+            "progress": status.get("progress", 0),
+            "message": status.get("message"),
+            "execution_time": status.get("execution_time"),
+            "ptma_metrics": status.get("ptma_metrics"),
+            "timestamp": status.get("timestamp")
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/dataset-info/<run_id>', methods=['GET'])
+def dataset_info(run_id):
+    """Get dataset information"""
+    try:
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. Dataset info will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat()
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot provide dataset info for failed pipeline.",
+                        "timestamp": datetime.now().isoformat()
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        info = result.get("dataset_info", {})
+
+        return jsonify({
+            "run_id": run_id,
+            "dataset_info": {
+                "rows": info.get("rows", 0),
+                "columns": info.get("columns", 0),
+                "missing_values": info.get("missing_values", 0),
+                "file_path": info.get("file_path", ""),
+                "completeness_percentage": round(
+                    ((info.get("rows", 1) * info.get("columns", 1) - info.get("missing_values", 0)) /
+                     (info.get("rows", 1) * info.get("columns", 1)) * 100), 2
+                ) if info.get("rows", 0) > 0 and info.get("columns", 0) > 0 else 0
+            },
+            "timestamp": datetime.now().isoformat()
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/pipeline-results/<run_id>', methods=['GET'])
+def pipeline_results(run_id):
+    """Get complete pipeline results"""
+    try:
+        with _pipeline_lock:
+            result = _pipeline_results.get(run_id)
+            status = _pipeline_status.get(run_id)
+
+        if result is None:
+            # Check if pipeline is still running or failed
+            if status:
+                if status.get("status") == "running":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "processing",
+                        "message": "Pipeline is still running. Complete results will be available once completed.",
+                        "progress": status.get("progress", 0),
+                        "timestamp": datetime.now().isoformat()
+                    }), 202  # Accepted - still processing
+                elif status.get("status") == "failed":
+                    return jsonify({
+                        "run_id": run_id,
+                        "status": "failed",
+                        "error": status.get("error", "Pipeline failed"),
+                        "message": "Cannot provide complete results for failed pipeline.",
+                        "timestamp": datetime.now().isoformat()
+                    }), 400  # Bad Request
+                else:
+                    return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+            else:
+                return jsonify({"error": f"Run ID '{run_id}' not found"}), 404
+
+        return jsonify({
+            "run_id": run_id,
+            "status": "completed",
+            "file": result.get("file"),
+            "target_column": result.get("target_column"),
+            "execution_time_seconds": result.get("execution_time_seconds"),
+            "dataset_info": result.get("dataset_info"),
+            "ptma_metrics": result.get("ptma_metrics"),
+            "llm_enabled": result.get("llm_enabled"),
+            "llm_provider": result.get("llm_provider"),
+            "timestamp": result.get("timestamp")
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/api/list-runs', methods=['GET'])
+def list_runs():
+    """List all completed pipeline runs"""
+    try:
+        with _pipeline_lock:
+            runs = []
+            for run_id, result in _pipeline_results.items():
+                runs.append({
+                    "run_id": run_id,
+                    "file": result.get("file"),
+                    "status": "completed",
+                    "execution_time": result.get("execution_time_seconds"),
+                    "ptma_score": result.get("ptma_metrics", {}).get("PTMA", 0),
+                    "timestamp": result.get("timestamp")
+                })
+        
+        return jsonify({
+            "total_runs": len(runs),
+            "runs": runs,
+            "timestamp": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
-    print("🔥 n8n API Server Running...")
-    print("Webhook: http://localhost:5000/webhook/start")
-    print("Overview: http://localhost:5000/api/overview/<run_id>")
-    print("Quality Check: http://localhost:5000/api/quality-check/<run_id>")
-    print("EDA: http://localhost:5000/api/run-eda/<run_id>")
-    print("Preprocessing: http://localhost:5000/api/preprocess/<run_id>")
-    print("Health: http://localhost:5000/health")
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    print("=" * 80)
+    print("🚀 Autonomous Data Preprocessing Pipeline - n8n API Server")
+    print("=" * 80)
+    print(f"📍 Server: http://localhost:5000")
+    print(f"📊 Health: http://localhost:5000/health")
+    print(f"🎯 Webhook: POST http://localhost:5000/webhook/start")
+    print(f"📈 PTMA Metrics: GET http://localhost:5000/api/ptma-metrics/<run_id>")
+    print(f"🔍 Status: GET http://localhost:5000/status/<job_id>")
+    print("=" * 80)
+    print()
+    
+    app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)

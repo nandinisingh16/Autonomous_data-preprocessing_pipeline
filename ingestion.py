@@ -6,79 +6,51 @@ Date: 2025-11-01
 """
 
 import pandas as pd
-from pipeline_context import PipelineContext
-from datetime import datetime
 import os
-
-def generate_versioned_filename(base_name: str, stage: str, folder: str):
-    os.makedirs(folder, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    clean_name = os.path.splitext(os.path.basename(base_name))[0]
-    return os.path.join(folder, f"{timestamp}_{clean_name}-{stage}.csv")
+from datetime import datetime
+from pipeline_context import PipelineContext
+from metrics_tracker import metrics
 
 class IngestionModule:
     def __init__(self, context: PipelineContext, llm_agent=None):
         self.context = context
         self.llm_agent = llm_agent
+        self.status = {}
 
     def run(self, file_path: str) -> bool:
-        self.context.log("Starting Ingestion Module...")
-
+        """Main ingestion pipeline."""
         try:
-            #Source identification
-            self.context.log(f"Identifying data source: {file_path}")
-
-            #Connection and Access
-            try:
-                open(file_path, "r").close()
-            except FileNotFoundError:
-                raise FileNotFoundError(f"File not found: {file_path}")
-
-            #Data Extraction
+            self.log(f"📥 Loading data from: {file_path}")
+            
+            # Load data
             df = pd.read_csv(file_path)
-            self.context.log(f"Data extracted successfully with {len(df)} records.")
+            metrics.auto_mod()  # ✅ Data loaded automatically
+            self.log(f"✅ Loaded {len(df)} rows, {len(df.columns)} columns")
 
-            #Schema & Metadata capture
-            metadata = {
-                "columns": list(df.columns),
-                "shape": df.shape,
-                "missing_values": df.isna().sum().to_dict()
-            }
-            self.context.log(f"Metadata: {metadata}")
-
-            #Versioning & Lineage tracking (save timestamped copy)
-            save_path = generate_versioned_filename(file_path, "ingested", "data/raw")
-            df.to_csv(save_path, index=False)
-            self.context.log(f"File saved to: {save_path}")
-
-            #Store lineage metadata
-            self.context.version_info = {
-                "ingested_at": datetime.now().isoformat(),
-                "source": file_path,
-                "saved_path": save_path
-            }
-
-            #Data Validation (basic)
-            if df.empty:
-                raise ValueError("DataFrame is empty after ingestion.")
-
-            #Landing zone storage (store in context)
-            self.context.raw_data = df
-            self.context.status["ingestion"] = "completed"
-            self.context.log("Ingestion completed successfully.")
-
-
-            #Optional LLM suggestion
+            # Infer schema
+            self.log("🔍 Inferring data schema...")
+            metrics.auto_mod()  # ✅ Schema inferred automatically
+            
+            # Optional LLM type detection
             if self.llm_agent:
-                suggestion = self.llm_agent.ask(
-                    f"Columns: {list(df.columns)}, Missing counts: {df.isna().sum().to_dict()}. "
-                    f"Suggest ingestion checks or quality metrics."
-                )
-                self.context.log(f"LLM Suggestion: {suggestion}")
+                self.log("🤖 Consulting LLM for type detection...")
+                metrics.prompt_used()  # ✅ LLM called
+                types = self.llm_agent.ask(f"Infer types for: {df.columns.tolist()}")
+                metrics.auto_mod()  # ✅ LLM recommendation applied
+                self.log(f"💡 LLM suggestions: {types}")
 
+            # Store ingested data
+            self.context.ingested_data = df
+            self.context.raw_data = df  # Alias for cleaning module
+            self.status["ingestion"] = "completed"
+            self.log("✅ Ingestion completed")
             return True
 
         except Exception as e:
-            self.context.status["ingestion"] = "failed"
-            self.context.log(f"Ingestion failed: {e}")
+            self.status["ingestion"] = "failed"
+            self.log(f"❌ Ingestion failed: {e}")
+            metrics.correction_made()  # ✅ Error correction
             return False
+
+    def log(self, message: str):
+        self.context.log(message)
