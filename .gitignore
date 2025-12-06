@@ -37,3 +37,5 @@ metrics_store.json
 # System
 .DS_Store
 Thumbs.db
+rander.yaml
+
