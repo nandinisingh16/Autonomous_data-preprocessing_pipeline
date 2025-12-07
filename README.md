@@ -2,6 +2,10 @@
 
 A fully autonomous, modular AI system for end-to-end data preprocessing with n8n workflow automation. This research project implements a complete pipeline from raw data ingestion to ML-ready outputs with comprehensive EDA reporting.
 
+### 🌐 Project Page
+
+↳ [https://nandinisingh16.github.io/Autonomous-Agentic-Pipeline/](https://nandinisingh16.github.io/Autonomous-Agentic-Pipeline/)
+
 ## Latest Updates
 
 ###  New Features Added
