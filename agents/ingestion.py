@@ -8,8 +8,8 @@ Date: 2025-11-01
 import pandas as pd
 import os
 from datetime import datetime
-from pipeline_context import PipelineContext
-from metrics_tracker import metrics
+from orchestrator.pipeline_context import PipelineContext
+from orchestrator.metrics_tracker import metrics
 
 class IngestionModule:
     def __init__(self, context: PipelineContext, llm_agent=None):

@@ -2,13 +2,17 @@
 N8N Integration API for Autonomous Data Preprocessing Pipeline
 Provides REST endpoints for n8n workflow orchestration
 """
+import sys
+import os
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
 from flask import Flask, request, jsonify
 import threading
 import uuid
 import time
 import logging
 from datetime import datetime
-from metrics_tracker import metrics
+from orchestrator.metrics_tracker import metrics
 import os
 import json
 import sys
@@ -18,8 +22,8 @@ import pandas as pd
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Import pipeline components
-from pipeline_orchestrator import PipelineOrchestrator
-from llm_agent import create_llm_agent
+from orchestrator.pipeline_orchestrator import PipelineOrchestrator
+from agents.llm_agent import create_llm_agent
 
 app = Flask(__name__)
 

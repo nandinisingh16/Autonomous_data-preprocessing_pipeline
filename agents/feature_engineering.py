@@ -40,7 +40,7 @@ try:
 except ImportError:
     NLTK_AVAILABLE = False
 
-from metrics_tracker import metrics
+from orchestrator.metrics_tracker import metrics
 
 
 class DatasetAnalyzer:

@@ -6,7 +6,7 @@ Description: Executes Train-Test Split module for data preparation.
 import os
 import sys
 import pandas as pd
-from pipeline_context import PipelineContext
+from orchestrator.pipeline_context import PipelineContext
 from ttsplit import TrainTestSplitModule
 
 if __name__ == "__main__":

@@ -453,7 +453,7 @@ if __name__ == "__main__":
     visualize_pipeline_results(final_file)
     
     # Option 2: Specify target column
-    # visualize_pipeline_results(final_file, target_col='Survived')
+    # visualize_pipeline_results(final_file, target_col=None)  # Auto-detect target
     
     # Option 3: Use with any CSV file
     # visualize_pipeline_results("path/to/your/dataset.csv", target_col='your_target')

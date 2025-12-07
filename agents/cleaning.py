@@ -4,10 +4,10 @@ Description: Handles the Cleaning step of the pipeline.
 Author: Diya
 Date: <Date>
 """
-
 import pandas as pd
-from pipeline_context import PipelineContext
-from metrics_tracker import metrics
+import os
+from orchestrator.pipeline_context import PipelineContext
+from orchestrator.metrics_tracker import metrics
 
 class CleaningModule:
     def __init__(self, context: PipelineContext, llm_agent=None):
@@ -71,6 +71,14 @@ class CleaningModule:
 
             # Save cleaned data
             self.context.cleaned_data = df
+
+            # Save cleaned data to file
+            output_dir = "transformation_outputs"
+            os.makedirs(output_dir, exist_ok=True)
+            output_file = os.path.join(output_dir, "cleaned_data.csv")
+            df.to_csv(output_file, index=False)
+            self.log(f"💾 Cleaned data saved to {output_file}")
+
             self.status["cleaning"] = "completed"
             self.log("✅ Data Cleaning completed successfully")
             return True

@@ -1,4 +1,4 @@
-from pipeline_context import PipelineContext
+from orchestrator.pipeline_context import PipelineContext
 #from llm_agent import LLMAgent
 from ingestion import IngestionModule
 from metrics_tracker import metrics
@@ -13,7 +13,6 @@ print("Saved sample_data.csv successfully!")
 
 #Runner
 context = PipelineContext(stage_name="ingestion")
-#llm_agent = LLMAgent(provider="dummy")
 
 ingestion = IngestionModule(context) #when LLM is available, pass here
 success = ingestion.run(file_path="sample_data.csv")
@@ -31,7 +30,6 @@ def run(self, *args, **kwargs):
     except Exception:
         pass
 
-    # ...existing code...
 
     # try to infer and increment finer-grain counters from results/context
     try:

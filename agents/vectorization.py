@@ -9,8 +9,8 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from pipeline_context import PipelineContext
-from metrics_tracker import metrics
+from orchestrator.pipeline_context import PipelineContext
+from orchestrator.metrics_tracker import metrics
 
 
 class VectorizationModule:

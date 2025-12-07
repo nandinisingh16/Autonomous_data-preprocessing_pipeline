@@ -17,10 +17,10 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from scipy.stats import chi2_contingency
-from metrics_tracker import metrics
+from orchestrator.metrics_tracker import metrics
 
 
-from pipeline_context import PipelineContext  # Your context module
+from orchestrator.pipeline_context import PipelineContext  
 
 class EDAModule:
     def __init__(self, context: PipelineContext, llm_agent=None, save_plots=True, plot_dir="eda_plots"):

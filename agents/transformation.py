@@ -30,7 +30,7 @@ except ImportError:
         Tokenizer = None
         pad_sequences = None
 
-from metrics_tracker import metrics
+from orchestrator.metrics_tracker import metrics
 
 
 class TransformationModule:
@@ -819,47 +819,42 @@ class TransformationModule:
             self.log(f"Traceback: {traceback.format_exc()}")
             metrics.correction_made()
             return False
-  # ============================
+    # ============================
 # EXAMPLE USAGE
 # ============================
 if __name__ == "__main__":
-    # Example 1: Tabular data
+    # Example 1: Generic tabular data (not hardcoded to Titanic)
     print("="*60)
-    print("EXAMPLE 1: TABULAR DATA (Titanic-like)")
+    print("EXAMPLE 1: GENERIC TABULAR DATA")
     print("="*60)
-    
+
+    # Create a generic sample dataset instead of Titanic-specific
     sample_df = pd.DataFrame({
-        "PassengerId": [1, 2, 3, 4, 5],
-        "Survived": [0, 1, 0, 1, 0],
-        "Pclass": [3, 1, 3, 2, 3],
-        "Name": ["Braund, Mr. Owen", "Cumings, Mrs. John", "Heikkinen, Miss. Laina", 
-                "Futrelle, Mrs. Jacques", "Allen, Mr. William"],
-        "Sex": ["male", "female", "female", "female", "male"],
-        "Age": [22, 38, 26, 35, 35],
-        "SibSp": [1, 1, 0, 1, 0],
-        "Parch": [0, 0, 0, 0, 0],
-        "Ticket": ["A/5 21171", "PC 17599", "STON/O2. 3101282", "113803", "373450"],
-        "Fare": [7.25, 71.28, 7.92, 53.10, 8.05],
-        "Cabin": [None, "C85", None, "C123", None],
-        "Embarked": ["S", "C", "S", "S", "S"]
+        "feature1": [1, 2, 3, 4, 5],
+        "target": [0, 1, 0, 1, 0],  # Generic target name
+        "category": ["A", "B", "A", "C", "B"],
+        "description": ["Short text", "This is a longer description with more words",
+                       "Another description", "Yet another text field", "Final description"],
+        "numeric": [10.5, 20.3, 15.7, 8.9, 12.1],
+        "binary": [True, False, True, False, True]
     })
-    
+
     transformer = TransformationModule()
     transformed = transformer.run(
         data=sample_df,
-        target_column="Survived",
-        text_columns=["Name"],
+        target_column=None,  # Let auto-detection work
+        text_columns=None,   # Let auto-detection work
         config={'scaling_method': 'minmax', 'balancing_enabled': False}
     )
-    
+
     print("\nTransformed Data Preview:")
     print(transformed.head())
-    
+
     # Example 2: Text data
     print("\n" + "="*60)
     print("EXAMPLE 2: TEXT DATA")
     print("="*60)
-    
+
     text_df = pd.DataFrame({
         "text": [
             "This is a positive review about the product",
@@ -870,13 +865,13 @@ if __name__ == "__main__":
         ],
         "sentiment": ["positive", "negative", "neutral", "negative", "positive"]
     })
-    
+
     transformer2 = TransformationModule()
     transformed2 = transformer2.run(
         data=text_df,
-        target_column="sentiment",
+        target_column=None,  # Auto-detect target
         config={'text_processing_enabled': True}
     )
-    
+
     print("\nText Data Transformed:")
     print(transformed2.head())

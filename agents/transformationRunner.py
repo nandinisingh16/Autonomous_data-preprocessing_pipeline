@@ -6,7 +6,7 @@ Description: Executes the Transformation stage of the pipeline to preprocess and
 import os
 import sys
 import pandas as pd
-from pipeline_context import PipelineContext
+from orchestrator.pipeline_context import PipelineContext
 from transformation import TransformationModule
 
 if __name__ == "__main__":

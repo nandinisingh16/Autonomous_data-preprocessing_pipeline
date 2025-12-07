@@ -4,16 +4,22 @@ Description: Orchestrates all modules in the autonomous data preprocessing pipel
 Author: Raj Nandini
 Date: 2025-10-28
 """
-from metrics_tracker import metrics
-from pipeline_context import PipelineContext
-from ingestion import IngestionModule
-from cleaning import CleaningModule
-from transformation import TransformationModule
-from feature_engineering import FeatureEngineeringModule
-from eda import EDAModule
-from TTSplit import TrainTestSplitModule
-from vectorization import VectorizationModule
-from metadata_tracker import MetadataTracker
+import sys
+import os
+# Add project root to Python path for absolute imports
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, project_root)
+
+from orchestrator.metrics_tracker import metrics
+from orchestrator.pipeline_context import PipelineContext
+from agents.ingestion import IngestionModule
+from agents.cleaning import CleaningModule
+from agents.transformation import TransformationModule
+from agents.feature_engineering import FeatureEngineeringModule
+from agents.eda import EDAModule
+from agents.TTSplit import TrainTestSplitModule
+from agents.vectorization import VectorizationModule
+from orchestrator.metadata_tracker import MetadataTracker
 import sys
 import pandas as pd
 
