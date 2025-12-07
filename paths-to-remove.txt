@@ -1,0 +1,10 @@
+autopreproc_env/Lib/site-packages/tensorflow/python/_pywrap_tensorflow_common.dll
+autopreproc_env/Lib/site-packages/tensorflow/python/_pywrap_tensorflow_internal.pyd
+autopreproc_env/Lib/site-packages/clang/native/libclang.dll
+autopreproc_env/Lib/site-packages/tensorflow/python/_pywrap_tensorflow_internal.lib
+autopreproc_env/Lib/site-packages/numpy.libs/libopenblas64__v0.3.23-293-gc2f4bdbb-gcc_10_3_0-2bde3a66a51006b2b53eb373ff767a3f.dll
+autopreproc_env/Lib/site-packages/scipy.libs/libopenblas_v0.3.20-571-g3dec11c6-gcc_10_3_0-c2315440d6b6cef5037bad648efc8c59.dll
+autopreproc_env/Lib/site-packages/tensorflow/lite/python/pywrap_tflite_common.dll
+autopreproc_env/Lib/site-packages/bokeh/server/static/js/bokeh.json
+autopreproc_env/Lib/site-packages/tensorflow/python/profiler/internal/_pywrap_profiler_plugin.pyd
+autopreproc_env/Lib/site-packages/bokeh/server/static/js/compiler.js
