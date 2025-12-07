@@ -1,12 +1,41 @@
-data/
-!data/.gitkeep   #keep folder structure tracked
+# Environments
+autopreproc_env/
+tf_env/
+venv/
+.env
+*.env
 
-logs/
-!logs/.gitkeep
-
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 
-venv/
-.env/
+# Editors
+.vscode/
+.idea/
+
+# Data / Outputs
+uploaded_files/
+n8n_uploads/
+n8n_outputs/
+feature_outputs/
+transformation_outputs/
+logs/
+metadata/
+eda_plots/
+eda_report.html
+test_datasets/
+chipotle.tsv.bxt
+titanic_data.csv
+
+# Pipeline outputs
+pipeline_test_results_*/
+pipeline_test_summary_*/
+pipeline_performance_*/
+metrics_store.json
+
+# System
+.DS_Store
+Thumbs.db
+rander.yaml
+
