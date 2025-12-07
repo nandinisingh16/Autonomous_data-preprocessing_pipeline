@@ -59,6 +59,15 @@ Ingestion | Cleaning | Validation | Feature Engineering | EDA | Split | Vectoriz
 All guided by **schema-aware planner + reward feedback**
 
 ---
+---
+<video src="../13.mp4" autoplay loop muted playsinline width="720"></video>
+
+
+
+<video src="../16.mp4" controls loop muted playsinline width="720"></video>
+
+<video src="../19.mp4" controls loop muted playsinline width="720"></video>
+---
 
 ##  Results (4 Benchmark Datasets)
 
