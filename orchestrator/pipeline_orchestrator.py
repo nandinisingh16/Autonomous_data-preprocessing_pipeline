@@ -70,7 +70,7 @@ class PipelineOrchestrator:
                 if avg_length > 20:  # Likely text if average length > 20 chars
                     text_columns.append(col)
             
-            self.context.log(f"📝 Detected text columns: {text_columns or 'None'}")
+            self.context.log(f"  Detected text columns: {text_columns or 'None'}")
             
             # Run transformation with appropriate parameters
             result = self.transformation.run(
@@ -121,7 +121,7 @@ class PipelineOrchestrator:
     def run(self, input_file: str = "sample_data.csv"):
         """Execute full pipeline with metrics tracking."""
         try:
-            self.context.log("🚀 Starting Autonomous Data Preprocessing Pipeline")
+            self.context.log("  Starting Autonomous Data Preprocessing Pipeline")
             metrics.reset()  # Fresh metrics for this run
 
             # ============================================
@@ -243,13 +243,13 @@ class PipelineOrchestrator:
             final_metrics = metrics.to_dict()
             self.context.status["autonomy_metrics"] = final_metrics
             self.context.log(f"✅ Pipeline completed successfully!")
-            self.context.log(f"📊 PTMA Metrics: {final_metrics}")
+            self.context.log(f"  PTMA Metrics: {final_metrics}")
             
             self.tracker.record(self.context)
             return self.context.status
 
         except Exception as e:
-            self.context.log(f"💥 Pipeline error: {e}")
+            self.context.log(f"  Pipeline error: {e}")
             metrics.correction_made()
             self.context.status["autonomy_metrics"] = metrics.to_dict()
             return self.context.status
@@ -262,4 +262,4 @@ def start_pipeline(input_file: str = "sample_data.csv", target_column: str = Non
 if __name__ == "__main__":
     file_path = sys.argv[1] if len(sys.argv) > 1 else "sample_data.csv"
     result = start_pipeline(input_file=file_path)
-    print(f"\n📊 Final Result:\n{result}")
+    print(f"\n  Final Result:\n{result}")

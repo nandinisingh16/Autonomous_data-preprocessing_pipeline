@@ -75,6 +75,16 @@
     },
     {
       "parameters": {
+        "jsCode": "// Build a stage list for the UI\nconst stages = [\n  { key: 'ingestion', label: 'Ingestion' },\n  { key: 'cleaning', label: 'Cleaning' },\n  { key: 'upload_overview', label: 'Upload Overview' },\n  { key: 'quality', label: 'Quality' },\n  { key: 'eda', label: 'EDA' },\n  { key: 'preprocess', label: 'Preprocess' },\n  { key: 'ml_ready', label: 'ML Ready' },\n  { key: 'summary', label: 'Summary' },\n  { key: 'performance', label: 'Performance Metrics' },\n  { key: 'result', label: 'Result' }\n];\n\nconst current = $json.current_stage || 'ingestion';\nlet foundCurrent = false;\nconst stageStatus = stages.map(s => {\n  if (!foundCurrent) {\n    if (s.key === current) {\n      foundCurrent = true;\n      return { ...s, status: 'current' };\n    }\n    return { ...s, status: 'completed' };\n  }\n  return { ...s, status: 'pending' };\n});\n\nreturn {\n  ...$json,\n  stages: stageStatus\n};"
+      },
+      "id": "stage-overview",
+      "name": "Stage Overview",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 300]
+    },
+    {
+      "parameters": {
         "conditions": {
           "options": [
             {
@@ -98,7 +108,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Universal Success Handler\nconst result = {\n  message: \"‚úÖ Universal Pipeline Completed!\",\n  summary: \"Your dataset has been automatically processed and analyzed.\",\n  run_id: $json.run_id,\n  status: $json.status,\n  auto_detected: $json.auto_detected_target ? {\n    target_column: $json.auto_detected_target,\n    message: \"Target column was auto-detected\"\n  } : null,\n  dataset_info: $json.dataset_info,\n  outputs: $json.outputs,\n  download_links: {\n    eda_report: `http://localhost:5000${$json.outputs?.eda_report}`,\n    cleaned_data: `http://localhost:5000${$json.outputs?.cleaned_data}`,\n    status_page: `http://localhost:5000/status/${$json.run_id}`\n  },\n  insights: [\n    \"Dataset automatically analyzed and preprocessed\",\n    \"Target column detection applied\", \n    \"Data quality checks completed\",\n    \"ML-ready outputs generated\"\n  ],\n  supported_formats: [\"CSV\", \"Excel\", \"JSON\", \"TXT\"]\n};\n\nreturn result;"
+        "jsCode": "// Universal Success Handler\nconst result = {\n  message: \"‚úÖ Universal Pipeline Completed!\",\n  summary: \"Your dataset has been automatically processed and analyzed.\",\n  run_id: $json.run_id,\n  status: $json.status,\n  auto_detected: $json.auto_detected_target ? {\n    target_column: $json.auto_detected_target,\n    message: \"Target column was auto-detected\"\n  } : null,\n  dataset_info: $json.dataset_info,\n  outputs: $json.outputs,\n  stages: $json.stages || [],\n  download_links: {\n    eda_report: `http://localhost:5000${$json.outputs?.eda_report}`,\n    cleaned_data: `http://localhost:5000${$json.outputs?.cleaned_data}`,\n    status_page: `http://localhost:5000/status/${$json.run_id}`\n  },\n  insights: [\n    \"Dataset automatically analyzed and preprocessed\",\n    \"Target column detection applied\", \n    \"Data quality checks completed\",\n    \"ML-ready outputs generated\"\n  ],\n  supported_formats: [\"CSV\", \"Excel\", \"JSON\", \"TXT\"]\n};\n\nreturn result;"
       },
       "id": "universal-success",
       "name": "Universal Success Handler",
@@ -108,7 +118,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Still Processing with Progress\nconst attempts = $node[\"Wait 15 Seconds\"].context?.attempts || 0;\nconst result = {\n  message: `Ì¥Ñ Processing... (Attempt ${attempts + 1})`,\n  run_id: $json.run_id,\n  status: $json.status,\n  current_stage: $json.current_stage || 'initial_processing',\n  elapsed_time: `${(attempts + 1) * 15} seconds`,\n  next_check: \"Waiting 15 seconds\"\n};\n\n// Store attempt count\n$node[\"Wait 15 Seconds\"].context = { attempts: attempts + 1 };\nreturn result;"
+        "jsCode": "// Still Processing with Progress\nconst attempts = $node[\"Wait 15 Seconds\"].context?.attempts || 0;\nconst result = {\n  message: `‚è≥ Processing... (Attempt ${attempts + 1})`,\n  run_id: $json.run_id,\n  status: $json.status,\n  current_stage: $json.current_stage || 'initial_processing',\n  stages: $json.stages || [],\n  elapsed_time: `${(attempts + 1) * 15} seconds`,\n  next_check: \"Waiting 15 seconds\"\n};\n\n// Store attempt count\n$node[\"Wait 15 Seconds\"].context = { attempts: attempts + 1 };\nreturn result;"
       },
       "id": "universal-processing",
       "name": "Still Processing",
@@ -119,7 +129,7 @@
     {
       "parameters": {
         "responseMode": "lastNode",
-        "responseData": "={{ $json.message }}\n\n{{ $json.download_links ? \"Ì≥ä Download your reports:\" + JSON.stringify($json.download_links, null, 2) : \"\" }}"
+        "responseData": "={{ $json.message }}\n\n{{ $json.download_links ? \"üì• Download your reports:\" + JSON.stringify($json.download_links, null, 2) : \"\" }}\n\n{{ $json.stages ? \"üìã Stages:\" + JSON.stringify($json.stages, null, 2) : \"\" }}"
       },
       "id": "universal-response",
       "name": "Webhook Response",
@@ -163,6 +173,17 @@
       ]
     },
     "Check Pipeline Status": {
+      "main": [
+        [
+          {
+            "node": "Stage Overview",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage Overview": {
       "main": [
         [
           {

@@ -17,13 +17,13 @@ if __name__ == "__main__":
     file_path = sys.argv[1] if len(sys.argv) > 1 else "docs/sample-input.csv"
     target_column = sys.argv[2] if len(sys.argv) > 2 else None
 
-    print(f"🚀 Starting pipeline with file: {file_path}")
+    print(f"[INFO] Starting pipeline with file: {file_path}")
     if target_column:
-        print(f"🎯 Target column: {target_column}")
+        print(f"[INFO] Target column: {target_column}")
 
     try:
         result = start_pipeline(input_file=file_path, target_column=target_column)
-        print(f"\n📊 Final Result:\n{result}")
+        print(f"\n  Final Result:\n{result}")
     except Exception as e:
         print(f"❌ Pipeline failed: {e}")
         sys.exit(1)

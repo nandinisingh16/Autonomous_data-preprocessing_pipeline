@@ -1,0 +1,4116 @@
+{
+  "results": {
+    "titanic.csv": {
+      "with_llm": [
+        {
+          "elapsed_seconds": 41.13,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 25,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 13.863,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 25,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 10.643,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 25,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        }
+      ],
+      "with_llm_varied": [
+        {
+          "elapsed_seconds": 21.452,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 9,
+            "tasks": 7,
+            "corrections": 1,
+            "auto_modifications": 31,
+            "human_modifications": 2,
+            "PDR": 1.2857,
+            "SAS": 0.9394,
+            "COF": 0.1429,
+            "PTMA": 0.3868
+          }
+        },
+        {
+          "elapsed_seconds": 26.069,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 4,
+            "tasks": 9,
+            "corrections": 1,
+            "auto_modifications": 30,
+            "human_modifications": 0,
+            "PDR": 0.4444,
+            "SAS": 1.0,
+            "COF": 0.1111,
+            "PTMA": 0.6429
+          }
+        },
+        {
+          "elapsed_seconds": 24.517,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 3,
+            "auto_modifications": 28,
+            "human_modifications": 2,
+            "PDR": 0.8571,
+            "SAS": 0.9333,
+            "COF": 0.4286,
+            "PTMA": 0.4083
+          }
+        },
+        {
+          "elapsed_seconds": 23.74,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 7,
+            "tasks": 8,
+            "corrections": 2,
+            "auto_modifications": 24,
+            "human_modifications": 1,
+            "PDR": 0.875,
+            "SAS": 0.96,
+            "COF": 0.25,
+            "PTMA": 0.4518
+          }
+        },
+        {
+          "elapsed_seconds": 26.543,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 9,
+            "tasks": 5,
+            "corrections": 0,
+            "auto_modifications": 22,
+            "human_modifications": 2,
+            "PDR": 1.8,
+            "SAS": 0.9167,
+            "COF": 0.0,
+            "PTMA": 0.3274
+          }
+        }
+      ],
+      "with_llm_stochastic": [
+        {
+          "elapsed_seconds": 30.032,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 5,
+            "tasks": 6,
+            "corrections": 2,
+            "auto_modifications": 1,
+            "human_modifications": 8,
+            "PDR": 0.8333,
+            "SAS": 0.1111,
+            "COF": 0.3333,
+            "PTMA": 0.0513
+          }
+        },
+        {
+          "elapsed_seconds": 31.206,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 4,
+            "corrections": 1,
+            "auto_modifications": 8,
+            "human_modifications": 4,
+            "PDR": 1.5,
+            "SAS": 0.6667,
+            "COF": 0.25,
+            "PTMA": 0.2424
+          }
+        },
+        {
+          "elapsed_seconds": 32.397,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 1,
+            "tasks": 4,
+            "corrections": 2,
+            "auto_modifications": 0,
+            "human_modifications": 5,
+            "PDR": 0.25,
+            "SAS": 0.0,
+            "COF": 0.5,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 32.708,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 5,
+            "tasks": 7,
+            "corrections": 3,
+            "auto_modifications": 8,
+            "human_modifications": 4,
+            "PDR": 0.7143,
+            "SAS": 0.6667,
+            "COF": 0.4286,
+            "PTMA": 0.3111
+          }
+        },
+        {
+          "elapsed_seconds": 20.314,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 3,
+            "tasks": 4,
+            "corrections": 2,
+            "auto_modifications": 0,
+            "human_modifications": 4,
+            "PDR": 0.75,
+            "SAS": 0.0,
+            "COF": 0.5,
+            "PTMA": 0.0
+          }
+        }
+      ],
+      "without_llm": [
+        {
+          "elapsed_seconds": 10.802,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 20,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 21.41,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 20,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 22.935,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 20,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        }
+      ],
+      "without_agents": [
+        {
+          "elapsed_seconds": 0.07,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.055,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.061,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        }
+      ],
+      "manual_pipeline": [
+        {
+          "elapsed_seconds": 45.024,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.03,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.019,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        }
+      ]
+    },
+    "B_cancer.csv": {
+      "with_llm": [
+        {
+          "elapsed_seconds": 37.033,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 25,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 14.796,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 25,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 36.673,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 25,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        }
+      ],
+      "with_llm_varied": [
+        {
+          "elapsed_seconds": 31.872,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 10,
+            "tasks": 6,
+            "corrections": 0,
+            "auto_modifications": 44,
+            "human_modifications": 2,
+            "PDR": 1.6667,
+            "SAS": 0.9565,
+            "COF": 0.0,
+            "PTMA": 0.3587
+          }
+        },
+        {
+          "elapsed_seconds": 32.419,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 5,
+            "corrections": 3,
+            "auto_modifications": 35,
+            "human_modifications": 1,
+            "PDR": 1.2,
+            "SAS": 0.9722,
+            "COF": 0.6,
+            "PTMA": 0.3472
+          }
+        },
+        {
+          "elapsed_seconds": 34.277,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 8,
+            "tasks": 6,
+            "corrections": 2,
+            "auto_modifications": 42,
+            "human_modifications": 0,
+            "PDR": 1.3333,
+            "SAS": 1.0,
+            "COF": 0.3333,
+            "PTMA": 0.375
+          }
+        },
+        {
+          "elapsed_seconds": 37.412,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 1,
+            "auto_modifications": 37,
+            "human_modifications": 3,
+            "PDR": 0.8571,
+            "SAS": 0.925,
+            "COF": 0.1429,
+            "PTMA": 0.4625
+          }
+        },
+        {
+          "elapsed_seconds": 37.579,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 7,
+            "tasks": 8,
+            "corrections": 1,
+            "auto_modifications": 47,
+            "human_modifications": 2,
+            "PDR": 0.875,
+            "SAS": 0.9592,
+            "COF": 0.125,
+            "PTMA": 0.4796
+          }
+        }
+      ],
+      "with_llm_stochastic": [
+        {
+          "elapsed_seconds": 30.789,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 3,
+            "tasks": 5,
+            "corrections": 3,
+            "auto_modifications": 8,
+            "human_modifications": 5,
+            "PDR": 0.6,
+            "SAS": 0.6154,
+            "COF": 0.6,
+            "PTMA": 0.2797
+          }
+        },
+        {
+          "elapsed_seconds": 37.577,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 3,
+            "tasks": 3,
+            "corrections": 5,
+            "auto_modifications": 11,
+            "human_modifications": 10,
+            "PDR": 1.0,
+            "SAS": 0.5238,
+            "COF": 1.6667,
+            "PTMA": 0.1429
+          }
+        },
+        {
+          "elapsed_seconds": 28.517,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 5,
+            "tasks": 2,
+            "corrections": 8,
+            "auto_modifications": 13,
+            "human_modifications": 7,
+            "PDR": 2.5,
+            "SAS": 0.65,
+            "COF": 4.0,
+            "PTMA": 0.0867
+          }
+        },
+        {
+          "elapsed_seconds": 33.934,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 5,
+            "tasks": 8,
+            "corrections": 4,
+            "auto_modifications": 18,
+            "human_modifications": 8,
+            "PDR": 0.625,
+            "SAS": 0.6923,
+            "COF": 0.5,
+            "PTMA": 0.3258
+          }
+        },
+        {
+          "elapsed_seconds": 35.147,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 9,
+            "tasks": 6,
+            "corrections": 3,
+            "auto_modifications": 16,
+            "human_modifications": 7,
+            "PDR": 1.5,
+            "SAS": 0.6957,
+            "COF": 0.5,
+            "PTMA": 0.2319
+          }
+        }
+      ],
+      "without_llm": [
+        {
+          "elapsed_seconds": 40.425,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 20,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 43.042,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 20,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.202,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 20,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        }
+      ],
+      "without_agents": [
+        {
+          "elapsed_seconds": 0.1,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.03,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.029,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        }
+      ],
+      "manual_pipeline": [
+        {
+          "elapsed_seconds": 45.015,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.031,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.021,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        }
+      ]
+    },
+    "M_cancer.csv": {
+      "with_llm": [
+        {
+          "elapsed_seconds": 43.836,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 26,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 46.044,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 26,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 43.929,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 26,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        }
+      ],
+      "with_llm_varied": [
+        {
+          "elapsed_seconds": 46.457,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 5,
+            "tasks": 7,
+            "corrections": 1,
+            "auto_modifications": 33,
+            "human_modifications": 0,
+            "PDR": 0.7143,
+            "SAS": 1.0,
+            "COF": 0.1429,
+            "PTMA": 0.5384
+          }
+        },
+        {
+          "elapsed_seconds": 48.214,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 7,
+            "tasks": 5,
+            "corrections": 3,
+            "auto_modifications": 34,
+            "human_modifications": 0,
+            "PDR": 1.4,
+            "SAS": 1.0,
+            "COF": 0.6,
+            "PTMA": 0.3333
+          }
+        },
+        {
+          "elapsed_seconds": 50.885,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 7,
+            "tasks": 6,
+            "corrections": 1,
+            "auto_modifications": 49,
+            "human_modifications": 2,
+            "PDR": 1.1667,
+            "SAS": 0.9608,
+            "COF": 0.1667,
+            "PTMA": 0.4118
+          }
+        },
+        {
+          "elapsed_seconds": 53.639,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 10,
+            "tasks": 8,
+            "corrections": 3,
+            "auto_modifications": 40,
+            "human_modifications": 0,
+            "PDR": 1.25,
+            "SAS": 1.0,
+            "COF": 0.375,
+            "PTMA": 0.381
+          }
+        },
+        {
+          "elapsed_seconds": 57.382,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 10,
+            "tasks": 7,
+            "corrections": 3,
+            "auto_modifications": 42,
+            "human_modifications": 3,
+            "PDR": 1.4286,
+            "SAS": 0.9333,
+            "COF": 0.4286,
+            "PTMA": 0.3266
+          }
+        }
+      ],
+      "with_llm_stochastic": [
+        {
+          "elapsed_seconds": 45.612,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 5,
+            "tasks": 3,
+            "corrections": 5,
+            "auto_modifications": 10,
+            "human_modifications": 9,
+            "PDR": 1.6667,
+            "SAS": 0.5263,
+            "COF": 1.6667,
+            "PTMA": 0.1215
+          }
+        },
+        {
+          "elapsed_seconds": 44.47,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 3,
+            "tasks": 5,
+            "corrections": 2,
+            "auto_modifications": 13,
+            "human_modifications": 0,
+            "PDR": 0.6,
+            "SAS": 1.0,
+            "COF": 0.4,
+            "PTMA": 0.5
+          }
+        },
+        {
+          "elapsed_seconds": 56.305,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 10,
+            "tasks": 5,
+            "corrections": 5,
+            "auto_modifications": 17,
+            "human_modifications": 5,
+            "PDR": 2.0,
+            "SAS": 0.7727,
+            "COF": 1.0,
+            "PTMA": 0.1932
+          }
+        },
+        {
+          "elapsed_seconds": 56.837,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 7,
+            "tasks": 6,
+            "corrections": 1,
+            "auto_modifications": 17,
+            "human_modifications": 5,
+            "PDR": 1.1667,
+            "SAS": 0.7727,
+            "COF": 0.1667,
+            "PTMA": 0.3311
+          }
+        },
+        {
+          "elapsed_seconds": 56.969,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 4,
+            "tasks": 4,
+            "corrections": 2,
+            "auto_modifications": 19,
+            "human_modifications": 10,
+            "PDR": 1.0,
+            "SAS": 0.6552,
+            "COF": 0.5,
+            "PTMA": 0.2621
+          }
+        }
+      ],
+      "without_llm": [
+        {
+          "elapsed_seconds": 32.616,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 21,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 32.258,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 21,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 27.073,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 21,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        }
+      ],
+      "without_agents": [
+        {
+          "elapsed_seconds": 0.016,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.019,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.019,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        }
+      ],
+      "manual_pipeline": [
+        {
+          "elapsed_seconds": 45.012,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.016,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.003,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        }
+      ]
+    },
+    "diabetes.csv": {
+      "with_llm": [
+        {
+          "elapsed_seconds": 15.969,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 24,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 13.657,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 24,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 14.582,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 24,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        }
+      ],
+      "with_llm_varied": [
+        {
+          "elapsed_seconds": 14.14,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 10,
+            "tasks": 9,
+            "corrections": 1,
+            "auto_modifications": 23,
+            "human_modifications": 0,
+            "PDR": 1.1111,
+            "SAS": 1.0,
+            "COF": 0.1111,
+            "PTMA": 0.45
+          }
+        },
+        {
+          "elapsed_seconds": 15.031,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 10,
+            "tasks": 7,
+            "corrections": 2,
+            "auto_modifications": 31,
+            "human_modifications": 0,
+            "PDR": 1.4286,
+            "SAS": 1.0,
+            "COF": 0.2857,
+            "PTMA": 0.3684
+          }
+        },
+        {
+          "elapsed_seconds": 17.497,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 9,
+            "tasks": 5,
+            "corrections": 0,
+            "auto_modifications": 28,
+            "human_modifications": 1,
+            "PDR": 1.8,
+            "SAS": 0.9655,
+            "COF": 0.0,
+            "PTMA": 0.3448
+          }
+        },
+        {
+          "elapsed_seconds": 17.608,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 9,
+            "tasks": 6,
+            "corrections": 1,
+            "auto_modifications": 30,
+            "human_modifications": 1,
+            "PDR": 1.5,
+            "SAS": 0.9677,
+            "COF": 0.1667,
+            "PTMA": 0.3629
+          }
+        },
+        {
+          "elapsed_seconds": 20.559,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 7,
+            "tasks": 6,
+            "corrections": 0,
+            "auto_modifications": 24,
+            "human_modifications": 1,
+            "PDR": 1.1667,
+            "SAS": 0.96,
+            "COF": 0.0,
+            "PTMA": 0.4431
+          }
+        }
+      ],
+      "with_llm_stochastic": [
+        {
+          "elapsed_seconds": 13.226,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 10,
+            "tasks": 6,
+            "corrections": 1,
+            "auto_modifications": 13,
+            "human_modifications": 1,
+            "PDR": 1.6667,
+            "SAS": 0.9286,
+            "COF": 0.1667,
+            "PTMA": 0.3277
+          }
+        },
+        {
+          "elapsed_seconds": 19.977,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 5,
+            "tasks": 11,
+            "corrections": 2,
+            "auto_modifications": 11,
+            "human_modifications": 3,
+            "PDR": 0.4545,
+            "SAS": 0.7857,
+            "COF": 0.1818,
+            "PTMA": 0.4802
+          }
+        },
+        {
+          "elapsed_seconds": 21.132,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 2,
+            "tasks": 5,
+            "corrections": 0,
+            "auto_modifications": 16,
+            "human_modifications": 3,
+            "PDR": 0.4,
+            "SAS": 0.8421,
+            "COF": 0.0,
+            "PTMA": 0.6015
+          }
+        },
+        {
+          "elapsed_seconds": 18.753,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 8,
+            "tasks": 9,
+            "corrections": 1,
+            "auto_modifications": 13,
+            "human_modifications": 3,
+            "PDR": 0.8889,
+            "SAS": 0.8125,
+            "COF": 0.1111,
+            "PTMA": 0.4062
+          }
+        },
+        {
+          "elapsed_seconds": 16.486,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 5,
+            "corrections": 3,
+            "auto_modifications": 4,
+            "human_modifications": 0,
+            "PDR": 1.2,
+            "SAS": 1.0,
+            "COF": 0.6,
+            "PTMA": 0.3571
+          }
+        }
+      ],
+      "without_llm": [
+        {
+          "elapsed_seconds": 13.536,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 19,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 19.228,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 19,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 18.836,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 19,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        }
+      ],
+      "without_agents": [
+        {
+          "elapsed_seconds": 0.07,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.015,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.017,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        }
+      ],
+      "manual_pipeline": [
+        {
+          "elapsed_seconds": 45.01,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.016,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.011,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        }
+      ]
+    },
+    "text_heavy.csv": {
+      "with_llm": [
+        {
+          "elapsed_seconds": 17.785,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 27,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 15.188,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 27,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        },
+        {
+          "elapsed_seconds": 17.884,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 6,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 27,
+            "human_modifications": 0,
+            "PDR": 0.8571,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.5385
+          }
+        }
+      ],
+      "with_llm_varied": [
+        {
+          "elapsed_seconds": 18.04,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 18,
+            "tasks": 8,
+            "corrections": 2,
+            "auto_modifications": 45,
+            "human_modifications": 1,
+            "PDR": 2.25,
+            "SAS": 0.9783,
+            "COF": 0.25,
+            "PTMA": 0.2795
+          }
+        },
+        {
+          "elapsed_seconds": 21.092,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 13,
+            "tasks": 9,
+            "corrections": 1,
+            "auto_modifications": 34,
+            "human_modifications": 3,
+            "PDR": 1.4444,
+            "SAS": 0.9189,
+            "COF": 0.1111,
+            "PTMA": 0.3596
+          }
+        },
+        {
+          "elapsed_seconds": 18.175,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 16,
+            "tasks": 6,
+            "corrections": 0,
+            "auto_modifications": 38,
+            "human_modifications": 0,
+            "PDR": 2.6667,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.2727
+          }
+        },
+        {
+          "elapsed_seconds": 17.944,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 15,
+            "tasks": 9,
+            "corrections": 0,
+            "auto_modifications": 33,
+            "human_modifications": 0,
+            "PDR": 1.6667,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 0.375
+          }
+        },
+        {
+          "elapsed_seconds": 23.373,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 12,
+            "tasks": 8,
+            "corrections": 2,
+            "auto_modifications": 39,
+            "human_modifications": 1,
+            "PDR": 1.5,
+            "SAS": 0.975,
+            "COF": 0.25,
+            "PTMA": 0.3545
+          }
+        }
+      ],
+      "with_llm_stochastic": [
+        {
+          "elapsed_seconds": 19.973,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 24,
+            "tasks": 6,
+            "corrections": 2,
+            "auto_modifications": 30,
+            "human_modifications": 5,
+            "PDR": 4.0,
+            "SAS": 0.8571,
+            "COF": 0.3333,
+            "PTMA": 0.1607
+          }
+        },
+        {
+          "elapsed_seconds": 18.937,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 17,
+            "tasks": 9,
+            "corrections": 1,
+            "auto_modifications": 45,
+            "human_modifications": 6,
+            "PDR": 1.8889,
+            "SAS": 0.8824,
+            "COF": 0.1111,
+            "PTMA": 0.2941
+          }
+        },
+        {
+          "elapsed_seconds": 13.825,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 20,
+            "tasks": 13,
+            "corrections": 4,
+            "auto_modifications": 42,
+            "human_modifications": 10,
+            "PDR": 1.5385,
+            "SAS": 0.8077,
+            "COF": 0.3077,
+            "PTMA": 0.2838
+          }
+        },
+        {
+          "elapsed_seconds": 22.98,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 24,
+            "tasks": 12,
+            "corrections": 1,
+            "auto_modifications": 42,
+            "human_modifications": 9,
+            "PDR": 2.0,
+            "SAS": 0.8235,
+            "COF": 0.0833,
+            "PTMA": 0.2671
+          }
+        },
+        {
+          "elapsed_seconds": 24.47,
+          "eda_status": "completed",
+          "llm_present": true,
+          "autonomy_metrics": {
+            "prompts": 17,
+            "tasks": 8,
+            "corrections": 0,
+            "auto_modifications": 38,
+            "human_modifications": 4,
+            "PDR": 2.125,
+            "SAS": 0.9048,
+            "COF": 0.0,
+            "PTMA": 0.2895
+          }
+        }
+      ],
+      "without_llm": [
+        {
+          "elapsed_seconds": 15.292,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 22,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 16.777,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 22,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        },
+        {
+          "elapsed_seconds": 18.665,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 7,
+            "corrections": 0,
+            "auto_modifications": 22,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 1.0,
+            "COF": 0.0,
+            "PTMA": 1.0
+          }
+        }
+      ],
+      "without_agents": [
+        {
+          "elapsed_seconds": 0.052,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.028,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 0.03,
+          "eda_status": "pending",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 3,
+            "corrections": 1,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.3333,
+            "PTMA": 0.0
+          }
+        }
+      ],
+      "manual_pipeline": [
+        {
+          "elapsed_seconds": 45.023,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.037,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        },
+        {
+          "elapsed_seconds": 45.028,
+          "eda_status": "completed",
+          "llm_present": false,
+          "autonomy_metrics": {
+            "prompts": 0,
+            "tasks": 0,
+            "corrections": 0,
+            "auto_modifications": 0,
+            "human_modifications": 0,
+            "PDR": 0.0,
+            "SAS": 0.0,
+            "COF": 0.0,
+            "PTMA": 0.0
+          }
+        }
+      ]
+    }
+  },
+  "aggregated": {
+    "titanic.csv": {
+      "with_llm": {
+        "avg_time_s": 21.879,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 6.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 25.0,
+          "human_modifications": 0.0,
+          "PDR": 0.8571,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 0.5385
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 41.13,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 25,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 13.863,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 25,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 10.643,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 25,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          }
+        ]
+      },
+      "with_llm_varied": {
+        "avg_time_s": 24.464,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 7.0,
+          "tasks": 7.2,
+          "corrections": 1.4,
+          "auto_modifications": 27.0,
+          "human_modifications": 1.4,
+          "PDR": 1.0524,
+          "SAS": 0.9499,
+          "COF": 0.1865,
+          "PTMA": 0.4434
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 21.452,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 9,
+              "tasks": 7,
+              "corrections": 1,
+              "auto_modifications": 31,
+              "human_modifications": 2,
+              "PDR": 1.2857,
+              "SAS": 0.9394,
+              "COF": 0.1429,
+              "PTMA": 0.3868
+            }
+          },
+          {
+            "elapsed_seconds": 26.069,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 4,
+              "tasks": 9,
+              "corrections": 1,
+              "auto_modifications": 30,
+              "human_modifications": 0,
+              "PDR": 0.4444,
+              "SAS": 1.0,
+              "COF": 0.1111,
+              "PTMA": 0.6429
+            }
+          },
+          {
+            "elapsed_seconds": 24.517,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 3,
+              "auto_modifications": 28,
+              "human_modifications": 2,
+              "PDR": 0.8571,
+              "SAS": 0.9333,
+              "COF": 0.4286,
+              "PTMA": 0.4083
+            }
+          },
+          {
+            "elapsed_seconds": 23.74,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 7,
+              "tasks": 8,
+              "corrections": 2,
+              "auto_modifications": 24,
+              "human_modifications": 1,
+              "PDR": 0.875,
+              "SAS": 0.96,
+              "COF": 0.25,
+              "PTMA": 0.4518
+            }
+          },
+          {
+            "elapsed_seconds": 26.543,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 9,
+              "tasks": 5,
+              "corrections": 0,
+              "auto_modifications": 22,
+              "human_modifications": 2,
+              "PDR": 1.8,
+              "SAS": 0.9167,
+              "COF": 0.0,
+              "PTMA": 0.3274
+            }
+          }
+        ]
+      },
+      "with_llm_stochastic": {
+        "avg_time_s": 29.331,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 4.0,
+          "tasks": 5.0,
+          "corrections": 2.0,
+          "auto_modifications": 3.4,
+          "human_modifications": 5.0,
+          "PDR": 0.8095,
+          "SAS": 0.2889,
+          "COF": 0.4024,
+          "PTMA": 0.121
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 30.032,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 5,
+              "tasks": 6,
+              "corrections": 2,
+              "auto_modifications": 1,
+              "human_modifications": 8,
+              "PDR": 0.8333,
+              "SAS": 0.1111,
+              "COF": 0.3333,
+              "PTMA": 0.0513
+            }
+          },
+          {
+            "elapsed_seconds": 31.206,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 4,
+              "corrections": 1,
+              "auto_modifications": 8,
+              "human_modifications": 4,
+              "PDR": 1.5,
+              "SAS": 0.6667,
+              "COF": 0.25,
+              "PTMA": 0.2424
+            }
+          },
+          {
+            "elapsed_seconds": 32.397,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 1,
+              "tasks": 4,
+              "corrections": 2,
+              "auto_modifications": 0,
+              "human_modifications": 5,
+              "PDR": 0.25,
+              "SAS": 0.0,
+              "COF": 0.5,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 32.708,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 5,
+              "tasks": 7,
+              "corrections": 3,
+              "auto_modifications": 8,
+              "human_modifications": 4,
+              "PDR": 0.7143,
+              "SAS": 0.6667,
+              "COF": 0.4286,
+              "PTMA": 0.3111
+            }
+          },
+          {
+            "elapsed_seconds": 20.314,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 3,
+              "tasks": 4,
+              "corrections": 2,
+              "auto_modifications": 0,
+              "human_modifications": 4,
+              "PDR": 0.75,
+              "SAS": 0.0,
+              "COF": 0.5,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      },
+      "without_llm": {
+        "avg_time_s": 18.382,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 20.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 1.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 10.802,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 20,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 21.41,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 20,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 22.935,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 20,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          }
+        ]
+      },
+      "without_agents": {
+        "avg_time_s": 0.062,
+        "eda_success_rate": 0.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 3.0,
+          "corrections": 1.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.3333,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 0.07,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.055,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.061,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      },
+      "manual_pipeline": {
+        "avg_time_s": 45.024,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 0.0,
+          "corrections": 0.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.0,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 45.024,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.03,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.019,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      }
+    },
+    "B_cancer.csv": {
+      "with_llm": {
+        "avg_time_s": 29.501,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 6.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 25.0,
+          "human_modifications": 0.0,
+          "PDR": 0.8571,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 0.5385
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 37.033,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 25,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 14.796,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 25,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 36.673,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 25,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          }
+        ]
+      },
+      "with_llm_varied": {
+        "avg_time_s": 34.712,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 7.4,
+          "tasks": 6.4,
+          "corrections": 1.4,
+          "auto_modifications": 41.0,
+          "human_modifications": 1.6,
+          "PDR": 1.1864,
+          "SAS": 0.9626,
+          "COF": 0.2402,
+          "PTMA": 0.4046
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 31.872,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 10,
+              "tasks": 6,
+              "corrections": 0,
+              "auto_modifications": 44,
+              "human_modifications": 2,
+              "PDR": 1.6667,
+              "SAS": 0.9565,
+              "COF": 0.0,
+              "PTMA": 0.3587
+            }
+          },
+          {
+            "elapsed_seconds": 32.419,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 5,
+              "corrections": 3,
+              "auto_modifications": 35,
+              "human_modifications": 1,
+              "PDR": 1.2,
+              "SAS": 0.9722,
+              "COF": 0.6,
+              "PTMA": 0.3472
+            }
+          },
+          {
+            "elapsed_seconds": 34.277,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 8,
+              "tasks": 6,
+              "corrections": 2,
+              "auto_modifications": 42,
+              "human_modifications": 0,
+              "PDR": 1.3333,
+              "SAS": 1.0,
+              "COF": 0.3333,
+              "PTMA": 0.375
+            }
+          },
+          {
+            "elapsed_seconds": 37.412,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 1,
+              "auto_modifications": 37,
+              "human_modifications": 3,
+              "PDR": 0.8571,
+              "SAS": 0.925,
+              "COF": 0.1429,
+              "PTMA": 0.4625
+            }
+          },
+          {
+            "elapsed_seconds": 37.579,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 7,
+              "tasks": 8,
+              "corrections": 1,
+              "auto_modifications": 47,
+              "human_modifications": 2,
+              "PDR": 0.875,
+              "SAS": 0.9592,
+              "COF": 0.125,
+              "PTMA": 0.4796
+            }
+          }
+        ]
+      },
+      "with_llm_stochastic": {
+        "avg_time_s": 33.193,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 5.0,
+          "tasks": 4.8,
+          "corrections": 4.6,
+          "auto_modifications": 13.2,
+          "human_modifications": 7.4,
+          "PDR": 1.245,
+          "SAS": 0.6354,
+          "COF": 1.4533,
+          "PTMA": 0.2134
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 30.789,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 3,
+              "tasks": 5,
+              "corrections": 3,
+              "auto_modifications": 8,
+              "human_modifications": 5,
+              "PDR": 0.6,
+              "SAS": 0.6154,
+              "COF": 0.6,
+              "PTMA": 0.2797
+            }
+          },
+          {
+            "elapsed_seconds": 37.577,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 3,
+              "tasks": 3,
+              "corrections": 5,
+              "auto_modifications": 11,
+              "human_modifications": 10,
+              "PDR": 1.0,
+              "SAS": 0.5238,
+              "COF": 1.6667,
+              "PTMA": 0.1429
+            }
+          },
+          {
+            "elapsed_seconds": 28.517,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 5,
+              "tasks": 2,
+              "corrections": 8,
+              "auto_modifications": 13,
+              "human_modifications": 7,
+              "PDR": 2.5,
+              "SAS": 0.65,
+              "COF": 4.0,
+              "PTMA": 0.0867
+            }
+          },
+          {
+            "elapsed_seconds": 33.934,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 5,
+              "tasks": 8,
+              "corrections": 4,
+              "auto_modifications": 18,
+              "human_modifications": 8,
+              "PDR": 0.625,
+              "SAS": 0.6923,
+              "COF": 0.5,
+              "PTMA": 0.3258
+            }
+          },
+          {
+            "elapsed_seconds": 35.147,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 9,
+              "tasks": 6,
+              "corrections": 3,
+              "auto_modifications": 16,
+              "human_modifications": 7,
+              "PDR": 1.5,
+              "SAS": 0.6957,
+              "COF": 0.5,
+              "PTMA": 0.2319
+            }
+          }
+        ]
+      },
+      "without_llm": {
+        "avg_time_s": 42.89,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 20.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 1.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 40.425,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 20,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 43.042,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 20,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.202,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 20,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          }
+        ]
+      },
+      "without_agents": {
+        "avg_time_s": 0.053,
+        "eda_success_rate": 0.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 3.0,
+          "corrections": 1.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.3333,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 0.1,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.03,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.029,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      },
+      "manual_pipeline": {
+        "avg_time_s": 45.022,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 0.0,
+          "corrections": 0.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.0,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 45.015,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.031,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.021,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      }
+    },
+    "M_cancer.csv": {
+      "with_llm": {
+        "avg_time_s": 44.603,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 6.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 26.0,
+          "human_modifications": 0.0,
+          "PDR": 0.8571,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 0.5385
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 43.836,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 26,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 46.044,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 26,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 43.929,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 26,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          }
+        ]
+      },
+      "with_llm_varied": {
+        "avg_time_s": 51.315,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 7.8,
+          "tasks": 6.6,
+          "corrections": 2.2,
+          "auto_modifications": 39.6,
+          "human_modifications": 1.0,
+          "PDR": 1.1919,
+          "SAS": 0.9788,
+          "COF": 0.3426,
+          "PTMA": 0.3982
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 46.457,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 5,
+              "tasks": 7,
+              "corrections": 1,
+              "auto_modifications": 33,
+              "human_modifications": 0,
+              "PDR": 0.7143,
+              "SAS": 1.0,
+              "COF": 0.1429,
+              "PTMA": 0.5384
+            }
+          },
+          {
+            "elapsed_seconds": 48.214,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 7,
+              "tasks": 5,
+              "corrections": 3,
+              "auto_modifications": 34,
+              "human_modifications": 0,
+              "PDR": 1.4,
+              "SAS": 1.0,
+              "COF": 0.6,
+              "PTMA": 0.3333
+            }
+          },
+          {
+            "elapsed_seconds": 50.885,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 7,
+              "tasks": 6,
+              "corrections": 1,
+              "auto_modifications": 49,
+              "human_modifications": 2,
+              "PDR": 1.1667,
+              "SAS": 0.9608,
+              "COF": 0.1667,
+              "PTMA": 0.4118
+            }
+          },
+          {
+            "elapsed_seconds": 53.639,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 10,
+              "tasks": 8,
+              "corrections": 3,
+              "auto_modifications": 40,
+              "human_modifications": 0,
+              "PDR": 1.25,
+              "SAS": 1.0,
+              "COF": 0.375,
+              "PTMA": 0.381
+            }
+          },
+          {
+            "elapsed_seconds": 57.382,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 10,
+              "tasks": 7,
+              "corrections": 3,
+              "auto_modifications": 42,
+              "human_modifications": 3,
+              "PDR": 1.4286,
+              "SAS": 0.9333,
+              "COF": 0.4286,
+              "PTMA": 0.3266
+            }
+          }
+        ]
+      },
+      "with_llm_stochastic": {
+        "avg_time_s": 52.039,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 5.8,
+          "tasks": 4.6,
+          "corrections": 3.0,
+          "auto_modifications": 15.2,
+          "human_modifications": 5.8,
+          "PDR": 1.2867,
+          "SAS": 0.7454,
+          "COF": 0.7467,
+          "PTMA": 0.2816
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 45.612,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 5,
+              "tasks": 3,
+              "corrections": 5,
+              "auto_modifications": 10,
+              "human_modifications": 9,
+              "PDR": 1.6667,
+              "SAS": 0.5263,
+              "COF": 1.6667,
+              "PTMA": 0.1215
+            }
+          },
+          {
+            "elapsed_seconds": 44.47,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 3,
+              "tasks": 5,
+              "corrections": 2,
+              "auto_modifications": 13,
+              "human_modifications": 0,
+              "PDR": 0.6,
+              "SAS": 1.0,
+              "COF": 0.4,
+              "PTMA": 0.5
+            }
+          },
+          {
+            "elapsed_seconds": 56.305,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 10,
+              "tasks": 5,
+              "corrections": 5,
+              "auto_modifications": 17,
+              "human_modifications": 5,
+              "PDR": 2.0,
+              "SAS": 0.7727,
+              "COF": 1.0,
+              "PTMA": 0.1932
+            }
+          },
+          {
+            "elapsed_seconds": 56.837,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 7,
+              "tasks": 6,
+              "corrections": 1,
+              "auto_modifications": 17,
+              "human_modifications": 5,
+              "PDR": 1.1667,
+              "SAS": 0.7727,
+              "COF": 0.1667,
+              "PTMA": 0.3311
+            }
+          },
+          {
+            "elapsed_seconds": 56.969,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 4,
+              "tasks": 4,
+              "corrections": 2,
+              "auto_modifications": 19,
+              "human_modifications": 10,
+              "PDR": 1.0,
+              "SAS": 0.6552,
+              "COF": 0.5,
+              "PTMA": 0.2621
+            }
+          }
+        ]
+      },
+      "without_llm": {
+        "avg_time_s": 30.649,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 21.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 1.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 32.616,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 21,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 32.258,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 21,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 27.073,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 21,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          }
+        ]
+      },
+      "without_agents": {
+        "avg_time_s": 0.018,
+        "eda_success_rate": 0.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 3.0,
+          "corrections": 1.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.3333,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 0.016,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.019,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.019,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      },
+      "manual_pipeline": {
+        "avg_time_s": 45.01,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 0.0,
+          "corrections": 0.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.0,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 45.012,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.016,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.003,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      }
+    },
+    "diabetes.csv": {
+      "with_llm": {
+        "avg_time_s": 14.736,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 6.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 24.0,
+          "human_modifications": 0.0,
+          "PDR": 0.8571,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 0.5385
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 15.969,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 24,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 13.657,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 24,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 14.582,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 24,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          }
+        ]
+      },
+      "with_llm_varied": {
+        "avg_time_s": 16.967,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 9.0,
+          "tasks": 6.6,
+          "corrections": 0.8,
+          "auto_modifications": 27.2,
+          "human_modifications": 0.6,
+          "PDR": 1.4013,
+          "SAS": 0.9786,
+          "COF": 0.1127,
+          "PTMA": 0.3938
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 14.14,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 10,
+              "tasks": 9,
+              "corrections": 1,
+              "auto_modifications": 23,
+              "human_modifications": 0,
+              "PDR": 1.1111,
+              "SAS": 1.0,
+              "COF": 0.1111,
+              "PTMA": 0.45
+            }
+          },
+          {
+            "elapsed_seconds": 15.031,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 10,
+              "tasks": 7,
+              "corrections": 2,
+              "auto_modifications": 31,
+              "human_modifications": 0,
+              "PDR": 1.4286,
+              "SAS": 1.0,
+              "COF": 0.2857,
+              "PTMA": 0.3684
+            }
+          },
+          {
+            "elapsed_seconds": 17.497,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 9,
+              "tasks": 5,
+              "corrections": 0,
+              "auto_modifications": 28,
+              "human_modifications": 1,
+              "PDR": 1.8,
+              "SAS": 0.9655,
+              "COF": 0.0,
+              "PTMA": 0.3448
+            }
+          },
+          {
+            "elapsed_seconds": 17.608,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 9,
+              "tasks": 6,
+              "corrections": 1,
+              "auto_modifications": 30,
+              "human_modifications": 1,
+              "PDR": 1.5,
+              "SAS": 0.9677,
+              "COF": 0.1667,
+              "PTMA": 0.3629
+            }
+          },
+          {
+            "elapsed_seconds": 20.559,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 7,
+              "tasks": 6,
+              "corrections": 0,
+              "auto_modifications": 24,
+              "human_modifications": 1,
+              "PDR": 1.1667,
+              "SAS": 0.96,
+              "COF": 0.0,
+              "PTMA": 0.4431
+            }
+          }
+        ]
+      },
+      "with_llm_stochastic": {
+        "avg_time_s": 17.915,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 6.2,
+          "tasks": 7.2,
+          "corrections": 1.4,
+          "auto_modifications": 11.4,
+          "human_modifications": 2.0,
+          "PDR": 0.922,
+          "SAS": 0.8738,
+          "COF": 0.2119,
+          "PTMA": 0.4345
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 13.226,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 10,
+              "tasks": 6,
+              "corrections": 1,
+              "auto_modifications": 13,
+              "human_modifications": 1,
+              "PDR": 1.6667,
+              "SAS": 0.9286,
+              "COF": 0.1667,
+              "PTMA": 0.3277
+            }
+          },
+          {
+            "elapsed_seconds": 19.977,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 5,
+              "tasks": 11,
+              "corrections": 2,
+              "auto_modifications": 11,
+              "human_modifications": 3,
+              "PDR": 0.4545,
+              "SAS": 0.7857,
+              "COF": 0.1818,
+              "PTMA": 0.4802
+            }
+          },
+          {
+            "elapsed_seconds": 21.132,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 2,
+              "tasks": 5,
+              "corrections": 0,
+              "auto_modifications": 16,
+              "human_modifications": 3,
+              "PDR": 0.4,
+              "SAS": 0.8421,
+              "COF": 0.0,
+              "PTMA": 0.6015
+            }
+          },
+          {
+            "elapsed_seconds": 18.753,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 8,
+              "tasks": 9,
+              "corrections": 1,
+              "auto_modifications": 13,
+              "human_modifications": 3,
+              "PDR": 0.8889,
+              "SAS": 0.8125,
+              "COF": 0.1111,
+              "PTMA": 0.4062
+            }
+          },
+          {
+            "elapsed_seconds": 16.486,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 5,
+              "corrections": 3,
+              "auto_modifications": 4,
+              "human_modifications": 0,
+              "PDR": 1.2,
+              "SAS": 1.0,
+              "COF": 0.6,
+              "PTMA": 0.3571
+            }
+          }
+        ]
+      },
+      "without_llm": {
+        "avg_time_s": 17.2,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 19.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 1.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 13.536,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 19,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 19.228,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 19,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 18.836,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 19,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          }
+        ]
+      },
+      "without_agents": {
+        "avg_time_s": 0.034,
+        "eda_success_rate": 0.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 3.0,
+          "corrections": 1.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.3333,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 0.07,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.015,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.017,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      },
+      "manual_pipeline": {
+        "avg_time_s": 45.012,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 0.0,
+          "corrections": 0.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.0,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 45.01,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.016,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.011,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      }
+    },
+    "text_heavy.csv": {
+      "with_llm": {
+        "avg_time_s": 16.952,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 6.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 27.0,
+          "human_modifications": 0.0,
+          "PDR": 0.8571,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 0.5385
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 17.785,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 27,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 15.188,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 27,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          },
+          {
+            "elapsed_seconds": 17.884,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 6,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 27,
+              "human_modifications": 0,
+              "PDR": 0.8571,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.5385
+            }
+          }
+        ]
+      },
+      "with_llm_varied": {
+        "avg_time_s": 19.725,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 14.8,
+          "tasks": 8.0,
+          "corrections": 1.0,
+          "auto_modifications": 37.8,
+          "human_modifications": 1.0,
+          "PDR": 1.9056,
+          "SAS": 0.9744,
+          "COF": 0.1222,
+          "PTMA": 0.3283
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 18.04,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 18,
+              "tasks": 8,
+              "corrections": 2,
+              "auto_modifications": 45,
+              "human_modifications": 1,
+              "PDR": 2.25,
+              "SAS": 0.9783,
+              "COF": 0.25,
+              "PTMA": 0.2795
+            }
+          },
+          {
+            "elapsed_seconds": 21.092,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 13,
+              "tasks": 9,
+              "corrections": 1,
+              "auto_modifications": 34,
+              "human_modifications": 3,
+              "PDR": 1.4444,
+              "SAS": 0.9189,
+              "COF": 0.1111,
+              "PTMA": 0.3596
+            }
+          },
+          {
+            "elapsed_seconds": 18.175,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 16,
+              "tasks": 6,
+              "corrections": 0,
+              "auto_modifications": 38,
+              "human_modifications": 0,
+              "PDR": 2.6667,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.2727
+            }
+          },
+          {
+            "elapsed_seconds": 17.944,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 15,
+              "tasks": 9,
+              "corrections": 0,
+              "auto_modifications": 33,
+              "human_modifications": 0,
+              "PDR": 1.6667,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 0.375
+            }
+          },
+          {
+            "elapsed_seconds": 23.373,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 12,
+              "tasks": 8,
+              "corrections": 2,
+              "auto_modifications": 39,
+              "human_modifications": 1,
+              "PDR": 1.5,
+              "SAS": 0.975,
+              "COF": 0.25,
+              "PTMA": 0.3545
+            }
+          }
+        ]
+      },
+      "with_llm_stochastic": {
+        "avg_time_s": 20.037,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 20.4,
+          "tasks": 9.6,
+          "corrections": 1.6,
+          "auto_modifications": 39.4,
+          "human_modifications": 6.8,
+          "PDR": 2.3105,
+          "SAS": 0.8551,
+          "COF": 0.1671,
+          "PTMA": 0.259
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 19.973,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 24,
+              "tasks": 6,
+              "corrections": 2,
+              "auto_modifications": 30,
+              "human_modifications": 5,
+              "PDR": 4.0,
+              "SAS": 0.8571,
+              "COF": 0.3333,
+              "PTMA": 0.1607
+            }
+          },
+          {
+            "elapsed_seconds": 18.937,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 17,
+              "tasks": 9,
+              "corrections": 1,
+              "auto_modifications": 45,
+              "human_modifications": 6,
+              "PDR": 1.8889,
+              "SAS": 0.8824,
+              "COF": 0.1111,
+              "PTMA": 0.2941
+            }
+          },
+          {
+            "elapsed_seconds": 13.825,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 20,
+              "tasks": 13,
+              "corrections": 4,
+              "auto_modifications": 42,
+              "human_modifications": 10,
+              "PDR": 1.5385,
+              "SAS": 0.8077,
+              "COF": 0.3077,
+              "PTMA": 0.2838
+            }
+          },
+          {
+            "elapsed_seconds": 22.98,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 24,
+              "tasks": 12,
+              "corrections": 1,
+              "auto_modifications": 42,
+              "human_modifications": 9,
+              "PDR": 2.0,
+              "SAS": 0.8235,
+              "COF": 0.0833,
+              "PTMA": 0.2671
+            }
+          },
+          {
+            "elapsed_seconds": 24.47,
+            "eda_status": "completed",
+            "llm_present": true,
+            "autonomy_metrics": {
+              "prompts": 17,
+              "tasks": 8,
+              "corrections": 0,
+              "auto_modifications": 38,
+              "human_modifications": 4,
+              "PDR": 2.125,
+              "SAS": 0.9048,
+              "COF": 0.0,
+              "PTMA": 0.2895
+            }
+          }
+        ]
+      },
+      "without_llm": {
+        "avg_time_s": 16.911,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 7.0,
+          "corrections": 0.0,
+          "auto_modifications": 22.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 1.0,
+          "COF": 0.0,
+          "PTMA": 1.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 15.292,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 22,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 16.777,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 22,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          },
+          {
+            "elapsed_seconds": 18.665,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 7,
+              "corrections": 0,
+              "auto_modifications": 22,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 1.0,
+              "COF": 0.0,
+              "PTMA": 1.0
+            }
+          }
+        ]
+      },
+      "without_agents": {
+        "avg_time_s": 0.037,
+        "eda_success_rate": 0.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 3.0,
+          "corrections": 1.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.3333,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 0.052,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.028,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 0.03,
+            "eda_status": "pending",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 3,
+              "corrections": 1,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.3333,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      },
+      "manual_pipeline": {
+        "avg_time_s": 45.029,
+        "eda_success_rate": 1.0,
+        "avg_autonomy_metrics": {
+          "prompts": 0.0,
+          "tasks": 0.0,
+          "corrections": 0.0,
+          "auto_modifications": 0.0,
+          "human_modifications": 0.0,
+          "PDR": 0.0,
+          "SAS": 0.0,
+          "COF": 0.0,
+          "PTMA": 0.0
+        },
+        "runs": [
+          {
+            "elapsed_seconds": 45.023,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.037,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          },
+          {
+            "elapsed_seconds": 45.028,
+            "eda_status": "completed",
+            "llm_present": false,
+            "autonomy_metrics": {
+              "prompts": 0,
+              "tasks": 0,
+              "corrections": 0,
+              "auto_modifications": 0,
+              "human_modifications": 0,
+              "PDR": 0.0,
+              "SAS": 0.0,
+              "COF": 0.0,
+              "PTMA": 0.0
+            }
+          }
+        ]
+      }
+    }
+  }
+}
